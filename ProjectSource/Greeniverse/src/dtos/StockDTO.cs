@@ -2,6 +2,7 @@
 
 namespace Greeniverse.src.dtos
 {
+    
     public class NewStockDTO
     {
         [Required]
@@ -32,6 +33,7 @@ namespace Greeniverse.src.dtos
             Provider = provider;
         }
     }
+    
     public class UpdateStockDTO
     {
         [Required, StringLength(50)]
@@ -58,4 +60,5 @@ namespace Greeniverse.src.dtos
             Provider = provider;
         }
     }
+
 }
