@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="src\DTOS\" />
+    <Folder Include="src\dtos\" />
   </ItemGroup>
 
 </Project>
