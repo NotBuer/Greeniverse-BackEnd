@@ -2,6 +2,7 @@
 using Greeniverse.src.DTOS;
 using Greeniverse.src.models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Greeniverse.src.repositories.implementations
 {
@@ -13,7 +14,7 @@ namespace Greeniverse.src.repositories.implementations
         private readonly GreeniverseContext _context;
         #endregion
 
-        
+
         #region CONSTRUCTORS
         public UserRepository(GreeniverseContext context)
         {
@@ -25,7 +26,16 @@ namespace Greeniverse.src.repositories.implementations
         #region METHODS
         public void NewUser(NewUserDTO user)
         {
-
+            _context.User.Add(new UserModel
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Password = user.Password,
+                Address = user.Address,
+                Telephone = user.Phone,
+                UserType = user.UserType
+            });
+            _context.SaveChanges();
         }
 
         public void UpdateUser(UpdateUserDTO user)
@@ -40,8 +50,7 @@ namespace Greeniverse.src.repositories.implementations
 
         public UserModel GetUserByEmail(string email)
         {
-            // TODO: Need implementation.
-            return null;
+            return _context.User.FirstOrDefault(user => user.Email == email);
         }
 
         public UserModel GetUserById(int id)
