@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Greeniverse.src.repositories.implementations
 {
-    public class StockRepository :IStock
+    public class StockRepository : IStock
     {
         #region Attributes
 
@@ -31,16 +31,18 @@ namespace Greeniverse.src.repositories.implementations
                 ProductName = Product.ProductName,
                 Type = Product.Type,
                 Description = Product.Description,
-                Price = Product.Price, 
+                Price = Product.Price,
                 Provider = Product.Provider
 
-        });
+            });
+
             _context.SaveChanges();
         }
 
         public void DeleteProduct(int id)
         {
-
+            _context.Stock.Remove(GetPostById(id));
+            _context.SaveChanges();
         }
 
         public List<StockModel> GetAllProducts()
