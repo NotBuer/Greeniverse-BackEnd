@@ -10,7 +10,7 @@ namespace Greeniverse.src.models
     public class ShoppingCartModel
     {
         public ShoppingCartModel() { }
-        public ShoppingCartModel(string amoutProduct, string paymentMethod, string voucher, string deliveryAdress, int fK_Purchaser, int fK_Product)
+        public ShoppingCartModel(int amoutProduct, string paymentMethod, string voucher, string deliveryAdress, int fK_Purchaser, int fK_Product)
         {
             AmoutProduct = amoutProduct;
             PaymentMethod = paymentMethod;
@@ -25,7 +25,7 @@ namespace Greeniverse.src.models
         public int Id { get; set; }
 
         [Required, StringLength(50)]
-        public string AmoutProduct { get; set; }
+        public int AmoutProduct { get; set; }
 
         [Required, StringLength(50)]
         public string PaymentMethod { get; set; }
