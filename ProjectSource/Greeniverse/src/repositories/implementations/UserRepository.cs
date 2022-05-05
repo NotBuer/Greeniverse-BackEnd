@@ -40,7 +40,13 @@ namespace Greeniverse.src.repositories.implementations
 
         public void UpdateUser(UpdateUserDTO user)
         {
-
+            UserModel existingUser = GetUserById(user.Id);
+            existingUser.Name = user.Name;
+            existingUser.Password = user.Password;
+            existingUser.Address = user.Adress;
+            existingUser.Telephone = user.Phone;
+            _context.User.Update(existingUser);
+            _context.SaveChanges();
         }
 
         public void DeleteUser(int id)
@@ -55,8 +61,7 @@ namespace Greeniverse.src.repositories.implementations
 
         public UserModel GetUserById(int id)
         {
-            // TODO: Need implementation.
-            return null;
+            return _context.User.FirstOrDefault(u => u.Id == id);
         }
 
         public List<UserModel> GetUserByName(string name)
