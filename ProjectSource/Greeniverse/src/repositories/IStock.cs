@@ -10,7 +10,7 @@ namespace Greeniverse.src.repositories.implementations
         void DeleteProduct(int id);
         StockModel GetProductById(int id);
         List<StockModel> GetAllProducts();
-        List<StockModel> CatchProductsBySearch(string type, string description, string productName , string creatorname);
+        List<StockModel> GetProductsBySearch(string type, string description, string productName , string creatorname);
     }
 }
 
