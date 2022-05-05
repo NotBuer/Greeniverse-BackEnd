@@ -2,6 +2,7 @@
 using Greeniverse.src.DTOS;
 using Greeniverse.src.models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Greeniverse.src.repositories.implementations
 {
@@ -52,8 +53,7 @@ namespace Greeniverse.src.repositories.implementations
 
         public UserModel GetUserById(int id)
         {
-            // TODO: Need implementation.
-            return null;
+            return _context.User.FirstOrDefault(u => u.Id == id);
         }
 
         public List<UserModel> GetUserByName(string name)
