@@ -14,9 +14,8 @@ namespace Greeniverse.src.models
 
         public UserModel() { }
 
-        public UserModel(int id, string name, string email, string password, string address, int telephone, UserType userType)
+        public UserModel(string name, string email, string password, string address, int telephone, UserType userType)
         {
-            Id = id;
             Name = name;
             Email = email;
             Password = password;

@@ -5,14 +5,14 @@ using System.Text.Json.Serialization;
 
 namespace Greeniverse.src.models
 {
+
     [Table("tb_stock")]
     public class StockModel
     {
         public StockModel() { }
 
-        public StockModel(int id, string type, string description, float price, string productName, string provider)
+        public StockModel(string type, string description, float price, string productName, string provider)
         {
-            Id = id;
             Type = type;
             Description = description;
             Price = price;
@@ -40,4 +40,5 @@ namespace Greeniverse.src.models
         public string Provider { get; set; }
 
     }
+
 }

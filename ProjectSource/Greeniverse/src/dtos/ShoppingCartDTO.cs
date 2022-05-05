@@ -29,6 +29,7 @@ namespace Greeniverse.src.dtos
             DeliveryAdress = deliveryAdress;
         }
     }
+    
     public class UpdateShoppingCartDTO
     {
         [Required]
@@ -50,4 +51,5 @@ namespace Greeniverse.src.dtos
             DeliveryAdress = deliveryAdress;
         }
     }
+    
 }
