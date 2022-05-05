@@ -5,13 +5,12 @@ namespace Greeniverse.src.repositories.implementations
 {
     public interface IStock
     {
-        
         void NewProduct(NewProductDTO Product);
-        void UpdateProduct(UpdateProductDTO UpdateProduct);
+        void UpdateProduct(UpdateProductDTO Updateproduct);
         void DeleteProduct(int id);
         StockModel GetProductById(int id);
         List<StockModel> GetAllProducts();
-        List<StockModel> GetProductBySearch(string type, string description, string productName, string creatorName);
+        List<StockModel> CatchProductsBySearch(string type, string description, string productName , string creatorname);
     }
 }
 

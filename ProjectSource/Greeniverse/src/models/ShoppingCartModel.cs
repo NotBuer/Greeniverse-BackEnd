@@ -5,13 +5,13 @@ using System.Text.Json.Serialization;
 
 namespace Greeniverse.src.models
 {
+    
     [Table("tb_shoppingcart")]
     public class ShoppingCartModel
     {
         public ShoppingCartModel() { }
-        public ShoppingCartModel(int id, string amoutProduct, string paymentMethod, string voucher, string deliveryAdress, int fK_Purchaser, int fK_Product)
+        public ShoppingCartModel(string amoutProduct, string paymentMethod, string voucher, string deliveryAdress, int fK_Purchaser, int fK_Product)
         {
-            Id = id;
             AmoutProduct = amoutProduct;
             PaymentMethod = paymentMethod;
             Voucher = voucher;
@@ -42,4 +42,5 @@ namespace Greeniverse.src.models
         [ForeignKey("FK_Product")]
         public int FK_Product { get; set; }
     }
+    
 }
