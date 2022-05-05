@@ -51,7 +51,8 @@ namespace Greeniverse.src.repositories.implementations
 
         public void DeleteUser(int id)
         {
-            
+          _context.User.Remove(GetUserById(id));
+          _context.SaveChanges();
         }
 
         public UserModel GetUserByEmail(string email)
@@ -66,8 +67,9 @@ namespace Greeniverse.src.repositories.implementations
 
         public List<UserModel> GetUserByName(string name)
         {
-            // TODO: Need implementation.
-            return null;
+            return _context.User.Where(u => u.Name==name).ToList();
+            
+            
         }
         #endregion
 
