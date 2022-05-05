@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Greeniverse.src.utils;
 
 namespace Greeniverse.src.dtos
 {
-    public enum PaymentMethod { CreditCard, Paypal, PIX, Debit, CC }
 
     public class NewShoppingCartDTO
     {

@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-﻿using Greeniverse.src.data;
+
+using Greeniverse.src.data;
 using Greeniverse.src.dtos;
 using Greeniverse.src.models;
 using System.Collections.Generic;
@@ -9,9 +9,11 @@ namespace Greeniverse.src.repositories.implementations
 {
     public class ShoppingCartRepository : IShoppingCart
     {
+        
         #region Attribute
         private readonly GreeniverseContext _context;
         #endregion Attribute
+        
 
         #region Constructor
         public ShoppingCartRepository(GreeniverseContext context)
@@ -19,13 +21,14 @@ namespace Greeniverse.src.repositories.implementations
             _context = context;
         }
         #endregion Constructor
+
+        
         #region Methods
         public void DeleteShoppingCart(int id)
         {
             _context.ShoppingCart.Remove(GetShoppingCartById(id));
             _context.SaveChanges();
         }
-=======
 ﻿
         public List<ShoppingCartModel> GetAllProducts()
         {
@@ -61,4 +64,3 @@ namespace Greeniverse.src.repositories.implementations
 
     }
 }
->>>>>>> 89317c4c90b01060349179974122bbffe4fd0eb4

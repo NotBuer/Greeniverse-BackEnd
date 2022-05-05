@@ -43,7 +43,7 @@ namespace Greeniverse.src.repositories.implementations
             UserModel existingUser = GetUserById(user.Id);
             existingUser.Name = user.Name;
             existingUser.Password = user.Password;
-            existingUser.Address = user.Adress;
+            existingUser.Address = user.Address;
             existingUser.Telephone = user.Phone;
             _context.User.Update(existingUser);
             _context.SaveChanges();

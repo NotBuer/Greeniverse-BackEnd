@@ -101,7 +101,7 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestShoppingCartInsertInDBReturnCart()
         {
-            ShoppingCartModel cart = new ShoppingCartModel(10, "PaymentMethod.CreditCard", "100OFF", "TestAddress", 100, 9500);
+            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress", 100, 9500);
             _context.ShoppingCart.Add(cart);
             _context.SaveChanges();
             Assert.IsNotNull(cart);
