@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using Greeniverse.src.data;
+using Greeniverse.src.repositories.implementations;
 
 namespace Greeniverse
 {
@@ -29,7 +30,7 @@ namespace Greeniverse
             services.AddDbContext<GreeniverseContext>(
                 opt => opt.
                 UseSqlServer(config.GetConnectionString("DefaultConnection")));
-
+                
             services.AddControllers();
         }
 
