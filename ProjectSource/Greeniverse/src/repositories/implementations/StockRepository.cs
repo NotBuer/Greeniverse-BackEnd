@@ -2,6 +2,7 @@
 using Greeniverse.src.dtos;
 using Greeniverse.src.models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Greeniverse.src.repositories.implementations
 {
@@ -47,7 +48,8 @@ namespace Greeniverse.src.repositories.implementations
 
         public List<StockModel> GetAllProducts()
         {
-
+            return _context.Stock
+                .ToList();
         }
 
     }
