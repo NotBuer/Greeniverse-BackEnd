@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Greeniverse.src.dtos;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -10,9 +11,9 @@ namespace Greeniverse.src.models
     public class ShoppingCartModel
     {
         public ShoppingCartModel() { }
-        public ShoppingCartModel(string amoutProduct, string paymentMethod, string voucher, string deliveryAdress, int fK_Purchaser, int fK_Product)
+        public ShoppingCartModel(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAdress, int fK_Purchaser, int fK_Product)
         {
-            AmoutProduct = amoutProduct;
+            AmountProduct = amountProduct;
             PaymentMethod = paymentMethod;
             Voucher = voucher;
             DeliveryAdress = deliveryAdress;
@@ -25,10 +26,10 @@ namespace Greeniverse.src.models
         public int Id { get; set; }
 
         [Required, StringLength(50)]
-        public string AmoutProduct { get; set; }
+        public int AmountProduct { get; set; }
 
         [Required, StringLength(50)]
-        public string PaymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
 
         [Required, StringLength(50)]
         public string Voucher { get; set; }
