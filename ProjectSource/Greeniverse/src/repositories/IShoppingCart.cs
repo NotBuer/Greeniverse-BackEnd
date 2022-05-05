@@ -10,7 +10,6 @@ namespace Greeniverse.src.repositories.implementations
         void UpdateShoppingCart(UpdateShoppingCartDTO updateshoppingCart);
         void DeleteShoppingCart(int id);
         ShoppingCartModel GetShoppingCartById(int id);
-        ShoppingCartModel GetShoppingCartByPurchaseStatus(string purchaseStatus);
         List<ShoppingCartModel> GetAllProducts();
     }
 }
