@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Greeniverse.src.utils;
 
 namespace Greeniverse.src.DTOS
 {
@@ -15,23 +16,30 @@ namespace Greeniverse.src.DTOS
         public string Password { get; set; }
 
         [Required, StringLength(50)]
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         [Required, StringLength(15)]
         public int Phone { get; set; }
 
-        public NewUserDTO(string name, string email, string password, string adress, int phone)
+        [Required]
+        public UserType UserType { get; set; }
+
+        public NewUserDTO(string name, string email, string password, string address, int phone, UserType userType)
         {
             Name = name;
             Email = email;
             Password = password;
-            Adress = adress;
+            Address = address;
             Phone = phone;
+            UserType = userType;
         }
     }
 
     public class UpdateUserDTO
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required, StringLength(50)]
         public string Name { get; set; }
 
@@ -42,18 +50,22 @@ namespace Greeniverse.src.DTOS
         public string Password { get; set; }
 
         [Required, StringLength(50)]
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         [Required, StringLength(15)]
         public int Phone { get; set; }
 
-        public UpdateUserDTO(string name, string email, string password, string adress, int phone)
+        [Required]
+        public UserType UserType { get; set; }
+
+        public UpdateUserDTO(string name, string email, string password, string address, int phone, UserType userType)
         {
             Name = name;
             Email = email;
             Password = password;
-            Adress = adress;
+            Address = address;
             Phone = phone;
+            UserType = userType;
         }
     }
 }

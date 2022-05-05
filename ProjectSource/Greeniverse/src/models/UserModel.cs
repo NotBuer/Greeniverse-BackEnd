@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Greeniverse.src.utils;
 
 namespace Greeniverse.src.models
 {
 
-    public enum UserType { IndividualPerson, Business }
+
 
     [Table("tb_users")]
     public class UserModel

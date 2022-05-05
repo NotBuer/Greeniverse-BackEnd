@@ -1,6 +1,6 @@
-﻿using Greeniverse.src.models;
+﻿using Greeniverse.src.DTOS;
+using Greeniverse.src.models;
 using System.Collections.Generic;
-<<<<<<< HEAD
 
 namespace Greeniverse.src.repositories.implementations
 {
