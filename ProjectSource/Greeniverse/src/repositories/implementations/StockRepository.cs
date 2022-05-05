@@ -26,7 +26,16 @@ namespace Greeniverse.src.repositories.implementations
 
         public void NewProduct(NewStockDTO Product)
         {
-            
+            _context.Stock.Add(new StockModel
+            {
+                ProductName = Product.ProductName,
+                Type = Product.Type,
+                Description = Product.Description,
+                Price = Product.Price, 
+                Provider = Product.Provider
+
+        });
+            _context.SaveChanges();
         }
 
         public void DeleteProduct(int id)
