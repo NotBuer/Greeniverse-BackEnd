@@ -20,7 +20,16 @@
             });
             _context.SaveChanges();
         }
-
+        public void UpdateShoppingCart(UpdateShoppingCartDTO updateshoppingCart)
+        {
+        var CartExistance = GetShoppingCartById(updateshoppingCart.Id);
+        CartExistance.AmountProduct = updateshoppingCart.AmountProduct;
+        CartExistance.PaymentMethod = updateshoppingCart.PaymentMethod;
+        CartExistance.Voucher = updateshoppingCart.Voucher;
+        _context.ShoppingCart.Update(CartExistance);
+        _context.SaveChanges();
+        }
+        #endregion Methods
 
     }
 }
