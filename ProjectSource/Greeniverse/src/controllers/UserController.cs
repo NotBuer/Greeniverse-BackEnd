@@ -49,7 +49,14 @@ namespace BlogPessoal.src.controller
 
             return Ok(user);
         }
+        [HttpPost]
+        public IActionResult NewUser([FromBody] NewUserDTO user)
+        {
+            if (!ModelState.IsValid) return BadRequest();
 
+            _repository.NewUser(user);
+            return Created($"api/User/email/{user.Email}", user);
+        }
         #endregion
 
     }
