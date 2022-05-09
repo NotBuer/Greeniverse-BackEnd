@@ -50,17 +50,7 @@ namespace BlogPessoal.src.controller
             return Ok(user);
         }
 
-        [HttpGet("email/{emailUser}")]
-        public IActionResult GetUserByEmail([FromRoute] string emailUser)
-        {
-            var user = _repository.GetUserByEmail(emailUser);
-
-            if (user == null) return NotFound();
-
-            return Ok(user);
-        }
-        
-              #endregion
+        #endregion
 
     }
 }
