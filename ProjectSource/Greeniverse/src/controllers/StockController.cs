@@ -1,4 +1,15 @@
 ﻿
+        #region Métodos
+        [HttpGet]
+        public IActionResult GetAllProducts()
+        {
+
+        }
+        [HttpGet("id/{idStock}")]
+        public IActionResult GetProductById([FromRoute] int idStock)
+        {
+
+        }
         [HttpGet("search")]
         public IActionResult GetProductsBySearch(
             [FromQuery] string type,
