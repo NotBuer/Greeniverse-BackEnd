@@ -57,6 +57,14 @@ namespace BlogPessoal.src.controller
             _repository.NewUser(user);
             return Created($"api/User/email/{user.Email}", user);
         }
+        [HttpPut]
+        public IActionResult UpdateUser([FromBody] UpdateUserDTO user)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            _repository.UpdateUser(user);
+            return Ok(user);
+        }
         #endregion
 
     }
