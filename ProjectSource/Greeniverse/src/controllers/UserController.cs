@@ -49,7 +49,28 @@ namespace BlogPessoal.src.controller
 
             return Ok(user);
         }
+        [HttpPost]
+        public IActionResult NewUser([FromBody] NewUserDTO user)
+        {
+            if (!ModelState.IsValid) return BadRequest();
 
+            _repository.NewUser(user);
+            return Created($"api/User/email/{user.Email}", user);
+        }
+        [HttpPut]
+        public IActionResult UpdateUser([FromBody] UpdateUserDTO user)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            _repository.UpdateUser(user);
+            return Ok(user);
+        }
+        [HttpDelete("delete/{idUser}")]
+        public IActionResult DeleteUser([FromRoute] int idUser)
+        {
+            _repository.DeleteUser(idUser);
+            return NoContent();
+        }
         #endregion
 
     }
