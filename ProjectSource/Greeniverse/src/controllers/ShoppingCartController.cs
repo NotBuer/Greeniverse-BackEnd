@@ -37,7 +37,15 @@ namespace Greeniverse.src.controllers
             return Ok(shoppingcart);
         }
 
+        [HttpGet]
+        public IActionResult GetAllProducts()
+        {
+            var list = _repository.GetAllProducts();
 
+            if (list.Count < 1) return NoContent();
+
+            return Ok(list);
+        }
 
         #endregion
     }
