@@ -1,4 +1,5 @@
-﻿using Greeniverse.src.repositories.implementations;
+﻿using Greeniverse.src.dtos;
+using Greeniverse.src.repositories.implementations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greeniverse.src.controllers
@@ -32,7 +33,7 @@ namespace Greeniverse.src.controllers
         {
             var shoppingcart = _repository.GetShoppingCartById(idShoppingCart);
 
-            if(shoppingcart == null) return NotFound();
+            if (shoppingcart == null) return NotFound();
 
             return Ok(shoppingcart);
         }
@@ -46,7 +47,32 @@ namespace Greeniverse.src.controllers
 
             return Ok(list);
         }
+        [HttpPost]
+        public IActionResult NewShoppingCart([FromBody] NewShoppingCartDTO shoppingCart)
+        {
+            if (!ModelState.IsValid) return BadRequest();
 
+            _repository.NewShoppingCart(shoppingCart);
+
+            return Created($"api/ShoppingCart", shoppingCart);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateShoppingCart([FromBody] UpdateShoppingCartDTO shoppingCart)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            _repository.UpdateShoppingCart(shoppingCart);
+
+            return Ok(shoppingCart);
+        }
+
+        [HttpDelete("delete/{idShoppingCart}")]
+        public IActionResult DeleteShoppingCart([FromRoute] int idShoppingCart)
+        {
+            _repository.DeleteShoppingCart(idShoppingCart);
+            return NoContent();
+        }
         #endregion
     }
 }
