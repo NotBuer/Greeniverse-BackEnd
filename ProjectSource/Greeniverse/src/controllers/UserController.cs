@@ -65,6 +65,12 @@ namespace BlogPessoal.src.controller
             _repository.UpdateUser(user);
             return Ok(user);
         }
+        [HttpDelete("delete/{idUser}")]
+        public IActionResult DeleteUser([FromRoute] int idUser)
+        {
+            _repository.DeleteUser(idUser);
+            return NoContent();
+        }
         #endregion
 
     }
