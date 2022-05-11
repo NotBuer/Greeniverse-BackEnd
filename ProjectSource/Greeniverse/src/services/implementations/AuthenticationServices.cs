@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+﻿namespace Greeniverse.src.services.implementations
+{
+    public void CreateUserNoDuplicate(NewUserDTO dto)
+    {
+        var user = _repository.GetUserByEmail(dto.Email);
+        if (user != null) throw new Exception("Este email já está sendo utilizado");
+        dto.Password = CodifyPassword(dto.Password);
+        _repository.NewUser(dto);
+=======
 ﻿using Greeniverse.src.dtos;
 using Greeniverse.src.DTOS;
 using Greeniverse.src.models;
@@ -37,5 +47,6 @@ namespace Greeniverse.src.services.implementations
 
         #endregion
 
+>>>>>>> 89c2373c0227b4239a2ef7f18bf940c317e6beb5
     }
 }
