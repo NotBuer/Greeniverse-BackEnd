@@ -5,9 +5,6 @@ namespace Greeniverse.src.dtos
     
     public class NewStockDTO
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required, StringLength(50)]
         public string Type { get; set; }
 
@@ -23,9 +20,8 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(20)]
         public string Provider { get; set; }
 
-        public NewStockDTO(int id, string type, string description, float price, string productName, string provider)
+        public NewStockDTO(string type, string description, float price, string productName, string provider)
         {
-            Id = id;
             Type = type;
             Description = description;
             Price = price;
@@ -36,7 +32,6 @@ namespace Greeniverse.src.dtos
     
     public class UpdateStockDTO
     {
-
         [Required]
         public int Id { get; set; }
 
@@ -55,9 +50,8 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(20)]
         public string Provider { get; set; }
 
-        public UpdateStockDTO(int id, string type, string description, float price, string productName, string provider)
+        public UpdateStockDTO(string type, string description, float price, string productName, string provider)
         {
-            Id = id;
             Type = type;
             Description = description;
             Price = price;
@@ -65,5 +59,4 @@ namespace Greeniverse.src.dtos
             Provider = provider;
         }
     }
-
 }
