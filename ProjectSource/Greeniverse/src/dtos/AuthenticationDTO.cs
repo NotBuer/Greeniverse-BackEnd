@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+﻿namespace Greeniverse.src.dtos{    public class AuthenticationDTO    {    }}
+=======
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Greeniverse.src.dtos
@@ -16,3 +19,4 @@ namespace Greeniverse.src.dtos
         }
     }
 }
+>>>>>>> fc74dd963581509c51fa502658772a0aa7647f97
