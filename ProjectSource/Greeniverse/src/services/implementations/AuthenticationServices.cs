@@ -1,6 +1,6 @@
 ﻿namespace Greeniverse.src.services.implementations
 {
-    public class AuthenticationServices
+    public class AuthenticationServices : IAuthentication
     {
     }
 }
