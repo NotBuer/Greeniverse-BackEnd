@@ -11,11 +11,11 @@ namespace Greeniverse.src.repositories.implementations
     {
 
 
-        #region Attributes
+        #region Attribute
 
         private readonly GreeniverseContext _context;
 
-        #endregion Attributes
+        #endregion Attribute
 
 
         #region Constructors
@@ -28,7 +28,7 @@ namespace Greeniverse.src.repositories.implementations
         #endregion 
         
 
-        #region METHODS
+        #region Methods
         public void NewProduct(NewStockDTO Product)
         {
             _context.Stock.Add(new StockModel
