@@ -8,7 +8,7 @@ namespace Greeniverse.src.services
     {
         string EncodePassword (string password);
         void CreateUserWithoutDuplicate(NewUserDTO user);
-        string GerateToken(UserModel user);
+        string GenerateToken(UserModel user);
         AuthorizationDTO GetAuthorization(AuthenticationDTO authentication);
     }
 }
