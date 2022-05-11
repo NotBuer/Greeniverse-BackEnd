@@ -1,6 +1,1 @@
-﻿namespace Greeniverse.src.dtos
-{
-    public class AuthenticationDTO
-    {
-    }
-}
+﻿namespace Greeniverse.src.dtos{    public class AuthenticationDTO    {    }}
