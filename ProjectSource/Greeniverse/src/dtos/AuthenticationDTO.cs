@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-﻿using Greeniverse.src.utils;
+using Greeniverse.src.utils;
 using System.ComponentModel.DataAnnotations;
-=======
-<<<<<<< HEAD
-﻿namespace Greeniverse.src.dtos{    public class AuthenticationDTO    {    }}
-=======
-﻿using System.ComponentModel.DataAnnotations;
->>>>>>> 49b4911a1f5ac6df340c6c4298b718cd6e42e93e
 
 namespace Greeniverse.src.dtos
 {
@@ -24,7 +17,6 @@ namespace Greeniverse.src.dtos
             Password = password;
         }
     }
-<<<<<<< HEAD
     public class AuthorizationDTO
     {
         public int Id { get; set; }
@@ -41,7 +33,3 @@ namespace Greeniverse.src.dtos
         }
     }
 }
-=======
-}
->>>>>>> fc74dd963581509c51fa502658772a0aa7647f97
->>>>>>> 49b4911a1f5ac6df340c6c4298b718cd6e42e93e

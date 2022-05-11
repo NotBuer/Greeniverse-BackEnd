@@ -1,23 +1,12 @@
-<<<<<<< HEAD
-﻿namespace Greeniverse.src.services.implementations
-{
-<<<<<<< HEAD
-    public class AuthenticationServices : IAuthentication
-=======
-    public void CreateUserNoDuplicate(NewUserDTO dto)
->>>>>>> 0b2c18bce38abf0a13779a069993d461a7ee28f7
-    {
-        var user = _repository.GetUserByEmail(dto.Email);
-        if (user != null) throw new Exception("Este email já está sendo utilizado");
-        dto.Password = CodifyPassword(dto.Password);
-        _repository.NewUser(dto);
-=======
-﻿using Greeniverse.src.dtos;
+using Greeniverse.src.dtos;
 using Greeniverse.src.DTOS;
 using Greeniverse.src.models;
 using Greeniverse.src.repositories.implementations;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace Greeniverse.src.services.implementations
@@ -48,9 +37,46 @@ namespace Greeniverse.src.services.implementations
             var bytes = Encoding.UTF8.GetBytes(password);
             return Convert.ToBase64String(bytes);
         }
+        public void CreateUserNoDuplicate(NewUserDTO dto)
+        {
+            var user = _repository.GetUserByEmail(dto.Email);
+            if (user != null) throw new Exception("Este email já está sendo utilizado");
+            dto.Password = EncodePassword(dto.Password);
+            _repository.NewUser(dto);
+        }
+        public string GenerateToken(models.UserModel user)
+        {
+            var tokenManipulator = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(Configuration["Settings:Secret"]);
+            var tokenDescription = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(
+            new Claim[]
+            {
+            new Claim(ClaimTypes.Email, user.Email.ToString()),
+            new Claim(ClaimTypes.Role, user.UserType.ToString())
+            }),
+                Expires = DateTime.UtcNow.AddHours(2),
+                SigningCredentials = new SigningCredentials(
+            new SymmetricSecurityKey(key),
+            SecurityAlgorithms.HmacSha256Signature
+            )
+            };
+            var token = tokenManipulator.CreateToken(tokenDescription);
+            return tokenManipulator.WriteToken(token);
+
+        }
+        public AuthorizationDTO GetAuthorization(AuthenticationDTO authentication)
+        {
+            var user = _repository.GetUserByEmail(authentication.Email);
+            if (user == null) throw new Exception("Usuário não encontrado");
+            if (user.Password != EncodePassword(authentication.Password)) throw new
+            Exception("Senha incorreta");
+            return new AuthorizationDTO(user.Id, user.Email, user.UserType,GenerateToken(user));
+
+        }
 
         #endregion
 
->>>>>>> 89c2373c0227b4239a2ef7f18bf940c317e6beb5
     }
 }
