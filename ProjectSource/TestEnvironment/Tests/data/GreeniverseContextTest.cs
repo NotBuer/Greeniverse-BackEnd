@@ -47,7 +47,16 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestUserUpdateInDBReturnUser()
         {
-            // TODO: Implement update test later on.
+            // First add a new user to make updating it possible.
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", 123456789, UserType.IndividualPerson);
+            _context.User.Add(userTest);
+            _context.SaveChanges();
+
+            // Now make the changes on the user data.
+            UserModel userToUpdate = _context.User.FirstOrDefault(u => u.Name == "TestUser");
+            userToUpdate.Name = "UserTestName";
+            _context.Update(userToUpdate);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -56,7 +65,14 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestUserDeleteInDBReturnUser()
         {
-            // TODO: Implement delete test later on.
+            // First add a new user to make deleting it possible.
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", 123456789, UserType.IndividualPerson);
+            _context.User.Add(userTest);
+            _context.SaveChanges();
+
+            // Now that we have at least one user available to be deleted, then delete it.
+            _context.User.Remove(userTest);
+            _context.SaveChanges();
         }
         #endregion
 
@@ -80,7 +96,15 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestStockUpdateInDBReturnStock()
         {
-            // TODO: Implement update test later on.
+            // First add a new stock product to make updating it possible.
+            StockModel stock = new StockModel("ProductTypeTest", "ProductDescription", 99.00f, "ProductName", "Samsung");
+            _context.Stock.Add(stock);
+            _context.SaveChanges();
+
+            // Now make the changes on the stock product data.
+            StockModel stockToUpdate = _context.Stock.FirstOrDefault(s => s.ProductName == "ProductTypeTest");
+            _context.Update(stock);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -89,7 +113,14 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestStockDeleteInDBReturnStock()
         {
-            // TODO: Implement delete test later on.
+            // First add a new user to make deleting it possible.
+            StockModel stock = new StockModel("ProductTypeTest", "ProductDescription", 99.00f, "ProductName", "Samsung");
+            _context.Stock.Add(stock);
+            _context.SaveChanges();
+
+            // Now that we have at least one stock available to be deleted, then delete it
+            _context.Stock.Remove(stock);
+            _context.SaveChanges();
         }
         #endregion
 
@@ -113,7 +144,15 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestShoppingCartUpdateInDBReturnCart()
         {
-            // TODO: Implement update test later on.
+            // First add a new cart to make updating it possible.
+            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress", 100, 9500);
+            _context.ShoppingCart.Add(cart);
+            _context.SaveChanges();
+
+            // Now make the changes on the shopping cart data.
+            ShoppingCartModel cartToUpdate = _context.ShoppingCart.FirstOrDefault(c => c.DeliveryAddress == "TestAddress");
+            _context.ShoppingCart.Update(cartToUpdate);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -122,7 +161,13 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestShoppingCartDeleteInDBReturnCart()
         {
-            // TODO: Implement delete test later on.
+            // First add a new shopping cart to make deleting it possible.
+            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress", 100, 9500);
+            _context.ShoppingCart.Add(cart);
+            _context.SaveChanges();
+
+            _context.ShoppingCart.Remove(cart);
+            _context.SaveChanges();
         }
         #endregion
 
