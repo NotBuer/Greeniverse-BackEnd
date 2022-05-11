@@ -1,6 +1,7 @@
 
 ﻿using Greeniverse.src.dtos;
 using Greeniverse.src.repositories.implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greeniverse.src.controllers
@@ -28,6 +29,7 @@ namespace Greeniverse.src.controllers
         #region Methods
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllProducts()
         {
             var list = _repository.GetAllProducts();
@@ -38,6 +40,8 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpGet("id/{idStock}")]
+        [Authorize]
+
         public IActionResult GetProductById([FromRoute] int idStock)
         {
 
@@ -47,7 +51,9 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpGet("search")]
-         public IActionResult GetProductsBySearch(
+        [Authorize]
+
+        public IActionResult GetProductsBySearch(
             [FromQuery] string type,
             [FromQuery] string description,
             [FromQuery] string productName)
@@ -58,6 +64,8 @@ namespace Greeniverse.src.controllers
          }
 
         [HttpPost]
+        [Authorize(Roles = "Business")]
+
         public IActionResult NewProduct([FromBody] NewStockDTO stock)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -66,6 +74,7 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Business")]
         public IActionResult UpdateProduct([FromBody] UpdateStockDTO stock)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -74,6 +83,7 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpDelete(("delete/{idStock}"))]
+        [Authorize(Roles = "Business")]
         public IActionResult DeleteProduct([FromRoute] int idStock)
         {
             _repository.DeleteProduct(idStock);

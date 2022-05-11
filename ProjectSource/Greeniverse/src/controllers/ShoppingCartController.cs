@@ -1,5 +1,6 @@
 ﻿using Greeniverse.src.dtos;
 using Greeniverse.src.repositories.implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greeniverse.src.controllers
@@ -28,6 +29,7 @@ namespace Greeniverse.src.controllers
         #region Methods
 
         [HttpGet("id/{idShoppingCart}")]
+        [Authorize]
         public IActionResult GetShoppingCartById([FromRoute] int idShoppingCart)
         {
             var shoppingcart = _repository.GetShoppingCartById(idShoppingCart);
@@ -38,6 +40,7 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllProducts()
         {
             var list = _repository.GetAllProducts();
@@ -48,6 +51,7 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult NewShoppingCart([FromBody] NewShoppingCartDTO shoppingCart)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -68,6 +72,7 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpDelete("delete/{idShoppingCart}")]
+        [Authorize]
         public IActionResult DeleteShoppingCart([FromRoute] int idShoppingCart)
         {
             _repository.DeleteShoppingCart(idShoppingCart);

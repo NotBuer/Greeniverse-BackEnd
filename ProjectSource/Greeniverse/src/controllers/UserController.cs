@@ -2,6 +2,7 @@
 using Greeniverse.src.DTOS;
 using Greeniverse.src.repositories;
 using Greeniverse.src.repositories.implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace BlogPessoal.src.controller
 {
@@ -31,6 +32,7 @@ namespace BlogPessoal.src.controller
 
 
         [HttpGet("id/{idUser}")]
+        [Authorize(Roles = "IndividualPerson, Business")]
         public IActionResult GetUserById([FromRoute] int idUser)
         {
             var user = _repository.GetUserById(idUser);
@@ -41,6 +43,7 @@ namespace BlogPessoal.src.controller
         }
 
         [HttpGet]
+        [Authorize(Roles = "IndividualPerson, Business")]
         public IActionResult GetUserByName([FromQuery] string nameUser)
         {
             var user = _repository.GetUserByName(nameUser);
@@ -51,6 +54,7 @@ namespace BlogPessoal.src.controller
         }
 
         [HttpGet("email/{emailUser}")]
+        [Authorize(Roles = "IndividualPerson, Business")]
         public IActionResult GetUserByEmail([FromRoute] string emailUser)
         {
             var user = _repository.GetUserByEmail(emailUser);
@@ -59,6 +63,7 @@ namespace BlogPessoal.src.controller
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult NewUser([FromBody] NewUserDTO user)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -67,6 +72,7 @@ namespace BlogPessoal.src.controller
             return Created($"api/User/email/{user.Email}", user);
         }
         [HttpPut]
+        [Authorize(Roles = "IndividualPerson, Business")]
         public IActionResult UpdateUser([FromBody] UpdateUserDTO user)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -75,6 +81,7 @@ namespace BlogPessoal.src.controller
             return Ok(user);
         }
         [HttpDelete("delete/{idUser}")]
+        [Authorize(Roles = "Business")]
         public IActionResult DeleteUser([FromRoute] int idUser)
         {
             _repository.DeleteUser(idUser);
