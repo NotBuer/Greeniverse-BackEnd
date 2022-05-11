@@ -10,14 +10,14 @@ namespace BlogPessoal.src.controller
     [Produces("application/json")]
     public class UserController : ControllerBase
     {
-        #region Attribute
+        #region Attributes
 
         private readonly IUser _repository;
 
         #endregion
 
 
-        #region Constructor
+        #region Constructors
 
         public UserController(IUser repository)  
         {
@@ -49,6 +49,15 @@ namespace BlogPessoal.src.controller
 
             return Ok(user);
         }
+
+        [HttpGet("email/{emailUser}")]
+        public IActionResult GetUserByEmail([FromRoute] string emailUser)
+        {
+            var user = _repository.GetUserByEmail(emailUser);
+            if (user == null) return NotFound();
+            return Ok(user);
+        }
+
         [HttpPost]
         public IActionResult NewUser([FromBody] NewUserDTO user)
         {

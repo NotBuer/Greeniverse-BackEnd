@@ -9,12 +9,11 @@ namespace Greeniverse.src.controllers
     [Produces("application/json")]
     public class ShoppingCartController : ControllerBase
     {
-        #region Attributes
+        #region Attribute
 
         private readonly IShoppingCart _repository;
 
         #endregion
-
 
         #region Constructor
 
@@ -24,7 +23,6 @@ namespace Greeniverse.src.controllers
         }
 
         #endregion
-
 
         #region Methods
 
@@ -47,6 +45,7 @@ namespace Greeniverse.src.controllers
 
             return Ok(list);
         }
+
         [HttpPost]
         public IActionResult NewShoppingCart([FromBody] NewShoppingCartDTO shoppingCart)
         {
@@ -73,6 +72,7 @@ namespace Greeniverse.src.controllers
             _repository.DeleteShoppingCart(idShoppingCart);
             return NoContent();
         }
+
         #endregion
     }
 }
