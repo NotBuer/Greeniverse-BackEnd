@@ -10,17 +10,23 @@ namespace Greeniverse.src.controllers
     [Produces("application/json")]
     public class StockControllers : ControllerBase
     {
-        #region Atributos
+        #region Attribute
+
         private readonly IStock _repository;
+
         #endregion
-        #region Construtores
+
+        #region Constructor
+
         public StockControllers(IStock repository)
         {
             _repository = repository;
         }
+
         #endregion
 
-        #region Métodos
+        #region Methods
+
         [HttpGet]
         public IActionResult GetAllProducts()
         {
@@ -29,8 +35,8 @@ namespace Greeniverse.src.controllers
             if (list.Count == 1) return NoContent();
             return Ok(list);
 
-
         }
+
         [HttpGet("id/{idStock}")]
         public IActionResult GetProductById([FromRoute] int idStock)
         {
@@ -39,6 +45,7 @@ namespace Greeniverse.src.controllers
             if (stock == null) return NotFound();
             return Ok(stock);
         }
+
         [HttpGet("search")]
          public IActionResult GetProductsBySearch(
             [FromQuery] string type,
@@ -57,6 +64,7 @@ namespace Greeniverse.src.controllers
             _repository.NewProduct(stock);
             return Created($"Api/stocks/id/{stock.Id}", stock);
         }
+
         [HttpPut]
         public IActionResult UpdateProduct([FromBody] UpdateStockDTO stock)
         {
@@ -71,6 +79,7 @@ namespace Greeniverse.src.controllers
             _repository.DeleteProduct(idStock);
             return Ok();
         }
+
         #endregion
     }
 }
