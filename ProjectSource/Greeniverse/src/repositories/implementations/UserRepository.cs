@@ -10,12 +10,14 @@ namespace Greeniverse.src.repositories.implementations
     public class UserRepository : IUser
     {
 
-        #region ATTRIBUTES
+        #region Attribute
+
         private readonly GreeniverseContext _context;
+
         #endregion
 
 
-        #region CONSTRUCTORS
+        #region Constructor
         public UserRepository(GreeniverseContext context)
         {
             _context = context;
@@ -23,7 +25,7 @@ namespace Greeniverse.src.repositories.implementations
         #endregion
 
 
-        #region METHODS
+        #region Methods
         public void NewUser(NewUserDTO user)
         {
             _context.User.Add(new UserModel

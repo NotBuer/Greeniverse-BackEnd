@@ -12,12 +12,12 @@ namespace Greeniverse.src.models
     {
         public ShoppingCartModel() { }
         
-        public ShoppingCartModel(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAdress, int fK_Purchaser, int fK_Product)
+        public ShoppingCartModel(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAddress, int fK_Purchaser, int fK_Product)
         {
             AmountProduct = amountProduct;
             PaymentMethod = paymentMethod;
             Voucher = voucher;
-            DeliveryAdress = deliveryAdress;
+            DeliveryAddress = deliveryAddress;
             FK_Purchaser = fK_Purchaser;
             FK_Product = fK_Product;
         }
@@ -36,7 +36,7 @@ namespace Greeniverse.src.models
         public string Voucher { get; set; }
 
         [Required, StringLength(50)]
-        public string DeliveryAdress { get; set; }
+        public string DeliveryAddress { get; set; }
 
         [ForeignKey("FK_Purchaser")]
         public int FK_Purchaser { get; set; }
