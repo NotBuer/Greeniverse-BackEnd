@@ -12,41 +12,40 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
     {   
         
         var opt = new DbContextOptionsBuilder<GreeniverseContext>()
-        .UseInMemoryDatabase(databaseName: "db_blogpessoal12")
+        .UseInMemoryDatabase(databaseName: "db_greeniverse")
         .Options;
 
-        _contexto = new BlogPessoalContexto(opt);
-        _repositorio = new TemaRepositorio(_contexto);
+        _context = new GreeniverseContext(opt);
+        _repository = new StockRepository(_context);
 
         
-        await _repositorio.NovoTemaAsync(new NovoTemaDTO("Java"));
+        await _repository.NewStockAsync(new NewStockDTO("Banana"));
      
-        await _repositorio.NovoTemaAsync(new NovoTemaDTO("JavaScript"));
+        await _repository.NewStockAsync(new NewStockDTO("Morango"));
 
-      
-        var temas = await _repositorio.PegarTemasPelaDescricaoAsync("Java");
+        var stock = await _repositoriy.GetStockByDescriptionAsync("Banana");
 
      
-        Assert.AreEqual(2, temas.Count);
+        Assert.AreEqual(2, stock.Count);
     }
 
     [TestMethod]
-    public async Task AlterarTemaPythonRetornaTemaCobol()
+    public async Task AlternateStockDescriptionReturnType()
     {
         
-        var opt = new DbContextOptionsBuilder<BlogPessoalContexto>()
-        .UseInMemoryDatabase(databaseName: "db_blogpessoal13")
+        var opt = new DbContextOptionsBuilder<GreeniverseContext>()
+        .UseInMemoryDatabase(databaseName: "db_greeniverse")
         .Options;
 
-        _contexto = new BlogPessoalContexto(opt);
-        _repositorio = new TemaRepositorio(_contexto);
+        _context = new GreeniverseContexto(opt);
+        _repository = new StockRepository(_context);
 
        
-        await _repositorio.NovoTemaAsync(new NovoTemaDTO("Python"));
+        await _repository.NovoTemaAsync(new NewStockDTO("Banana"));
 
-        await _repositorio.AtualizarTemaAsync(new AtualizarTemaDTO(1, "COBOL"));
+        await _repository.UpdateStockAsync(new UpdateStockDTO(1, "Morango"));
 
-        var stock = await _repository.GetProductByIdAsync(1);
+        var stock = await _repository.GetStockByIdAsync(1);
 
-        Assert.AreEqual("COBOL", stock.Description);
+        Assert.AreEqual("Morango", stock.Description);
     }
