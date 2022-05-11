@@ -11,16 +11,31 @@ namespace Greeniverse.src.services.implementations
         public class AuthenticationServices : IAuthentication
         {
             #region Atributte
+
             private readonly IUser _repository;
             public IConfiguration Configuration { get; }
+
             #endregion
+
             #region Constructor
+
             public AuthenticationServices(IUser repository, IConfiguration configuration)
             {
                 _repository = repository;
                 Configuration = configuration;
             }
-            #endregion
-            
+
+        #endregion
+
+        #region Methods
+
+        public string EncodePassword(string password)
+        {
+            var bytes = Encoding.UTF8.GetBytes(password);
+            return Convert.ToBase64String(bytes);
         }
+
+        #endregion
+
+    }
 }
