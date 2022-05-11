@@ -1,7 +1,11 @@
 <<<<<<< HEAD
 ﻿namespace Greeniverse.src.services.implementations
 {
+<<<<<<< HEAD
+    public class AuthenticationServices : IAuthentication
+=======
     public void CreateUserNoDuplicate(NewUserDTO dto)
+>>>>>>> 0b2c18bce38abf0a13779a069993d461a7ee28f7
     {
         var user = _repository.GetUserByEmail(dto.Email);
         if (user != null) throw new Exception("Este email já está sendo utilizado");
