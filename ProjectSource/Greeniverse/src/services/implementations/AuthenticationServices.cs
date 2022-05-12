@@ -11,22 +11,24 @@ using System.Text;
 
 namespace Greeniverse.src.services.implementations
 {   
-        public class AuthenticationServices : IAuthentication
+    public class AuthenticationServices : IAuthentication
+    {
+
+        #region Atributte
+
+        private readonly IUser _repository;
+        public IConfiguration Configuration { get; }
+
+        #endregion
+
+
+        #region Constructor
+
+        public AuthenticationServices(IUser repository, IConfiguration configuration)
         {
-            #region Atributte
-
-            private readonly IUser _repository;
-            public IConfiguration Configuration { get; }
-
-            #endregion
-
-            #region Constructor
-
-            public AuthenticationServices(IUser repository, IConfiguration configuration)
-            {
-                _repository = repository;
-                Configuration = configuration;
-            }
+            _repository = repository;
+            Configuration = configuration;
+        }
 
         #endregion
 
@@ -37,14 +39,8 @@ namespace Greeniverse.src.services.implementations
             var bytes = Encoding.UTF8.GetBytes(password);
             return Convert.ToBase64String(bytes);
         }
-        public void CreateUserNoDuplicate(NewUserDTO dto)
-        {
-            var user = _repository.GetUserByEmail(dto.Email);
-            if (user != null) throw new Exception("Este email já está sendo utilizado");
-            dto.Password = EncodePassword(dto.Password);
-            _repository.NewUser(dto);
-        }
-        public string GenerateToken(models.UserModel user)
+
+        public string GenerateToken(UserModel user)
         {
             var tokenManipulator = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Configuration["Settings:Secret"]);
@@ -74,6 +70,14 @@ namespace Greeniverse.src.services.implementations
             Exception("Senha incorreta");
             return new AuthorizationDTO(user.Id, user.Email, user.UserType,GenerateToken(user));
 
+        }
+
+        public void CreateUserWithoutDuplicate(NewUserDTO userDTO)
+        {
+            var userObject = _repository.GetUserByEmail(userDTO.Email);
+            if (userObject != null) throw new Exception("Este email já está sendo utilizado");
+            userDTO.Password = EncodePassword(userDTO.Password);
+            _repository.NewUser(userDTO);
         }
 
         #endregion

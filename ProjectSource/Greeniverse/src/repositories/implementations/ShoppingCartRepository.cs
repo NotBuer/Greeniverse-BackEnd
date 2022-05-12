@@ -47,18 +47,18 @@ namespace Greeniverse.src.repositories.implementations
                 AmountProduct = ShoppingCart.AmountProduct,
                 PaymentMethod = ShoppingCart.PaymentMethod,
                 Voucher = ShoppingCart.Voucher,
-                DeliveryAdress = ShoppingCart.DeliveryAdress,
+                DeliveryAddress = ShoppingCart.DeliveryAdress,
             });
             _context.SaveChanges();
         }
         public void UpdateShoppingCart(UpdateShoppingCartDTO updateshoppingCart)
         {
-        var CartExistance = GetShoppingCartById(updateshoppingCart.Id);
-        CartExistance.AmountProduct = updateshoppingCart.AmountProduct;
-        CartExistance.PaymentMethod = updateshoppingCart.PaymentMethod;
-        CartExistance.Voucher = updateshoppingCart.Voucher;
-        _context.ShoppingCart.Update(CartExistance);
-        _context.SaveChanges();
+            var CartExistance = GetShoppingCartById(updateshoppingCart.Id);
+            CartExistance.AmountProduct = updateshoppingCart.AmountProduct;
+            CartExistance.PaymentMethod = updateshoppingCart.PaymentMethod;
+            CartExistance.Voucher = updateshoppingCart.Voucher;
+            _context.ShoppingCart.Update(CartExistance);
+            _context.SaveChanges();
         }
         #endregion Methods
 
