@@ -63,20 +63,20 @@ namespace Greeniverse.src.controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateShoppingCart([FromBody] UpdateShoppingCartDTO shoppingCart)
+        public Task<ActionResult> UpdateShoppingCartAsync([FromBody] UpdateShoppingCartDTO shoppingCart)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            _repository.UpdateShoppingCart(shoppingCart);
+            await _repository.UpdateShoppingCartAsync(shoppingCart);
 
             return Ok(shoppingCart);
         }
 
         [HttpDelete("delete/{idShoppingCart}")]
         [Authorize]
-        public IActionResult DeleteShoppingCart([FromRoute] int idShoppingCart)
+        public Task<ActionResult> DeleteShoppingCartAsync([FromRoute] int idShoppingCart)
         {
-            _repository.DeleteShoppingCart(idShoppingCart);
+            await _repository.DeleteShoppingCartAsync(idShoppingCart);
             return NoContent();
         }
 
