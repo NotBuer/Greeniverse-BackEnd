@@ -8,6 +8,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Greeniverse.src.services.implementations
 {   
@@ -62,22 +63,27 @@ namespace Greeniverse.src.services.implementations
             return tokenManipulator.WriteToken(token);
 
         }
-        public AuthorizationDTO GetAuthorization(AuthenticationDTO authentication)
+        public async Task<AuthorizationDTO> GetAuthorizationAsync(AuthenticationDTO authentication)
         {
-            var user = _repository.GetUserByEmail(authentication.Email);
+            var user = await _repository.GetUserByEmailAsync(authentication.Email);
+
             if (user == null) throw new Exception("Usuário não encontrado");
-            if (user.Password != EncodePassword(authentication.Password)) throw new
-            Exception("Senha incorreta");
+
+            if (user.Password != EncodePassword(authentication.Password)) throw new Exception("Senha incorreta");
+
             return new AuthorizationDTO(user.Id, user.Email, user.UserType,GenerateToken(user));
 
         }
 
-        public void CreateUserWithoutDuplicate(NewUserDTO userDTO)
+        public async Task CreateUserWithoutDuplicateAsync(NewUserDTO userDTO)
         {
-            var userObject = _repository.GetUserByEmail(userDTO.Email);
+            var userObject = await _repository.GetUserByEmailAsync(userDTO.Email);
+
             if (userObject != null) throw new Exception("Este email já está sendo utilizado");
+
             userDTO.Password = EncodePassword(userDTO.Password);
-            _repository.NewUser(userDTO);
+
+           await _repository.NewUserAsync(userDTO);
         }
 
         #endregion
