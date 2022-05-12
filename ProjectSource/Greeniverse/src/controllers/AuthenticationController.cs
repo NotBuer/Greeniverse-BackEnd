@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Greeniverse.src.dtos;
 using Greeniverse.src.services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,25 +14,30 @@ namespace BlogPessoal.src.controladores
     public class AuthenticationController : ControllerBase
     {
         #region Attribute
+
         private readonly IAuthentication _services;
+
         #endregion Attribute
 
         #region Constructor
+
         public AuthenticationController(IAuthentication services)
         {
             _services = services;
         }
+
         #endregion Constructor
 
         #region Methods
+
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Authenticate([FromBody] AuthenticationDTO authentication)
+        public async Task<ActionResult> AuthenticateAsync([FromBody] AuthenticationDTO authentication)
         {
             if (!ModelState.IsValid) return BadRequest();
             try
             {
-                var authorization = _services.GetAuthorization(authentication);
+                var authorization = await _services.GetAuthorizationAsync(authentication);
                 return Ok(authorization);
             }
             catch (Exception ex)
