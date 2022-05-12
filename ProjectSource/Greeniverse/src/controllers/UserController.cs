@@ -1,9 +1,12 @@
-﻿using Greeniverse.src.dtos;
-using Greeniverse.src.DTOS;
+﻿using Greeniverse.src.DTOS;
 using Greeniverse.src.repositories;
 using Greeniverse.src.repositories.implementations;
+using Greeniverse.src.services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+
 namespace BlogPessoal.src.controller
 {
     [ApiController]
@@ -14,28 +17,28 @@ namespace BlogPessoal.src.controller
         #region Attributes
 
         private readonly IUser _repository;
+        private readonly IAuthentication _services;
 
         #endregion
-
 
         #region Constructors
 
-        public UserController(IUser repository)  
+        public UserController(IUser repository, IAuthentication services)  
         {
             _repository = repository;
+            _services = services;
         }
 
         #endregion
-
 
         #region Methods
 
 
         [HttpGet("id/{idUser}")]
         [Authorize(Roles = "IndividualPerson, Business")]
-        public IActionResult GetUserById([FromRoute] int idUser)
+        public async Task<IActionResult> GetUserByIdAsync([FromRoute] int idUser)
         {
-            var user = _repository.GetUserById(idUser);
+            var user = await _repository.GetUserByIdAsync(idUser);
 
             if (user == null) return NotFound();
 
@@ -44,9 +47,9 @@ namespace BlogPessoal.src.controller
 
         [HttpGet]
         [Authorize(Roles = "IndividualPerson, Business")]
-        public IActionResult GetUserByName([FromQuery] string nameUser)
+        public async Task<IActionResult> GetUserByNameAsync([FromQuery] string nameUser)
         {
-            var user = _repository.GetUserByName(nameUser);
+            var user = await _repository.GetUserByNameAsync(nameUser);
 
             if (user.Count < 1) return NoContent();
 
@@ -55,38 +58,51 @@ namespace BlogPessoal.src.controller
 
         [HttpGet("email/{emailUser}")]
         [Authorize(Roles = "IndividualPerson, Business")]
-        public IActionResult GetUserByEmail([FromRoute] string emailUser)
+        public async Task<IActionResult> GetUserByEmailAsync([FromRoute] string emailUser)
         {
-            var user = _repository.GetUserByEmail(emailUser);
+            var user = await _repository.GetUserByEmailAsync(emailUser);
             if (user == null) return NotFound();
             return Ok(user);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult NewUser([FromBody] NewUserDTO user)
+        public async Task<IActionResult> NewUserAsync([FromBody] NewUserDTO user)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            _repository.NewUser(user);
-            return Created($"api/User/email/{user.Email}", user);
+            try
+            {
+               await _services.CreateUserWithoutDuplicateAsync(user);
+               return Created($"api/User/email/{user.Email}", user);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+
         }
+
         [HttpPut]
         [Authorize(Roles = "IndividualPerson, Business")]
-        public IActionResult UpdateUser([FromBody] UpdateUserDTO user)
+        public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserDTO user)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            _repository.UpdateUser(user);
+            user.Password = _services.EncodePassword(user.Password);
+
+            await _repository.UpdateUserAsync(user);
             return Ok(user);
         }
+
         [HttpDelete("delete/{idUser}")]
         [Authorize(Roles = "Business")]
-        public IActionResult DeleteUser([FromRoute] int idUser)
+        public async Task<IActionResult> DeleteUserAsync([FromRoute] int idUser)
         {
-            _repository.DeleteUser(idUser);
+            await _repository.DeleteUserAsync(idUser);
             return NoContent();
         }
+
         #endregion
 
     }
