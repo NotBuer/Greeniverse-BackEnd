@@ -2,8 +2,10 @@
 using Greeniverse.src.data;
 using Greeniverse.src.dtos;
 using Greeniverse.src.models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
 {
@@ -11,7 +13,9 @@ namespace Greeniverse.src.repositories.implementations
     {
         
         #region Attribute
+
         private readonly GreeniverseContext _context;
+
         #endregion Attribute
         
 
@@ -24,41 +28,41 @@ namespace Greeniverse.src.repositories.implementations
 
         
         #region Methods
-        public void DeleteShoppingCart(int id)
+        public async Task DeleteShoppingCartAsync(int id)
         {
-            _context.ShoppingCart.Remove(GetShoppingCartById(id));
-            _context.SaveChanges();
+            _context.ShoppingCart.Remove(await GetShoppingCartByIdAsync(id));
+            await _context.SaveChangesAsync();
         }
 ﻿
-        public List<ShoppingCartModel> GetAllProducts()
+        public async Task<List<ShoppingCartModel>> GetAllProductsAsync()
         {
-            return _context.ShoppingCart.ToList();
+            return await _context.ShoppingCart.ToListAsync();
         }
 
-        public ShoppingCartModel GetShoppingCartById(int id)
+        public async Task<ShoppingCartModel> GetShoppingCartByIdAsync(int id)
         {
-            return _context.ShoppingCart.FirstOrDefault(s => s.Id == id);
+            return await _context.ShoppingCart.FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public void NewShoppingCart(NewShoppingCartDTO ShoppingCart)
+        public async Task NewShoppingCartAsync(NewShoppingCartDTO ShoppingCart)
         {
-            _context.ShoppingCart.Add(new ShoppingCartModel
+            await _context.ShoppingCart.AddAsync(new ShoppingCartModel
             {
                 AmountProduct = ShoppingCart.AmountProduct,
                 PaymentMethod = ShoppingCart.PaymentMethod,
                 Voucher = ShoppingCart.Voucher,
                 DeliveryAddress = ShoppingCart.DeliveryAdress,
             });
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void UpdateShoppingCart(UpdateShoppingCartDTO updateshoppingCart)
+        public async Task UpdateShoppingCartAsync(UpdateShoppingCartDTO updateshoppingCart)
         {
-            var CartExistance = GetShoppingCartById(updateshoppingCart.Id);
+            var CartExistance = await GetShoppingCartByIdAsync(updateshoppingCart.Id);
             CartExistance.AmountProduct = updateshoppingCart.AmountProduct;
             CartExistance.PaymentMethod = updateshoppingCart.PaymentMethod;
             CartExistance.Voucher = updateshoppingCart.Voucher;
             _context.ShoppingCart.Update(CartExistance);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         #endregion Methods
 
