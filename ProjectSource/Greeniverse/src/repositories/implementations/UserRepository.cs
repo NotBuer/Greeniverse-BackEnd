@@ -42,7 +42,7 @@ namespace Greeniverse.src.repositories.implementations
 
         public void UpdateUser(UpdateUserDTO user)
         {
-            UserModel existingUser = GetUserById(user.Id);
+            UserModel existingUser = GetUserByIdAsync(user.Id);
             existingUser.Name = user.Name;
             existingUser.Password = user.Password;
             existingUser.Address = user.Address;
@@ -53,16 +53,16 @@ namespace Greeniverse.src.repositories.implementations
 
         public void DeleteUser(int id)
         {
-          _context.User.Remove(GetUserById(id));
+          _context.User.Remove(GetUserByIdAsync(id));
           _context.SaveChanges();
         }
 
-        public UserModel GetUserByEmail(string email)
+        public UserModel GetUserByEmailAsync(string email)
         {
             return _context.User.FirstOrDefault(user => user.Email == email);
         }
 
-        public UserModel GetUserById(int id)
+        public UserModel GetUserByIdAsync(int id)
         {
             return _context.User.FirstOrDefault(u => u.Id == id);
         }

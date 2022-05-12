@@ -64,7 +64,7 @@ namespace Greeniverse.src.services.implementations
         }
         public AuthorizationDTO GetAuthorization(AuthenticationDTO authentication)
         {
-            var user = _repository.GetUserByEmail(authentication.Email);
+            var user = _repository.GetUserByEmailAsync(authentication.Email);
             if (user == null) throw new Exception("Usuário não encontrado");
             if (user.Password != EncodePassword(authentication.Password)) throw new
             Exception("Senha incorreta");
@@ -74,7 +74,7 @@ namespace Greeniverse.src.services.implementations
 
         public void CreateUserWithoutDuplicate(NewUserDTO userDTO)
         {
-            var userObject = _repository.GetUserByEmail(userDTO.Email);
+            var userObject = _repository.GetUserByEmailAsync(userDTO.Email);
             if (userObject != null) throw new Exception("Este email já está sendo utilizado");
             userDTO.Password = EncodePassword(userDTO.Password);
             _repository.NewUser(userDTO);
