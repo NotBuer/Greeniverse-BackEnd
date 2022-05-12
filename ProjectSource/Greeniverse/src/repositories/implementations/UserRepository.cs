@@ -1,8 +1,10 @@
 ﻿using Greeniverse.src.data;
 using Greeniverse.src.DTOS;
 using Greeniverse.src.models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
 {
@@ -26,9 +28,9 @@ namespace Greeniverse.src.repositories.implementations
 
 
         #region Methods
-        public void NewUser(NewUserDTO user)
+        public async Task NewUserAsync (NewUserDTO user)
         {
-            _context.User.Add(new UserModel
+            await _context.User.AddAsync(new UserModel
             {
                 Name = user.Name,
                 Email = user.Email,
@@ -37,39 +39,57 @@ namespace Greeniverse.src.repositories.implementations
                 Telephone = user.Phone,
                 UserType = user.UserType
             });
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateUser(UpdateUserDTO user)
+        public async  Task UpdateUserAsync (UpdateUserDTO user)
         {
+<<<<<<< HEAD
             UserModel existingUser = GetUserByIdAsync(user.Id);
+=======
+            UserModel existingUser = await GetUserByIdAsync(user.Id);
+>>>>>>> 89007d78768a4e816a61ef7c2ba4ddd7ed3e1b99
             existingUser.Name = user.Name;
             existingUser.Password = user.Password;
             existingUser.Address = user.Address;
             existingUser.Telephone = user.Phone;
             _context.User.Update(existingUser);
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
         }
 
-        public void DeleteUser(int id)
+        public async Task DeleteUserAsync (int id)
         {
+<<<<<<< HEAD
           _context.User.Remove(GetUserByIdAsync(id));
           _context.SaveChanges();
         }
 
         public UserModel GetUserByEmailAsync(string email)
-        {
-            return _context.User.FirstOrDefault(user => user.Email == email);
+=======
+          _context.User.Remove( await GetUserByIdAsync(id));
+           await _context.SaveChangesAsync();
         }
 
+        public async Task<UserModel> GetUserByEmailAsync(string email)
+>>>>>>> 89007d78768a4e816a61ef7c2ba4ddd7ed3e1b99
+        {
+            return await _context.User.FirstOrDefaultAsync(user => user.Email == email);
+        }
+
+<<<<<<< HEAD
         public UserModel GetUserByIdAsync(int id)
+=======
+        public  async Task<UserModel> GetUserByIdAsync (int id )
+>>>>>>> 89007d78768a4e816a61ef7c2ba4ddd7ed3e1b99
         {
-            return _context.User.FirstOrDefault(u => u.Id == id);
+            return await _context.User.FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public List<UserModel> GetUserByName(string name)
+        public async Task<List<UserModel>> GetUserByNameAsync(string name)
         {
-            return _context.User.Where(u => u.Name==name).ToList();
+            return await _context.User
+                .Where(u => u.Name==name)
+                .ToListAsync();
             
             
         }

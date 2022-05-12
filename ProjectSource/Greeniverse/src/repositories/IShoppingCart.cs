@@ -1,17 +1,18 @@
 ﻿using Greeniverse.src.dtos;
 using Greeniverse.src.models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
 {
     public interface IShoppingCart
     {
-        void NewShoppingCart(NewShoppingCartDTO ShoppingCart);
-        void UpdateShoppingCart(UpdateShoppingCartDTO UpdateShoppingCart);
-        void DeleteShoppingCart(int id);
+        Task NewShoppingCartAsync(NewShoppingCartDTO ShoppingCart);
+        Task UpdateShoppingCartAsync(UpdateShoppingCartDTO UpdateShoppingCart);
+        Task DeleteShoppingCartAsync(int id);
 
-        ShoppingCartModel GetShoppingCartById(int id);
-        List<ShoppingCartModel> GetAllProducts();
+        Task<ShoppingCartModel> GetShoppingCartByIdAsync(int id);
+        Task<List<ShoppingCartModel>> GetAllProductsAsync();
         
     }
 }

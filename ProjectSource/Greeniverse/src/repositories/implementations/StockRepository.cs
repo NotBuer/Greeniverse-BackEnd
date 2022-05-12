@@ -4,6 +4,7 @@ using Greeniverse.src.models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
 {
@@ -29,9 +30,9 @@ namespace Greeniverse.src.repositories.implementations
         
 
         #region Methods
-        public void NewProduct(NewStockDTO Product)
+        public async Task NewProductAsync(NewStockDTO Product)
         {
-            _context.Stock.Add(new StockModel
+           await _context.Stock.AddAsync(new StockModel
             {
                 ProductName = Product.ProductName,
                 Type = Product.Type,
@@ -41,84 +42,84 @@ namespace Greeniverse.src.repositories.implementations
 
             });
 
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
         }
         
-        public void UpdateProduct(UpdateStockDTO Updateproduct)
+        public async Task UpdateProductAsync(UpdateStockDTO Updateproduct)
         {
-            StockModel ProductExistent = GetProductById(Updateproduct.Id);
+            StockModel ProductExistent =await GetProductByIdAsync(Updateproduct.Id);
             ProductExistent.Description = ProductExistent.Description;
         }
 
-        public void DeleteProduct(int id)
+        public async Task DeleteProductAsync(int id)
         {
-            _context.Stock.Remove(GetProductById(id));
-            _context.SaveChanges();
+            _context.Stock.Remove(await GetProductByIdAsync(id));
+           await _context.SaveChangesAsync();
         }
 
-        public StockModel GetProductById(int id)
+        public async Task<StockModel> GetProductByIdAsync(int id)
         {
-            return _context.Stock.FirstOrDefault(s => s.Id == id);
+            return await _context.Stock.FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public List<StockModel> GetProductsBySearch(string type, string description, string productName)
+        public async Task<List<StockModel>> GetProductsBySearchAsync(string type, string description, string productName)
         {
 
             switch (type, description, productName)
             {
-                case (null, null, null): return GetAllProducts();
+                case (null, null, null): return await GetAllProductsAsync();
                 case (null, null, _):
-                    return _context.Stock
+                    return await _context.Stock
                    .Include(p => p.Type)
                    .Include(p => p.Description)
                    .Where(p => p.ProductName.Contains(productName))
-                   .ToList();
+                   .ToListAsync();
 
                 case (null, _, null):
-                    return _context.Stock
+                    return await _context.Stock
                    .Include(p => p.Type)
                    .Include(p => p.ProductName)
                    .Where(p => p.Description.Contains(description))
-                   .ToList();
+                   .ToListAsync();
 
                 case (_, null, null):
-                    return _context.Stock
+                    return await _context.Stock
                    .Include(p => p.Description)
                    .Include(p => p.ProductName)
                    .Where(p => p.Type.Contains(type))
-                   .ToList();
+                   .ToListAsync();
 
                 case (_, _, null):
-                    return _context.Stock
+                    return await _context.Stock
                    .Include(p => p.ProductName)
                    .Where(p => p.Type.Contains(type) & p.Description.Contains(description))
-                   .ToList();
+                   .ToListAsync();
 
                 case (null, _, _):
-                    return _context.Stock
+                    return await _context.Stock
                    .Include(p => p.Type)
                    .Where(p => p.Description.Contains(description) & p.ProductName.Contains(productName))
-                   .ToList();
+                   .ToListAsync();
 
                 case (_, null, _):
-                    return _context.Stock
+                    return await _context.Stock
                    .Include(p => p.Description)
                    .Where(p => p.Type.Contains(type) & p.ProductName.Contains(productName))
-                   .ToList();
+                   .ToListAsync();
 
                 case (_, _, _):
-                    return _context.Stock
+                    return await _context.Stock
                    .Where(s => s.Type.Contains(type) |
                    s.Description.Contains(description) | 
                    s.ProductName.Contains(productName))
-                   .ToList();
+                   .ToListAsync();
             }
         }
 
-        public List<StockModel> GetAllProducts()
+        public async Task<List<StockModel>> GetAllProductsAsync()
         {
-            return _context.Stock
-                .ToList();
+            return await _context.Stock
+                .ToListAsync();
         }
         #endregion
 

@@ -2,6 +2,7 @@
 using Greeniverse.src.repositories.implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Greeniverse.src.controllers
 {
@@ -30,9 +31,9 @@ namespace Greeniverse.src.controllers
 
         [HttpGet("id/{idShoppingCart}")]
         [Authorize]
-        public IActionResult GetShoppingCartById([FromRoute] int idShoppingCart)
+        public async Task<ActionResult> GetShoppingCartByIdAsync([FromRoute] int idShoppingCart)
         {
-            var shoppingcart = _repository.GetShoppingCartById(idShoppingCart);
+            var shoppingcart = _repository.GetShoppingCartByIdAsync(idShoppingCart);
 
             if (shoppingcart == null) return NotFound();
 
@@ -41,9 +42,9 @@ namespace Greeniverse.src.controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult GetAllProducts()
+        public Task<ActionResult> GetAllProductsAsync()
         {
-            var list = _repository.GetAllProducts();
+            var list = await _repository.GetAllProductsAsync();
 
             if (list.Count < 1) return NoContent();
 
@@ -52,30 +53,30 @@ namespace Greeniverse.src.controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult NewShoppingCart([FromBody] NewShoppingCartDTO shoppingCart)
+        public Task<ActionResult> NewShoppingCartAsync([FromBody] NewShoppingCartDTO shoppingCart)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            _repository.NewShoppingCart(shoppingCart);
+            await _repository.NewShoppingCartAsync(shoppingCart);
 
             return Created($"api/ShoppingCart", shoppingCart);
         }
 
         [HttpPut]
-        public IActionResult UpdateShoppingCart([FromBody] UpdateShoppingCartDTO shoppingCart)
+        public Task<ActionResult> UpdateShoppingCartAsync([FromBody] UpdateShoppingCartDTO shoppingCart)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            _repository.UpdateShoppingCart(shoppingCart);
+            await _repository.UpdateShoppingCartAsync(shoppingCart);
 
             return Ok(shoppingCart);
         }
 
         [HttpDelete("delete/{idShoppingCart}")]
         [Authorize]
-        public IActionResult DeleteShoppingCart([FromRoute] int idShoppingCart)
+        public Task<ActionResult> DeleteShoppingCartAsync([FromRoute] int idShoppingCart)
         {
-            _repository.DeleteShoppingCart(idShoppingCart);
+            await _repository.DeleteShoppingCartAsync(idShoppingCart);
             return NoContent();
         }
 
