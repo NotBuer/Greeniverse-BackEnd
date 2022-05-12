@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace GreeniverseTest.Tests.repositories
 {
+
     [TestClass]
     public class UserRepositoryTest
     {
@@ -38,7 +39,7 @@ namespace GreeniverseTest.Tests.repositories
         }
 
         [TestMethod]
-        public void GetUserByEmaillReturnNotNull()
+        public void GetUserByEmailReturnNotNull()
         {
             var opt = new DbContextOptionsBuilder<GreeniverseContext>()
                 .UseInMemoryDatabase(databaseName: "db_greeniverse2")
@@ -58,7 +59,7 @@ namespace GreeniverseTest.Tests.repositories
         }
 
         [TestMethod]
-        public void Get UserByIdReturnNotNullAndUserName()
+        public void GetUserByIdReturnNotNullAndUserName()
         {
             var opt = new DbContextOptionsBuilder<GreeniverseContext>()
                 .UseInMemoryDatabase(databaseName: "db_greeniverse3")
@@ -91,15 +92,13 @@ namespace GreeniverseTest.Tests.repositories
 
             _repository.NewUser(
                 new NewUserDTO(
-                    "Uriel Pereira", "uriel@email.com", "48291038", "AddressTest", 520584015, UserType.IndividualPerson
-        )
+                    "Uriel Pereira", "uriel@email.com", "48291038", "AddressTest", 520584015, UserType.IndividualPerson)
             );
 
             var old = _repository.GetUserByEmailAsync("uriel@email.com");
             _repository.UpdateUser(
                 new UpdateUserDTO(
-                        "Uriel Pereira", "urielpereira@email.com", "12345678", "AddressTest", 520584015, UserType.IndividualPerson
-        )
+                        "Uriel Pereira", "urielpereira@email.com", "12345678", "AddressTest", 520584015, UserType.IndividualPerson)
             );
 
             Assert.AreEqual(

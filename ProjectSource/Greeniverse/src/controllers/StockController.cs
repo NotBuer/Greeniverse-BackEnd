@@ -42,7 +42,6 @@ namespace Greeniverse.src.controllers
 
         [HttpGet("id/{idStock}")]
         [Authorize]
-
         public async Task<ActionResult> GetProductByIdAsync([FromRoute] int idStock)
         {
 
@@ -53,20 +52,18 @@ namespace Greeniverse.src.controllers
 
         [HttpGet("search")]
         [Authorize]
-
         public async Task<ActionResult> GetProductsBySearchAsync(
             [FromQuery] string type,
             [FromQuery] string description,
             [FromQuery] string productName)
-         {
+        {
             var stocks =await _repository.GetProductsBySearchAsync(type, description, productName);
             if (stocks.Count < 1) return NoContent();
             return Ok(stocks);
-         }
+        }
 
         [HttpPost]
         [Authorize(Roles = "Business")]
-
         public async Task<ActionResult> NewProductAsync([FromBody] NewStockDTO stock)
         {
             if (!ModelState.IsValid) return BadRequest();

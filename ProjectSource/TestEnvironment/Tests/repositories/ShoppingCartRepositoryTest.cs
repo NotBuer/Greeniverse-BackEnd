@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace TestEnvironment.Tests.repositories
 {
+
     [TestClass]
     public class ShoppingCartRepositoryTest
     {
@@ -18,13 +19,23 @@ namespace TestEnvironment.Tests.repositories
         private IStock _repositoryS;
         private IShoppingCart _repositorySC;
 
-    [TestMethod]
-    _repositorySC.UpdateShoppingCart(
-        new UpdateShoppingCartDTO(
-            1,
-            15,
-            "Pix",
-            "desconto20reais",
-            "Rua forte de tamandare, 556"
-            )
-};
+        [TestMethod]
+        private void CreateThreeShoppingCartsReturnsThreeShoppingCartNotNull()
+        {
+
+        }
+
+        [TestMethod]
+        private void GetCartByDeliveryAddressReturnsNotNull()
+        {
+
+        }
+
+        [TestMethod]
+        private void GetCartByIdReturnNotNullAndPaymentMethod()
+        {
+
+        }
+
+    }
+}

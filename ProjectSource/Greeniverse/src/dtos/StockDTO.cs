@@ -32,6 +32,8 @@ namespace Greeniverse.src.dtos
             ProductName = productName;
             Provider = provider;
         }
+
+        public NewStockDTO() { }
     }
     
     public class UpdateStockDTO
@@ -62,5 +64,7 @@ namespace Greeniverse.src.dtos
             ProductName = productName;
             Provider = provider;
         }
+
+        public UpdateStockDTO() { }
     }
 }
