@@ -3,6 +3,7 @@
 using Greeniverse.src.repositories.implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Greeniverse.src.controllers
 {   
@@ -30,9 +31,9 @@ namespace Greeniverse.src.controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult GetAllProducts()
+        public  async Task<ActionResult> GetAllProductsAsync()
         {
-            var list = _repository.GetAllProducts();
+            var list = await _repository.GetAllProductsAsync();
 
             if (list.Count == 1) return NoContent();
             return Ok(list);
@@ -42,10 +43,10 @@ namespace Greeniverse.src.controllers
         [HttpGet("id/{idStock}")]
         [Authorize]
 
-        public IActionResult GetProductById([FromRoute] int idStock)
+        public async Task<ActionResult> GetProductByIdAsync([FromRoute] int idStock)
         {
 
-            var stock= _repository.GetProductById(idStock);
+            var stock= await _repository.GetProductByIdAsync(idStock);
             if (stock == null) return NotFound();
             return Ok(stock);
         }
@@ -53,12 +54,12 @@ namespace Greeniverse.src.controllers
         [HttpGet("search")]
         [Authorize]
 
-        public IActionResult GetProductsBySearch(
+        public async Task<ActionResult> GetProductsBySearchAsync(
             [FromQuery] string type,
             [FromQuery] string description,
             [FromQuery] string productName)
          {
-            var stocks = _repository.GetProductsBySearch(type, description, productName);
+            var stocks =await _repository.GetProductsBySearchAsync(type, description, productName);
             if (stocks.Count < 1) return NoContent();
             return Ok(stocks);
          }
@@ -66,28 +67,28 @@ namespace Greeniverse.src.controllers
         [HttpPost]
         [Authorize(Roles = "Business")]
 
-        public IActionResult NewProduct([FromBody] NewStockDTO stock)
+        public async Task<ActionResult> NewProductAsync([FromBody] NewStockDTO stock)
         {
             if (!ModelState.IsValid) return BadRequest();
-            _repository.NewProduct(stock);
+            await _repository.NewProductAsync(stock);
             return Created($"Api/stocks/id/{stock.Id}", stock);
         }
 
         [HttpPut]
         [Authorize(Roles = "Business")]
-        public IActionResult UpdateProduct([FromBody] UpdateStockDTO stock)
+        public async Task<ActionResult> UpdateProductAsync([FromBody] UpdateStockDTO stock)
         {
             if (!ModelState.IsValid) return BadRequest();
-            _repository.UpdateProduct(stock);
+           await _repository.UpdateProductAsync(stock);
             return Ok(stock);
         }
 
         [HttpDelete(("delete/{idStock}"))]
         [Authorize(Roles = "Business")]
-        public IActionResult DeleteProduct([FromRoute] int idStock)
+        public async Task<ActionResult> DeleteProductAsync([FromRoute] int idStock)
         {
-            _repository.DeleteProduct(idStock);
-            return Ok();
+            await _repository.DeleteProductAsync(idStock);
+            return NoContent();
         }
 
         #endregion
