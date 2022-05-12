@@ -30,7 +30,7 @@ namespace TestEnvironment.Tests.repositories
 
             await _repository.NewStockAsync(new NewStockDTO("Morango"));
 
-            var stock = await _repositoriy.GetStockByDescriptionAsync("Banana");
+            var stock = await _repository.GetStockByDescriptionAsync("Banana");
 
 
             Assert.AreEqual(2, stock.Count);
@@ -51,7 +51,7 @@ namespace TestEnvironment.Tests.repositories
             _repository = new StockRepository(_context);
 
 
-            await _repository.NovoTemaAsync(new NewStockDTO("Banana"));
+            await _repository.NewStockAsync(new NewStockDTO("Banana"));
 
             await _repository.UpdateStockAsync(new UpdateStockDTO(1, "Morango"));
 
