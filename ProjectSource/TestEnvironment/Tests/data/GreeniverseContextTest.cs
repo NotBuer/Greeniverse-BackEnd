@@ -166,6 +166,7 @@ namespace TestEnvironment.Tests.data
             _context.ShoppingCart.Add(cart);
             _context.SaveChanges();
 
+            // Now that we have at least one shopping cart available to be deleted, then delete it
             _context.ShoppingCart.Remove(cart);
             _context.SaveChanges();
         }
