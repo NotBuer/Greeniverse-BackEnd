@@ -1,7 +1,9 @@
 
 ﻿using Greeniverse.src.dtos;
+using Greeniverse.src.models;
 using Greeniverse.src.repositories.implementations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -29,6 +31,14 @@ namespace Greeniverse.src.controllers
 
         #region Methods
 
+        /// <summary>
+        /// Get all Products
+        /// </summary>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Returns all themes</response>
+        /// <response code="204">No content</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize]
         public  async Task<ActionResult> GetAllProductsAsync()
@@ -40,6 +50,15 @@ namespace Greeniverse.src.controllers
 
         }
 
+        /// <summary>
+        /// Get Product By Id
+        /// </summary>
+        ///<returns>ActionResult</returns>
+        /// <param name="idStock">int</param>
+        /// <response code="200">Return the Product</response>
+        /// <response code="404">Product not found</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idStock}")]
         [Authorize]
         public async Task<ActionResult> GetProductByIdAsync([FromRoute] int idStock)
@@ -50,6 +69,17 @@ namespace Greeniverse.src.controllers
             return Ok(stock);
         }
 
+        /// <summary>
+        /// Get Product By Search
+        /// </summary>
+        /// <param name="type">Enum</param>
+        /// <param name="description">StockDTO</param>
+        ///<param name="productName">StockDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Return the Product</response>
+        /// <response code="204">Ok, but no content</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("search")]
         [Authorize]
         public async Task<ActionResult> GetProductsBySearchAsync(
@@ -62,6 +92,29 @@ namespace Greeniverse.src.controllers
             return Ok(stocks);
         }
 
+        /// <summary>
+        /// Create a new Product
+        /// </summary>
+        /// <param name="stock">StockDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /api/stock
+        ///     {
+        ///         "id": 1
+        ///        "type": "Fruits",
+        ///        "description": "red fruit",
+        ///        "price": 3.55f,
+        ///        "productName": "strawberry",
+        ///        "provider": "Business"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created stock</response>
+        /// <response code="400">Error in request</response>
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(StockModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Authorize(Roles = "Business")]
         public async Task<ActionResult> NewProductAsync([FromBody] NewStockDTO stock)
@@ -71,6 +124,29 @@ namespace Greeniverse.src.controllers
             return Created($"Api/stocks/id/{stock.Id}", stock);
         }
 
+        /// <summary>
+        /// Update a Product
+        /// </summary>
+        /// <param name="stock">UpdateStockDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /api/stock
+        ///     {
+        ///         "id": 1
+        ///        "type": "Fruits",
+        ///        "description": "red fruit",
+        ///        "price": 4.55f,
+        ///        "productName": "strawberry",
+        ///        "provider": "Business"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Product updated</response>
+        /// <response code="400">Error in request</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize(Roles = "Business")]
         public async Task<ActionResult> UpdateProductAsync([FromBody] UpdateStockDTO stock)
@@ -80,6 +156,15 @@ namespace Greeniverse.src.controllers
             return Ok(stock);
         }
 
+        /// <summary>
+        /// Delete a product by id
+        /// </summary>
+        /// <param name="idStock">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Product deleted</response>
+        /// <response code="204">Ok, but no content</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete(("delete/{idStock}"))]
         [Authorize(Roles = "Business")]
         public async Task<ActionResult> DeleteProductAsync([FromRoute] int idStock)

@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
 {
+    /// <summary>
+    /// <para>Resume: Interface responsible for representing CRUD actions stock</para>
+    /// <para>Version: 1.0</para>
+    /// <para>Date: 2022-05-03</para>
+    /// </summary>
     public interface IStock
     {
         Task NewProductAsync(NewStockDTO Product);
