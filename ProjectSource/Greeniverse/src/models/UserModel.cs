@@ -6,8 +6,11 @@ using Greeniverse.src.utils;
 
 namespace Greeniverse.src.models
 {
-
-
+    /// <summary>
+    /// <para>Abstract: Responsible Class for represent tb_users in the bank.</para>
+    /// <para>Version: 1.0</para>
+    /// <para>Date: 05/13/2022</para>
+    /// </summary>
 
     [Table("tb_users")]
     public class UserModel
