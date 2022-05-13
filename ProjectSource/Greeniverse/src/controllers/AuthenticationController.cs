@@ -34,7 +34,7 @@ namespace BlogPessoal.src.controladores
         /// creating an Authentication
         /// </summary>
         /// <param name="authentication"></param>
-        /// <returns> code="200">Return the Authentication</response>
+        /// <returns> code="200">Return the Authentication </response>
         /// </returns>code="401">Authentication incorrect </response>
 
         [HttpPost]

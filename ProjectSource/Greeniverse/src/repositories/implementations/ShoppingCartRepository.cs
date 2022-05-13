@@ -26,19 +26,18 @@ namespace Greeniverse.src.repositories.implementations
         }
         #endregion Constructor
 
-        
-        #region Methods
+
+        #region  
+
         public async Task DeleteShoppingCartAsync(int id)
         {
             _context.ShoppingCart.Remove(await GetShoppingCartByIdAsync(id));
             await _context.SaveChangesAsync();
         }
-﻿
         public async Task<List<ShoppingCartModel>> GetAllProductsAsync()
         {
             return await _context.ShoppingCart.ToListAsync();
         }
-
         public async Task<ShoppingCartModel> GetShoppingCartByIdAsync(int id)
         {
             return await _context.ShoppingCart.FirstOrDefaultAsync(s => s.Id == id);
@@ -55,6 +54,7 @@ namespace Greeniverse.src.repositories.implementations
             });
             await _context.SaveChangesAsync();
         }
+       
         public async Task UpdateShoppingCartAsync(UpdateShoppingCartDTO updateshoppingCart)
         {
             var CartExistance = await GetShoppingCartByIdAsync(updateshoppingCart.Id);
