@@ -8,16 +8,21 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
-{
+{ 
+  /// <summary>
+  /// <para>Resume: Class responsible for implement methos CRUD shoppingcart.</para>
+  /// <para>Version: 1.0</para>
+  /// <para>Date: 05/13/22</para>
+  /// </summary>
     public class ShoppingCartRepository : IShoppingCart
     {
-        
+
         #region Attribute
 
         private readonly GreeniverseContext _context;
 
         #endregion Attribute
-        
+
 
         #region Constructor
         public ShoppingCartRepository(GreeniverseContext context)
@@ -26,23 +31,42 @@ namespace Greeniverse.src.repositories.implementations
         }
         #endregion Constructor
 
-        
-        #region Methods
+
+        #region  
+        /// <summary>
+        /// <para>Resume: method for delete existent ShoppingCart.</para>
+        /// </summary>
+        /// <param name="id">Id of ShoppingCart</param>
         public async Task DeleteShoppingCartAsync(int id)
         {
             _context.ShoppingCart.Remove(await GetShoppingCartByIdAsync(id));
             await _context.SaveChangesAsync();
         }
-﻿
+
+        /// <summary>
+        /// <para>Resume: method for get all products of ShoppingCart.</para>
+        /// </summary>
+        /// <returns>List of ShoppingCartModel</returns>?
         public async Task<List<ShoppingCartModel>> GetAllProductsAsync()
         {
             return await _context.ShoppingCart.ToListAsync();
         }
 
+        /// <summary>
+        /// <para>Resume: method for get ShoppingCart by id.</para>
+        /// </summary>
+        /// <param name="id">Id of ShoppingCart</param>
+        /// <returns>ShoppingCartModel</returns>
         public async Task<ShoppingCartModel> GetShoppingCartByIdAsync(int id)
         {
             return await _context.ShoppingCart.FirstOrDefaultAsync(s => s.Id == id);
         }
+
+        /// <summary>
+        /// <para>Resume: method for add new ShoppingCart .</para>
+        /// </summary>
+        /// <param name="post">ShoppingCartDTO</param>
+        /// <returns>ShoppingCartModel</returns>
 
         public async Task NewShoppingCartAsync(NewShoppingCartDTO ShoppingCart)
         {
@@ -55,6 +79,11 @@ namespace Greeniverse.src.repositories.implementations
             });
             await _context.SaveChangesAsync();
         }
+        /// <summary>
+        /// <para>Resume: method for update existent ShoppingCart.</para>
+        /// </summary>
+        /// <param name="post">ShoppingCartDTO</param>
+        /// <returns>ShoppingCartModel</returns>
         public async Task UpdateShoppingCartAsync(UpdateShoppingCartDTO updateshoppingCart)
         {
             var CartExistance = await GetShoppingCartByIdAsync(updateshoppingCart.Id);

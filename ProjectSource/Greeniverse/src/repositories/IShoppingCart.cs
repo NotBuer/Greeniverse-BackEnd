@@ -5,6 +5,12 @@ using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
 {
+    /// <summary>
+    /// <para>Resume: Interface responsible for representing CRUD actions ShoppingCart.</para>
+    /// <para>Version: 1.0</para>
+    /// <para>Date: 2022-13-05</para>
+    /// </summary>
+    
     public interface IShoppingCart
     {
         Task NewShoppingCartAsync(NewShoppingCartDTO ShoppingCart);
