@@ -29,6 +29,11 @@ namespace BlogPessoal.src.controladores
         #endregion Constructor
 
         #region Methods
+        /// <summary>
+        /// <para>Abstract: Responsible Class for authentication.</para>
+        /// <para>Version: 1.0</para>
+        /// <para>Date: 05/13/2022</para>
+        /// </summary>
 
         [HttpPost]
         [AllowAnonymous]
