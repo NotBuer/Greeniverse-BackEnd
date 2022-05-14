@@ -35,6 +35,13 @@ namespace BlogPessoal.src.controladores
         /// <para>Date: 05/13/2022</para>
         /// </summary>
 
+        /// <summary>
+        /// creating an Authentication
+        /// </summary>
+        /// <param name="authentication"></param>
+        /// <returns> code="200">Return the Authentication </response>
+        /// </returns>code="401">Authentication incorrect </response>
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> AuthenticateAsync([FromBody] AuthenticationDTO authentication)

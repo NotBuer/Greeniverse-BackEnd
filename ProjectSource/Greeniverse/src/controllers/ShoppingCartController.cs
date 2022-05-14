@@ -29,6 +29,14 @@ namespace Greeniverse.src.controllers
 
         #region Methods
 
+        /// <summary>
+        /// Get shoppingcart by Id
+        /// </summary>
+        /// <param name="idShoppingCart">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Return the ShoppingCart</response>
+        /// <response code="404">ShoppingCart not existent</response>
+
         [HttpGet("id/{idShoppingCart}")]
         [Authorize]
         public async Task<ActionResult> GetShoppingCartByIdAsync([FromRoute] int idShoppingCart)
@@ -39,6 +47,14 @@ namespace Greeniverse.src.controllers
 
             return Ok(shoppingcart);
         }
+
+        /// <summary>
+        /// Get shoppingcart products list
+        /// </summary>
+        /// <param name="shoppingCart">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Return the ShoppingCart Products list</response>
+        /// <response code="404">ShoppingCart not existent</response>
 
         [HttpGet]
         [Authorize]
@@ -51,6 +67,14 @@ namespace Greeniverse.src.controllers
             return Ok(list);
         }
 
+        /// <summary>
+        /// Create a new shopping cart
+        /// </summary>
+        /// <param name="shoppingCart">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Create a new shopping cart</response>
+        /// <response code="400">Cannot create shopping cart</response>
+
         [HttpPost]
         [Authorize]
         public Task<ActionResult> NewShoppingCartAsync([FromBody] NewShoppingCartDTO shoppingCart)
@@ -62,6 +86,14 @@ namespace Greeniverse.src.controllers
             return Created($"api/ShoppingCart", shoppingCart);
         }
 
+        /// <summary>
+        /// Update the existing shopping cart
+        /// </summary>
+        /// <param name="shoppingCart">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Update shopping cart</response>
+        /// <response code="400">Cannot update shopping cart</response>
+
         [HttpPut]
         public Task<ActionResult> UpdateShoppingCartAsync([FromBody] UpdateShoppingCartDTO shoppingCart)
         {
@@ -71,6 +103,13 @@ namespace Greeniverse.src.controllers
 
             return Ok(shoppingCart);
         }
+
+        /// <summary>
+        /// Delete the existing shopping cart
+        /// </summary>
+        /// <param name="idShoppingCart">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="204">No content</response>
 
         [HttpDelete("delete/{idShoppingCart}")]
         [Authorize]

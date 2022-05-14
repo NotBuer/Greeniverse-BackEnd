@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace Greeniverse.src.repositories.implementations
 {
+    /// <summary>
+    /// <para>Resume: Class responsible for implement methods CRUD Stock.</para>
+    /// <para>Version: 1.0</para>
+    /// <para>Date: 2022-05-03</para>
+    /// </summary>
     public class StockRepository : IStock
     {
-
 
         #region Attribute
 
@@ -26,10 +30,16 @@ namespace Greeniverse.src.repositories.implementations
             _context = context;
         }
 
-        #endregion 
-        
+        #endregion
+
 
         #region Methods
+
+        /// <summary>
+        /// <para>Resume: method for add new product.</para>
+        /// </summary>
+        /// <param name="Product">NewStockDTO</param>
+        /// <returns>StockModel</returns>
         public async Task NewProductAsync(NewStockDTO Product)
         {
            await _context.Stock.AddAsync(new StockModel
@@ -44,24 +54,45 @@ namespace Greeniverse.src.repositories.implementations
 
            await _context.SaveChangesAsync();
         }
-        
+
+        /// <summary>
+        /// <para>Resume: method for update existent product.</para>
+        /// </summary>
+        /// <param name="Updateproduct">StockUpdateDTO</param>
+        /// <returns>StockModel</returns>
         public async Task UpdateProductAsync(UpdateStockDTO Updateproduct)
         {
             StockModel ProductExistent =await GetProductByIdAsync(Updateproduct.Id);
             ProductExistent.Description = ProductExistent.Description;
         }
 
+        /// <summary>
+        /// <para>Resume: method for delete existent product.</para>
+        /// </summary>
+        /// <param name="id">Id of stock</param>
         public async Task DeleteProductAsync(int id)
         {
             _context.Stock.Remove(await GetProductByIdAsync(id));
            await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// <para>Resume: method for get post by id.</para>
+        /// </summary>
+        /// <param name="id">Id of product</param>
+        /// <returns>StockModel</returns>
         public async Task<StockModel> GetProductByIdAsync(int id)
         {
             return await _context.Stock.FirstOrDefaultAsync(s => s.Id == id);
         }
 
+        /// <summary>
+        /// <para>Resume: Query method for get stock by type or description and productname creator</para>
+        /// </summary>
+        /// <param name="type">Type of product</param>
+        /// <param name="description">Description of product</param>
+        /// <param name="productName">ProductName of product</param>
+        /// <returns>List of StockModel</returns>
         public async Task<List<StockModel>> GetProductsBySearchAsync(string type, string description, string productName)
         {
 
@@ -116,6 +147,10 @@ namespace Greeniverse.src.repositories.implementations
             }
         }
 
+        /// <summary>
+        /// <para>Resume: method for get all products.</para>
+        /// </summary>
+        /// <returns>List of StockModel</returns>
         public async Task<List<StockModel>> GetAllProductsAsync()
         {
             return await _context.Stock
