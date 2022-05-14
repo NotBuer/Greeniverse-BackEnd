@@ -3,6 +3,11 @@ using Greeniverse.src.utils;
 
 namespace Greeniverse.src.DTOS
 {
+    /// <summary>
+    /// <para>abstract: Mirror Class for create a new user</para>
+    /// <para>Version: 1.0</para>
+    /// <para>Date: 05/13/2022</para>
+    /// </summary>
 
     public class NewUserDTO
     {
@@ -34,6 +39,11 @@ namespace Greeniverse.src.DTOS
             UserType = userType;
         }
     }
+    /// <summary>
+    /// <para>abstract: Mirror Class for change a new user</para>
+    /// <para>Version: 1.0</para>
+    /// <para>Date: 05/13/2022</para>
+    /// </summary>
 
     public class UpdateUserDTO
     {
