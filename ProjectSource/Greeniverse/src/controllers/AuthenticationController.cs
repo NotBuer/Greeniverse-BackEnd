@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Greeniverse.src.dtos;
 using Greeniverse.src.services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.src.controladores
@@ -29,19 +30,29 @@ namespace BlogPessoal.src.controladores
         #endregion Constructor
 
         #region Methods
-        /// <summary>
-        /// <para>Abstract: Responsible Class for authentication.</para>
-        /// <para>Version: 1.0</para>
-        /// <para>Date: 05/13/2022</para>
-        /// </summary>
 
         /// <summary>
-        /// creating an Authentication
+        /// Get Authorization
         /// </summary>
-        /// <param name="authentication"></param>
-        /// <returns> code="200">Return the Authentication </response>
-        /// </returns>code="401">Authentication incorrect </response>
+        /// <param name="authentication">AutenticarDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Requisition example:
+        ///
+        ///     POST /api/Authentication
+        ///     {
+        ///        "email": "murilo@domain.com",
+        ///        "senha": "134652"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Return user created</response>
+        /// <response code="400">Request error</response>
+        /// <response code="401">Invalid email or password</response>
 
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(AuthorizationDTO))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> AuthenticateAsync([FromBody] AuthenticationDTO authentication)
