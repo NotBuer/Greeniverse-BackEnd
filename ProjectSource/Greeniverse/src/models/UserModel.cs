@@ -18,7 +18,7 @@ namespace Greeniverse.src.models
 
         public UserModel() { }
 
-        public UserModel(string name, string email, string password, string address, int telephone, UserType userType)
+        public UserModel(string name, string email, string password, string address, string telephone, UserType userType)
         {
             Name = name;
             Email = email;
@@ -44,8 +44,8 @@ namespace Greeniverse.src.models
         [Required, StringLength(50)]
         public string Address { get; set; }
 
-        [Required]
-        public int Telephone { get; set; }
+        [Required, StringLength(50)]
+        public string Telephone { get; set; }
 
         [Required]
         public UserType UserType { get; set; }

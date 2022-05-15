@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 namespace Greeniverse.src.services.implementations
 {
     /// <summary>
-    /// <para>Resumo: Classe responsavel por implementar IAutenticacao</para>
-    /// <para>Criado por: Gustavo Boaz</para>
+    /// <para>Resumo: Class responsible for implementation IAutenticacao</para>
     /// <para>Versão: 1.0</para>
     /// <para>Data: 12/05/2022</para>
     /// </summary>
@@ -66,20 +65,19 @@ namespace Greeniverse.src.services.implementations
             var tokenDescription = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(
-            new Claim[]
-            {
-            new Claim(ClaimTypes.Email, user.Email.ToString()),
-            new Claim(ClaimTypes.Role, user.UserType.ToString())
-            }),
+                    new Claim[]
+                    {
+                    new Claim(ClaimTypes.Email, user.Email.ToString()),
+                    new Claim(ClaimTypes.Role, user.UserType.ToString())
+                    }),
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(key),
-            SecurityAlgorithms.HmacSha256Signature
-            )
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature
+                )
             };
             var token = tokenManipulator.CreateToken(tokenDescription);
             return tokenManipulator.WriteToken(token);
-
         }
 
         /// <summary>
@@ -110,7 +108,7 @@ namespace Greeniverse.src.services.implementations
 
         public async Task CreateUserWithoutDuplicateAsync(NewUserDTO userDTO)
         {
-            var user = _repository.GetUserByEmailAsync(userDTO.Email);
+            var user = await _repository.GetUserByEmailAsync(userDTO.Email);
 
             if (user != null) throw new Exception("Este email já está sendo utilizado");
 
