@@ -39,12 +39,12 @@ namespace BlogPessoal.src.controller
         /// </summary>
         /// <param name="idUser">int</param>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Retorn user</response>
+        /// <response code="200">Return user</response>
         /// <response code="404">User don't exist</response>
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idUser}")]
-        [Authorize(Roles = "IndividualPerson, Business")]
+        [Authorize(Roles = "IndividualPerson,Business")]
         public async Task<IActionResult> GetUserByIdAsync([FromRoute] int idUser)
         {
             var user = await _repository.GetUserByIdAsync(idUser);
@@ -108,7 +108,7 @@ namespace BlogPessoal.src.controller
         ///     }
         ///
         /// </remarks>
-        /// <response code="201">Retorn created user</response>
+        /// <response code="201">Return created user</response>
         /// <response code="400">request error</response>
         /// <response code="401">E-mail already registered</response>
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserModel))]
@@ -144,11 +144,11 @@ namespace BlogPessoal.src.controller
         ///        "id": 1,    
         ///        "name": "Uriel Boaz",
         ///        "password": "11223344",
-        ///        "pictures": "URLPICTURE"
+        ///        
         ///     }
         ///
         /// </remarks>
-        /// <response code="200">Retorn updated user</response>
+        /// <response code="200">Return updated user</response>
         /// <response code="400">requisition error</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

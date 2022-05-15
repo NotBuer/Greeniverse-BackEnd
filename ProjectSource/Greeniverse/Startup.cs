@@ -111,11 +111,24 @@ namespace Greeniverse
             {
                 context.Database.EnsureCreated();
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Greeniverse v1");
+                    c.RoutePrefix = String.Empty;
+                });
             }
 
-            app.UseRouting();
+            context.Database.EnsureCreated();
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Greeniverse v1");
+                c.RoutePrefix = String.Empty;
+            });
 
-            app.UseAuthorization();
+            app.UseRouting();
 
             app.UseCors(c => c
                 .AllowAnyOrigin()

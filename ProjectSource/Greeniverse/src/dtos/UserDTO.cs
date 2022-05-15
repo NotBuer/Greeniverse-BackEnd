@@ -23,13 +23,13 @@ namespace Greeniverse.src.DTOS
         [Required, StringLength(50)]
         public string Address { get; set; }
 
-        [Required, StringLength(15)]
-        public int Phone { get; set; }
+        [Required, StringLength(30)]
+        public string Phone { get; set; }
 
         [Required]
         public UserType UserType { get; set; }
 
-        public NewUserDTO(string name, string email, string password, string address, int phone, UserType userType)
+        public NewUserDTO(string name, string email, string password, string address, string phone, UserType userType)
         {
             Name = name;
             Email = email;
@@ -63,12 +63,12 @@ namespace Greeniverse.src.DTOS
         public string Address { get; set; }
 
         [Required, StringLength(15)]
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
         public UserType UserType { get; set; }
 
-        public UpdateUserDTO(string name, string email, string password, string address, int phone, UserType userType)
+        public UpdateUserDTO(string name, string email, string password, string address, string phone, UserType userType)
         {
             Name = name;
             Email = email;
