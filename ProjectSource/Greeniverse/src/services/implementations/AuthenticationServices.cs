@@ -11,7 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Greeniverse.src.services.implementations
-{   
+{
+    /// <summary>
+    /// <para>Resumo: Classe responsavel por implementar IAutenticacao</para>
+    /// <para>Criado por: Gustavo Boaz</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 12/05/2022</para>
+    /// </summary>
+    
     public class AuthenticationServices : IAuthentication
     {
 
@@ -21,7 +28,6 @@ namespace Greeniverse.src.services.implementations
         public IConfiguration Configuration { get; }
 
         #endregion
-
 
         #region Constructor
 
@@ -35,11 +41,23 @@ namespace Greeniverse.src.services.implementations
 
         #region Methods
 
+        /// <summary>
+        /// <para>Resumo: Method responsible for encrypting password</para>
+        /// </summary>
+        /// <param name="password">Senha a ser criptografada</param>
+        /// <returns>string</returns>
+        
         public string EncodePassword(string password)
         {
             var bytes = Encoding.UTF8.GetBytes(password);
             return Convert.ToBase64String(bytes);
         }
+
+        /// <summary>
+        /// <para>Resumo: Method responsible for generating JWT token</para> 
+        /// </summary>
+        /// <param name="user">UsuarioModelo</param>
+        /// <returns>string</returns>
 
         public string GenerateToken(UserModel user)
         {
@@ -63,14 +81,20 @@ namespace Greeniverse.src.services.implementations
             return tokenManipulator.WriteToken(token);
 
         }
+
+        /// <summary>
+        /// <para>Resumo: Responsible method return authorization to authenticated user</para>
+        /// </summary>
+        /// <param name="authentication">AutenticarDTO</param>
+        /// <returns>AutorizacaoDTO</returns>
+        /// <exception cref="Exception">Usuário não encontrado</exception>
+        /// <exception cref="Exception">Senha incorreta</exception>
+
         public async Task<AuthorizationDTO> GetAuthorizationAsync(AuthenticationDTO authentication)
         {
-<<<<<<< HEAD
-            var user = _repository.GetUserByEmailAsync(authentication.Email);
-=======
             var user = await _repository.GetUserByEmailAsync(authentication.Email);
 
->>>>>>> 89007d78768a4e816a61ef7c2ba4ddd7ed3e1b99
+
             if (user == null) throw new Exception("Usuário não encontrado");
 
             if (user.Password != EncodePassword(authentication.Password)) throw new Exception("Senha incorreta");
@@ -79,15 +103,16 @@ namespace Greeniverse.src.services.implementations
 
         }
 
+        /// <summary>
+        /// <para>Resumo: Method responsible for creating user without duplicating in the bank</para>
+        /// </summary>
+        /// <param name="userDTO">NovoUsuarioDTO</param>
+
         public async Task CreateUserWithoutDuplicateAsync(NewUserDTO userDTO)
         {
-<<<<<<< HEAD
-            var userObject = _repository.GetUserByEmailAsync(userDTO.Email);
-=======
-            var userObject = await _repository.GetUserByEmailAsync(userDTO.Email);
+            var user = _repository.GetUserByEmailAsync(userDTO.Email);
 
->>>>>>> 89007d78768a4e816a61ef7c2ba4ddd7ed3e1b99
-            if (userObject != null) throw new Exception("Este email já está sendo utilizado");
+            if (user != null) throw new Exception("Este email já está sendo utilizado");
 
             userDTO.Password = EncodePassword(userDTO.Password);
 
