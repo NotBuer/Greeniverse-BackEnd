@@ -32,7 +32,8 @@ namespace Greeniverse.src.repositories.implementations
         #endregion Constructor
 
 
-        #region  
+        #region Methods
+
         /// <summary>
         /// <para>Resume: method for delete existent ShoppingCart.</para>
         /// </summary>
@@ -46,7 +47,7 @@ namespace Greeniverse.src.repositories.implementations
         /// <summary>
         /// <para>Resume: method for get all products of ShoppingCart.</para>
         /// </summary>
-        /// <returns>List of ShoppingCartModel</returns>?
+        /// <returns>List of ShoppingCartModel</returns>
         public async Task<List<ShoppingCartModel>> GetAllProductsAsync()
         {
             return await _context.ShoppingCart.ToListAsync();
@@ -65,24 +66,24 @@ namespace Greeniverse.src.repositories.implementations
         /// <summary>
         /// <para>Resume: method for add new ShoppingCart .</para>
         /// </summary>
-        /// <param name="post">ShoppingCartDTO</param>
+        /// <param name="shoppingCart">ShoppingCartDTO</param>
         /// <returns>ShoppingCartModel</returns>
-
-        public async Task NewShoppingCartAsync(NewShoppingCartDTO ShoppingCart)
+        public async Task NewShoppingCartAsync(NewShoppingCartDTO shoppingCart)
         {
             await _context.ShoppingCart.AddAsync(new ShoppingCartModel
             {
-                AmountProduct = ShoppingCart.AmountProduct,
-                PaymentMethod = ShoppingCart.PaymentMethod,
-                Voucher = ShoppingCart.Voucher,
-                DeliveryAddress = ShoppingCart.DeliveryAdress,
+                AmountProduct = shoppingCart.AmountProduct,
+                PaymentMethod = shoppingCart.PaymentMethod,
+                Voucher = shoppingCart.Voucher,
+                DeliveryAddress = shoppingCart.DeliveryAdress,
             });
             await _context.SaveChangesAsync();
         }
+
         /// <summary>
         /// <para>Resume: method for update existent ShoppingCart.</para>
         /// </summary>
-        /// <param name="post">ShoppingCartDTO</param>
+        /// <param name="updateshoppingCart">ShoppingCartDTO</param>
         /// <returns>ShoppingCartModel</returns>
         public async Task UpdateShoppingCartAsync(UpdateShoppingCartDTO updateshoppingCart)
         {
@@ -93,7 +94,7 @@ namespace Greeniverse.src.repositories.implementations
             _context.ShoppingCart.Update(CartExistance);
             await _context.SaveChangesAsync();
         }
-        #endregion Methods
+        #endregion
 
     }
 }
