@@ -1,6 +1,8 @@
 ﻿using Greeniverse.src.dtos;
+using Greeniverse.src.models;
 using Greeniverse.src.repositories.implementations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -36,12 +38,13 @@ namespace Greeniverse.src.controllers
         /// <returns>ActionResult</returns>
         /// <response code="200">Return the ShoppingCart</response>
         /// <response code="404">ShoppingCart not existent</response>
-
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShoppingCartModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idShoppingCart}")]
         [Authorize]
         public async Task<ActionResult> GetShoppingCartByIdAsync([FromRoute] int idShoppingCart)
         {
-            var shoppingcart = _repository.GetShoppingCartByIdAsync(idShoppingCart);
+            var shoppingcart = await _repository.GetShoppingCartByIdAsync(idShoppingCart);
 
             if (shoppingcart == null) return NotFound();
 
@@ -51,14 +54,14 @@ namespace Greeniverse.src.controllers
         /// <summary>
         /// Get shoppingcart products list
         /// </summary>
-        /// <param name="shoppingCart">int</param>
         /// <returns>ActionResult</returns>
         /// <response code="200">Return the ShoppingCart Products list</response>
-        /// <response code="404">ShoppingCart not existent</response>
-
+        /// <response code="204">ShoppingCart not existent</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShoppingCartModel))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize]
-        public Task<ActionResult> GetAllProductsAsync()
+        public async Task<ActionResult> GetAllProductsAsync()
         {
             var list = await _repository.GetAllProductsAsync();
 
@@ -74,10 +77,11 @@ namespace Greeniverse.src.controllers
         /// <returns>ActionResult</returns>
         /// <response code="200">Create a new shopping cart</response>
         /// <response code="400">Cannot create shopping cart</response>
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Authorize]
-        public Task<ActionResult> NewShoppingCartAsync([FromBody] NewShoppingCartDTO shoppingCart)
+        public async Task<ActionResult> NewShoppingCartAsync([FromBody] NewShoppingCartDTO shoppingCart)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -93,9 +97,11 @@ namespace Greeniverse.src.controllers
         /// <returns>ActionResult</returns>
         /// <response code="200">Update shopping cart</response>
         /// <response code="400">Cannot update shopping cart</response>
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
-        public Task<ActionResult> UpdateShoppingCartAsync([FromBody] UpdateShoppingCartDTO shoppingCart)
+        [Authorize]
+        public async Task<ActionResult> UpdateShoppingCartAsync([FromBody] UpdateShoppingCartDTO shoppingCart)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -110,10 +116,10 @@ namespace Greeniverse.src.controllers
         /// <param name="idShoppingCart">int</param>
         /// <returns>ActionResult</returns>
         /// <response code="204">No content</response>
-
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete("delete/{idShoppingCart}")]
         [Authorize]
-        public Task<ActionResult> DeleteShoppingCartAsync([FromRoute] int idShoppingCart)
+        public async Task<ActionResult> DeleteShoppingCartAsync([FromRoute] int idShoppingCart)
         {
             await _repository.DeleteShoppingCartAsync(idShoppingCart);
             return NoContent();
