@@ -5,6 +5,7 @@ using Greeniverse.src.utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GreeniverseTest.Tests.repositories
 {
@@ -16,7 +17,7 @@ namespace GreeniverseTest.Tests.repositories
         private IUser _repository;
 
         [TestMethod]
-        public void CreateTwoUsersInDBReturnTwoUsers()
+        public async Task CreateTwoUsersInDBReturnTwoUsersAsync()
         {
             var opt = new DbContextOptionsBuilder<GreeniverseContext>()
                 .UseInMemoryDatabase(databaseName: "db_greeniverse1")
@@ -25,21 +26,21 @@ namespace GreeniverseTest.Tests.repositories
             _context = new GreeniverseContext(opt);
             _repository = new UserRepository(_context);
 
-            _repository.NewUser(
-                new NewUserDTO(
-                    "Thamy Cavalcanti", "thamy@email.com", "12345678", "AddressTest", 123456789, UserType.IndividualPerson)
-            );
+            await _repository.NewUserAsync(
+                  new NewUserDTO(
+                      "Thamy Cavalcanti", "thamy@email.com", "12345678", "AddressTest", "123456789", UserType.IndividualPerson)
+              );
 
-            _repository.NewUser(
-                new NewUserDTO(
-                    "Gaby Peres", "gaby@email.com", "87654321", "AdressTest", 987654321, UserType.Business)
-            );
+            await _repository.NewUserAsync(
+                 new NewUserDTO(
+                     "Gaby Peres", "gaby@email.com", "87654321", "AdressTest", "987654321", UserType.Business)
+             );
 
             Assert.AreEqual(2, _context.User.Count());
         }
 
         [TestMethod]
-        public void GetUserByEmailReturnNotNull()
+        public async Task GetUserByEmailReturnNotNullAsync()
         {
             var opt = new DbContextOptionsBuilder<GreeniverseContext>()
                 .UseInMemoryDatabase(databaseName: "db_greeniverse2")
@@ -48,18 +49,18 @@ namespace GreeniverseTest.Tests.repositories
             _context = new GreeniverseContext(opt);
             _repository = new UserRepository(_context);
 
-            _repository.NewUser(
-                new NewUserDTO(
-                    "RodrigoFranca", "rodrigo@email.com", "12345678", "TestAddress", 368536321, UserType.IndividualPerson)
-            );
+            await _repository.NewUserAsync(
+                  new NewUserDTO(
+                      "RodrigoFranca", "rodrigo@email.com", "12345678", "TestAddress", "368536321", UserType.IndividualPerson)
+              );
 
-            var user = _repository.GetUserByEmailAsync("rodrigo@email.com");
+            var user = await _repository.GetUserByEmailAsync("rodrigo@email.com");
 
             Assert.IsNotNull(user);
         }
 
         [TestMethod]
-        public void GetUserByIdReturnNotNullAndUserName()
+        public async Task GetUserByIdReturnNotNullAndUserNameAsync()
         {
             var opt = new DbContextOptionsBuilder<GreeniverseContext>()
                 .UseInMemoryDatabase(databaseName: "db_greeniverse3")
@@ -68,12 +69,12 @@ namespace GreeniverseTest.Tests.repositories
             _context = new GreeniverseContext(opt);
             _repository = new UserRepository(_context);
 
-            _repository.NewUser(
-                new NewUserDTO(
-                    "Murilo Gama", "murilo@email.com", "38194093", "TestAddress", 582950126, UserType.Business)
-            );
+            await _repository.NewUserAsync(
+                 new NewUserDTO(
+                     "Murilo Gama", "murilo@email.com", "38194093", "TestAddress", "582950126", UserType.Business)
+             );
 
-            var user = _repository.GetUserByIdAsync(1);
+            var user = await _repository.GetUserByIdAsync(1);
 
             Assert.IsNotNull(user);
 
@@ -81,25 +82,25 @@ namespace GreeniverseTest.Tests.repositories
         }
 
         [TestMethod]
-        public void UpdateUserReturnUserUpdated()
+        public async Task UpdateUserReturnUserUpdatedAsync()
         {
             var opt = new DbContextOptionsBuilder<GreeniverseContext>()
                 .UseInMemoryDatabase(databaseName: "db_greeniverse4")
                 .Options;
 
             _context = new GreeniverseContext(opt);
-            _repository = new UserRepository(_context);
+           _repository = new UserRepository(_context);
 
-            _repository.NewUser(
-                new NewUserDTO(
-                    "Uriel Pereira", "uriel@email.com", "48291038", "AddressTest", 520584015, UserType.IndividualPerson)
-            );
+            await _repository.NewUserAsync(
+                  new NewUserDTO(
+                      "Uriel Pereira", "uriel@email.com", "48291038", "AddressTest", "520584015", UserType.IndividualPerson)
+              );
 
-            var old = _repository.GetUserByEmailAsync("uriel@email.com");
-            _repository.UpdateUser(
-                new UpdateUserDTO(
-                        "Uriel Pereira", "urielpereira@email.com", "12345678", "AddressTest", 520584015, UserType.IndividualPerson)
-            );
+            var old = await _repository.GetUserByEmailAsync("uriel@email.com");
+            await _repository.UpdateUserAsync(
+                 new UpdateUserDTO(
+                         "Uriel Pereira", "urielpereira@email.com", "12345678", "AddressTest", "520584015", UserType.IndividualPerson)
+             );
 
             Assert.AreEqual(
                 "Uriel Pereira",
