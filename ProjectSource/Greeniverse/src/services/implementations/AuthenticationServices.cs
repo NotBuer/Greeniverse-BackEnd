@@ -15,7 +15,7 @@ namespace Greeniverse.src.services.implementations
     /// <summary>
     /// <para>Resumo: Class responsible for implementation IAutenticacao</para>
     /// <para>Versão: 1.0</para>
-    /// <para>Data: 12/05/2022</para>
+    /// <para>Data: 2022-05-13</para>
     /// </summary>
     
     public class AuthenticationServices : IAuthentication
