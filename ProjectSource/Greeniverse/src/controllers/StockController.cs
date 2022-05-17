@@ -100,7 +100,7 @@ namespace Greeniverse.src.controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     POST /api/stock
+        ///     POST /api/Stock
         ///     {
         ///         "id": 1
         ///        "type": "Fruits",
@@ -132,7 +132,7 @@ namespace Greeniverse.src.controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     PUT /api/stock
+        ///     PUT /api/Stock
         ///     {
         ///         "id": 1
         ///        "type": "Fruits",

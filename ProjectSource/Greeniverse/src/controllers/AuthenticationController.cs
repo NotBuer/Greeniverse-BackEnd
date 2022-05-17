@@ -46,11 +46,11 @@ namespace BlogPessoal.src.controladores
         ///     }
         ///
         /// </remarks>
-        /// <response code="201">Return user created</response>
+        /// <response code="200">Return authorization created</response>
         /// <response code="400">Request error</response>
         /// <response code="401">Invalid email or password</response>
 
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(AuthorizationDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthorizationDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost]

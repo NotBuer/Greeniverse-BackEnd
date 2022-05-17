@@ -78,7 +78,7 @@ namespace Greeniverse.src.repositories.implementations
                 AmountProduct = shoppingCart.AmountProduct,
                 PaymentMethod = shoppingCart.PaymentMethod,
                 Voucher = shoppingCart.Voucher,
-                DeliveryAddress = shoppingCart.DeliveryAdress,
+                DeliveryAddress = shoppingCart.DeliveryAddress,
                 Purchaser = await _context.User.FirstOrDefaultAsync(u => u.Email == shoppingCart.EmailPurchaser),
                 Product = await _context.Stock.FirstOrDefaultAsync(s => s.Id == shoppingCart.IdProduct)
             });
@@ -96,6 +96,7 @@ namespace Greeniverse.src.repositories.implementations
             CartExistance.AmountProduct = updateshoppingCart.AmountProduct;
             CartExistance.PaymentMethod = updateshoppingCart.PaymentMethod;
             CartExistance.Voucher = updateshoppingCart.Voucher;
+            CartExistance.DeliveryAddress = updateshoppingCart.DeliveryAddress;
             _context.ShoppingCart.Update(CartExistance);
             await _context.SaveChangesAsync();
         }

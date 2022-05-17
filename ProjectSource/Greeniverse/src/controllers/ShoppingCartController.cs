@@ -95,11 +95,25 @@ namespace Greeniverse.src.controllers
         /// <summary>
         /// Create a new shopping cart
         /// </summary>
-        /// <param name="shoppingCart">int</param>
+        /// <param name="shoppingCart">NewShoppingDTO</param>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Create a new shopping cart</response>
-        /// <response code="400">Cannot create shopping cart</response>
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        /// /// <remarks>
+        /// requisition example:
+        ///
+        ///     POST /api/ShoppingCart
+        ///     {
+        ///        "amountProduct": 12,
+        ///        "paymentMethod": PIX,
+        ///        "voucher": "50% de desconto",
+        ///        "deliveryAddress": "TestAddress - 184",
+        ///        "emailPurchaser": "gustavo@email.com",
+        ///        "idProduct": 2
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Return created Shopping Cart</response>
+        /// <response code="400">request error</response>
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ShoppingCartModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Authorize]
@@ -115,10 +129,22 @@ namespace Greeniverse.src.controllers
         /// <summary>
         /// Update the existing shopping cart
         /// </summary>
-        /// <param name="shoppingCart">int</param>
+        /// <param name="shoppingCart">UpdateShoppingCartDTO</param>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Update shopping cart</response>
-        /// <response code="400">Cannot update shopping cart</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /api/ShoppingCart
+        ///     {
+        ///        "amountProduct": 12,
+        ///        "paymentMethod": PIX,
+        ///        "voucher": "50% de desconto",
+        ///        "deliveryAddress": "TestAddress - 184"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Shopping Cart updated</response>
+        /// <response code="400">Error in request</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
