@@ -16,9 +16,9 @@ namespace Greeniverse.src.repositories.implementations
         Task NewShoppingCartAsync(NewShoppingCartDTO ShoppingCart);
         Task UpdateShoppingCartAsync(UpdateShoppingCartDTO UpdateShoppingCart);
         Task DeleteShoppingCartAsync(int id);
-
         Task<ShoppingCartModel> GetShoppingCartByIdAsync(int id);
         Task<List<ShoppingCartModel>> GetAllProductsAsync();
+        Task<List<ShoppingCartModel>> GetAllProductsByEmailPurchaserAsync(string emailPurchaser);
         
     }
 }

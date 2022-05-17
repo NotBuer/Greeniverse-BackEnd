@@ -22,12 +22,21 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(50)]
         public string DeliveryAdress { get; set; }
 
-        public NewShoppingCartDTO(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAdress)
+        [Required]
+        public string EmailPurchaser { get; set; }
+
+        [Required]
+        public int IdProduct { get; set; }
+
+
+        public NewShoppingCartDTO(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAdress, string emailPurchaser, int idProduct)
         {
             AmountProduct = amountProduct;
             PaymentMethod = paymentMethod;
             Voucher = voucher;
             DeliveryAdress = deliveryAdress;
+            EmailPurchaser = emailPurchaser;
+            IdProduct = idProduct;
         }
     }
 

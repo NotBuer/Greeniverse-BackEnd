@@ -44,6 +44,9 @@ namespace Greeniverse.src.models
         [Required, StringLength(50)]
         public string Provider { get; set; }
 
+        [JsonIgnore, InverseProperty("Product")] 
+        public List<ShoppingCartModel> ProductsInCart { get; set; }   
+
     }
 
 }

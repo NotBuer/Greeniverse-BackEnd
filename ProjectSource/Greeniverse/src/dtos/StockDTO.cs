@@ -19,7 +19,7 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(200)]
         public string Description { get; set; }
 
-        [Required, StringLength(200)]
+        [Required]
         public float Price { get; set; }
 
         [Required, StringLength(50)]
