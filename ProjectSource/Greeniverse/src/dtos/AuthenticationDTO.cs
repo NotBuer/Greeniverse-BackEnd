@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Greeniverse.src.dtos
 {
+    /// <summary>
+    /// <para>Resumo: Mirror class to authenticate a user</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 05/13/2022</para>
+    /// </summary>
     public class AuthenticationDTO
     {
         [Required]
@@ -17,6 +22,11 @@ namespace Greeniverse.src.dtos
             Password = password;
         }
     }
+    /// <summary>
+    /// <para>Resumo: Mirror class to represent a user's authorization</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 05/13/2022</para>
+    /// </summary>
     public class AuthorizationDTO
     {
         public int Id { get; set; }
