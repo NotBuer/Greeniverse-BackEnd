@@ -17,16 +17,6 @@ namespace Greeniverse.src.models
     public class ShoppingCartModel
     {
         public ShoppingCartModel() { }
-        
-        public ShoppingCartModel(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAddress, int fK_Purchaser, int fK_Product)
-        {
-            AmountProduct = amountProduct;
-            PaymentMethod = paymentMethod;
-            Voucher = voucher;
-            DeliveryAddress = deliveryAddress;
-            FK_Purchaser = fK_Purchaser;
-            FK_Product = fK_Product;
-        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -45,10 +35,19 @@ namespace Greeniverse.src.models
         public string DeliveryAddress { get; set; }
 
         [ForeignKey("FK_Purchaser")]
-        public int FK_Purchaser { get; set; }
+        public UserModel Purchaser { get; set; }
 
         [ForeignKey("FK_Product")]
-        public int FK_Product { get; set; }
+        public StockModel Product { get; set; }
+
+        public ShoppingCartModel(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAddress)
+        {
+            AmountProduct = amountProduct;
+            PaymentMethod = paymentMethod;
+            Voucher = voucher;
+            DeliveryAddress = deliveryAddress;
+         
+        }
     }
 
 }

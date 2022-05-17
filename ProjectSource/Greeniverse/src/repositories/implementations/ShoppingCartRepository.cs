@@ -50,7 +50,10 @@ namespace Greeniverse.src.repositories.implementations
         /// <returns>List of ShoppingCartModel</returns>
         public async Task<List<ShoppingCartModel>> GetAllProductsAsync()
         {
-            return await _context.ShoppingCart.ToListAsync();
+            return await _context.ShoppingCart
+                .Include(c => c.Purchaser)
+                .Include(c => c.Product)
+                .ToListAsync();
         }
 
         /// <summary>
@@ -76,6 +79,8 @@ namespace Greeniverse.src.repositories.implementations
                 PaymentMethod = shoppingCart.PaymentMethod,
                 Voucher = shoppingCart.Voucher,
                 DeliveryAddress = shoppingCart.DeliveryAdress,
+                Purchaser = await _context.User.FirstOrDefaultAsync(u => u.Email == shoppingCart.EmailPurchaser),
+                Product = await _context.Stock.FirstOrDefaultAsync(s => s.Id == shoppingCart.IdProduct)
             });
             await _context.SaveChangesAsync();
         }

@@ -12,6 +12,9 @@ namespace TestEnvironment.Tests.repositories
     [TestClass]
     public class StockRepositoryTest
     {
+        /// <summary>
+        /// Get products by search with parameters
+        /// </summary>
         [TestMethod]
         public async Task GetStockBySearchReturnProductDescriptionComparisonAsync()
         {
@@ -33,6 +36,9 @@ namespace TestEnvironment.Tests.repositories
             Assert.AreEqual("Banana description", stock.FirstOrDefault(f => f.Description == "Banana description"));
         }
 
+        /// <summary>
+        /// Inserting products in the bank and getting product by Id
+        /// </summary>
         [TestMethod]
         public async Task AlternateStockDescriptionReturnTypeAsync()
         {
