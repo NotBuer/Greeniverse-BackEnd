@@ -8,7 +8,11 @@ namespace Greeniverse.src.models
     /// <summary>
     /// <para>Resume: Class responsible for representing a product in the database.</para>
     /// <para>Version: 1.0</para>
+<<<<<<< HEAD
+    /// <para>Date: 05/13/2022</para>
+=======
     /// <para>Date: 13/05/2022</para>
+>>>>>>> 3a939ce4d050c4e140e0de017629e3aac8930c5e
     /// </summary>
     
     [Table("tb_stock")]
