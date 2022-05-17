@@ -50,6 +50,9 @@ namespace Greeniverse.src.models
         [Required]
         public UserType UserType { get; set; }
 
+        [JsonIgnore, InverseProperty("Purchaser")]
+        List<ShoppingCartModel> MyCarts { get; set; }   
+
     }
 
 }
