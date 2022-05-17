@@ -6,7 +6,7 @@ namespace Greeniverse.src.DTOS
     /// <summary>
     /// <para>abstract: Mirror Class for create a new user</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 05/13/2022</para>
+    /// <para>Date: 13/05/2022</para>
     /// </summary>
 
     public class NewUserDTO

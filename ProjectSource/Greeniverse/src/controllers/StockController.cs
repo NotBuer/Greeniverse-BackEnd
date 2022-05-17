@@ -107,7 +107,7 @@ namespace Greeniverse.src.controllers
         ///        "description": "red fruit",
         ///        "price": 3.55f,
         ///        "productName": "strawberry",
-        ///        "provider": "Business"
+        ///        "provider": "Americanas"
         ///     }
         ///
         /// </remarks>
@@ -139,7 +139,7 @@ namespace Greeniverse.src.controllers
         ///        "description": "red fruit",
         ///        "price": 4.55f,
         ///        "productName": "strawberry",
-        ///        "provider": "Business"
+        ///        "provider": "Americanas"
         ///     }
         ///
         /// </remarks>

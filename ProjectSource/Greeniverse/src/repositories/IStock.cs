@@ -8,7 +8,11 @@ namespace Greeniverse.src.repositories.implementations
     /// <summary>
     /// <para>Resume: Interface responsible for representing CRUD actions stock</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 2022-05-03</para>
+<<<<<<< HEAD
+    /// <para>Date: 03/05/2022</para>
+=======
+    /// <para>Date: 13/05/2022</para>
+>>>>>>> 3a939ce4d050c4e140e0de017629e3aac8930c5e
     /// </summary>
     public interface IStock
     {

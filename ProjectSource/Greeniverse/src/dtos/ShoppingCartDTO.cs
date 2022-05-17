@@ -6,7 +6,8 @@ namespace Greeniverse.src.dtos
     /// <summary>
     /// <para>Resume: Mirror class responsible for transporting an shoppingcart to register</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 05/13/22</para>/// </summary>
+    /// <para>Date: 13/05/2022</para>
+    /// </summary>
     public class NewShoppingCartDTO
     
     {
@@ -43,7 +44,7 @@ namespace Greeniverse.src.dtos
     /// <summary>
     /// <para>Resume: Mirror class responsible for transporting a shoppingcart to update</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 05/13/22</para>
+    /// <para>Date: 05/13/2022</para>
     /// </summary>
     public class UpdateShoppingCartDTO
     {
