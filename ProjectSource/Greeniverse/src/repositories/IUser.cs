@@ -8,7 +8,7 @@ namespace Greeniverse.src.repositories.implementations
     /// <summary>
     /// <para>Abstract:Responsible for representing user CRUD actions</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 03/05/2022</para>
+    /// <para>Date: 05/13/2022</para>
     /// </summary>
     public interface IUser
     {   
