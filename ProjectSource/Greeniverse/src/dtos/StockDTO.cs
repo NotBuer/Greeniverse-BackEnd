@@ -5,7 +5,7 @@ namespace Greeniverse.src.dtos
     /// <summary>
     /// <para>Resume: Mirror class responsible for transporting a product to register</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 2022-05-13</para>
+    /// <para>Date: 05/13/2022</para>
     /// </summary>
 
     public class NewStockDTO
@@ -44,7 +44,7 @@ namespace Greeniverse.src.dtos
     /// <summary>
     /// <para>Resume: Mirror class responsible for transporting a product to update</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 2022-05-13</para>
+    /// <para>Date: 05/13/2022</para>
     /// </summary>
     
     public class UpdateStockDTO
