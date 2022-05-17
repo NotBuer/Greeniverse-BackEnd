@@ -10,7 +10,7 @@ namespace Greeniverse.src.models
     /// <summary>
     /// <para>Resume: Class responsible for representing a shopping cart in the database.</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 2022-13-05</para>
+    /// <para>Date: 13/05/2022</para>
     /// </summary>
 
     [Table("tb_shoppingcart")]

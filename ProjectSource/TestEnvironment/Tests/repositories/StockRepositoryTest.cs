@@ -13,7 +13,7 @@ namespace TestEnvironment.Tests.repositories
     public class StockRepositoryTest
     {
         [TestMethod]
-        public async Task GetStockBySearchReturnProductDescriptionComparison()
+        public async Task GetStockBySearchReturnProductDescriptionComparisonAsync()
         {
             GreeniverseContext _context;
             StockRepository _repository;
@@ -34,7 +34,7 @@ namespace TestEnvironment.Tests.repositories
         }
 
         [TestMethod]
-        public async Task AlternateStockDescriptionReturnType()
+        public async Task AlternateStockDescriptionReturnTypeAsync()
         {
             GreeniverseContext _context;
             StockRepository _repository;

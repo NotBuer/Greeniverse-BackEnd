@@ -12,7 +12,7 @@ namespace Greeniverse.src.repositories.implementations
   /// <summary>
   /// <para>Resume: Class responsible for implement methos CRUD shoppingcart.</para>
   /// <para>Version: 1.0</para>
-  /// <para>Date: 05/13/22</para>
+  /// <para>Date: 13/05/2022</para>
   /// </summary>
     public class ShoppingCartRepository : IShoppingCart
     {

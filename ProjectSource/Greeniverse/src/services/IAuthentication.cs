@@ -8,7 +8,7 @@ namespace Greeniverse.src.services
     /// <summary>
     /// <para>Resume: Interface responsible for authentication logic.</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 2022-13-05</para>
+    /// <para>Date: 2022-05-03</para>
     /// </summary>
     
     public interface IAuthentication

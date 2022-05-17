@@ -11,7 +11,7 @@ namespace Greeniverse.src.repositories.implementations
     /// <summary>
     /// <para>Resume: Class responsible for implement methods CRUD Stock.</para>
     /// <para>Version: 1.0</para>
-    /// <para>Date: 2022-05-03</para>
+    /// <para>Date: 13/05/2022</para>
     /// </summary>
     public class StockRepository : IStock
     {
