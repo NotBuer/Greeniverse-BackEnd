@@ -4,6 +4,7 @@ using Greeniverse.src.repositories.implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Greeniverse.src.controllers
@@ -69,6 +70,27 @@ namespace Greeniverse.src.controllers
 
             return Ok(list);
         }
+
+        /// <summary>
+        /// Get user by Name
+        /// </summary>
+        /// <param name="emailPurchaser">string</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Retorn shoppingcart</response>
+        /// <response code="204">ShoppingCart don't exist</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserModel))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("search")]
+        [Authorize(Roles = "IndividualPerson, Business")]
+        public async Task<ActionResult> GetAllProductsByEmailPurchaserAsync([FromQuery]string emailPurchaser)
+        {
+            var shoppingcart = await _repository.GetAllProductsByEmailPurchaserAsync(emailPurchaser);
+
+            if (shoppingcart.Count < 1) return NoContent();
+
+            return Ok(shoppingcart);
+        }
+
 
         /// <summary>
         /// Create a new shopping cart

@@ -12,7 +12,7 @@ namespace Greeniverse.src.repositories.implementations
   /// <summary>
   /// <para>Resume: Class responsible for implement methos CRUD shoppingcart.</para>
   /// <para>Version: 1.0</para>
-  /// <para>Date: 05/13/22</para>
+  /// <para>Date: 05/13/2022</para>
   /// </summary>
     public class ShoppingCartRepository : IShoppingCart
     {
@@ -98,6 +98,15 @@ namespace Greeniverse.src.repositories.implementations
             CartExistance.Voucher = updateshoppingCart.Voucher;
             _context.ShoppingCart.Update(CartExistance);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<ShoppingCartModel>> GetAllProductsByEmailPurchaserAsync(string emailPurchaser)
+        {
+            return await _context.ShoppingCart
+               .Include(c => c.Purchaser)
+               .Include(c => c.Product)
+               .Where(c => c.Purchaser.Email == emailPurchaser)
+               .ToListAsync();
         }
         #endregion
 

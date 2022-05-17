@@ -45,7 +45,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idUser}")]
         [Authorize(Roles = "IndividualPerson,Business")]
-        public async Task<IActionResult> GetUserByIdAsync([FromRoute] int idUser)
+        public async Task<ActionResult> GetUserByIdAsync([FromRoute] int idUser)
         {
             var user = await _repository.GetUserByIdAsync(idUser);
 
@@ -65,7 +65,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize(Roles = "IndividualPerson, Business")]
-        public async Task<IActionResult> GetUserByNameAsync([FromQuery] string nameUser)
+        public async Task<ActionResult> GetUserByNameAsync([FromQuery] string nameUser)
         {
             var user = await _repository.GetUserByNameAsync(nameUser);
 
@@ -84,7 +84,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("email/{emailUser}")]
         [Authorize(Roles = "IndividualPerson, Business")]
-        public async Task<IActionResult> GetUserByEmailAsync([FromRoute] string emailUser)
+        public async Task<ActionResult> GetUserByEmailAsync([FromRoute] string emailUser)
         {
             var user = await _repository.GetUserByEmailAsync(emailUser);
             if (user == null) return NotFound();
@@ -102,9 +102,9 @@ namespace BlogPessoal.src.controller
         ///     {
         ///        "name": "Uriel Boaz",
         ///        "email": "uriel@gmail.com",
-        ///        "password": "11223344",
-        ///        "picture": "URLPICTURE",
-        ///        "type": "NORMAL"
+        ///        "address": "AddressTest - 123",
+        ///        "phone": "(11) 96543-2356",
+        ///        "userType": "Business"
         ///     }
         ///
         /// </remarks>
@@ -116,7 +116,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> NewUserAsync([FromBody] NewUserDTO user)
+        public async Task<ActionResult> NewUserAsync([FromBody] NewUserDTO user)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -143,7 +143,11 @@ namespace BlogPessoal.src.controller
         ///     {
         ///        "id": 1,    
         ///        "name": "Uriel Boaz",
+        ///        "email": "uriel@email.com"
         ///        "password": "11223344",
+        ///        "address": "AddressTest - 123",
+        ///        "phone": "(11) 96543-2356",
+        ///        "userType": "Business"
         ///        
         ///     }
         ///
@@ -154,7 +158,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize(Roles = "IndividualPerson, Business")]
-        public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserDTO user)
+        public async Task<ActionResult> UpdateUserAsync([FromBody] UpdateUserDTO user)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -172,7 +176,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete("delete/{idUser}")]
         [Authorize(Roles = "Business")]
-        public async Task<IActionResult> DeleteUserAsync([FromRoute] int idUser)
+        public async Task<ActionResult> DeleteUserAsync([FromRoute] int idUser)
         {
             await _repository.DeleteUserAsync(idUser);
             return NoContent();
