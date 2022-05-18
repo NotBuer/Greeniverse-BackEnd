@@ -29,7 +29,7 @@ namespace Greeniverse.src.models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required, StringLength(50)]
+        [Required]
         public string Type { get; set; }
 
         [Required, StringLength(200)]
@@ -43,6 +43,9 @@ namespace Greeniverse.src.models
 
         [Required, StringLength(50)]
         public string Provider { get; set; }
+
+        [Required, StringLength (255)]
+        public string ProductPhoto { get; set; }
 
         [JsonIgnore, InverseProperty("Product")] 
         public List<ShoppingCartModel> ProductsInCart { get; set; }   

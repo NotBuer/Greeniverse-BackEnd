@@ -25,10 +25,13 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(50)]
         public string ProductName { get; set; }
 
-        [Required, StringLength(20)]
+        [Required, StringLength(50)]
         public string Provider { get; set; }
 
-        public NewStockDTO(int id, string type, string description, float price, string productName, string provider)
+        [Required, StringLength(255)]
+        public string ProductPhoto { get; set; }
+
+        public NewStockDTO(int id, string type, string description, float price, string productName, string provider, string productPhoto)
         {
             Id = id;
             Type = type;
@@ -36,6 +39,8 @@ namespace Greeniverse.src.dtos
             Price = price;
             ProductName = productName;
             Provider = provider;
+            ProductPhoto = productPhoto;
+
         }
 
         public NewStockDTO() { }
@@ -52,28 +57,33 @@ namespace Greeniverse.src.dtos
         [Required]
         public int Id { get; set; }
 
-        [Required, StringLength(50)]
+        [Required]
         public string Type { get; set; }
 
         [Required, StringLength(200)]
         public string Description { get; set; }
 
-        [Required, StringLength(200)]
+        [Required]
         public float Price { get; set; }
 
         [Required, StringLength(50)]
         public string ProductName { get; set; }
 
-        [Required, StringLength(20)]
+        [Required, StringLength(50)]
         public string Provider { get; set; }
 
-        public UpdateStockDTO(string type, string description, float price, string productName, string provider)
+        [Required, StringLength(255)]
+        public string ProductPhoto { get; set; }
+
+        public UpdateStockDTO(int id, string type, string description, float price, string productName, string provider, string productPhoto)
         {
+            Id = id;
             Type = type;
             Description = description;
             Price = price;
             ProductName = productName;
             Provider = provider;
+            ProductPhoto = productPhoto;
         }
 
         public UpdateStockDTO() { }
