@@ -48,10 +48,10 @@ namespace Greeniverse.src.repositories.implementations
                 Type = Product.Type,
                 Description = Product.Description,
                 Price = Product.Price,
-                Provider = Product.Provider
+                Provider = Product.Provider,
+                ProductPhoto = Product.ProductPhoto
 
             });
-
            await _context.SaveChangesAsync();
         }
 
@@ -63,7 +63,11 @@ namespace Greeniverse.src.repositories.implementations
         public async Task UpdateProductAsync(UpdateStockDTO Updateproduct)
         {
             StockModel ProductExistent =await GetProductByIdAsync(Updateproduct.Id);
-            ProductExistent.Description = ProductExistent.Description;
+            ProductExistent.Type = Updateproduct.Type;
+            ProductExistent.Description = Updateproduct.Description;
+            ProductExistent.Price = Updateproduct.Price;
+            ProductExistent.Provider = Updateproduct.Provider;
+            ProductExistent.ProductPhoto = Updateproduct.ProductPhoto;
         }
 
         /// <summary>
@@ -93,57 +97,62 @@ namespace Greeniverse.src.repositories.implementations
         /// <param name="description">Description of product</param>
         /// <param name="productName">ProductName of product</param>
         /// <returns>List of StockModel</returns>
-        public async Task<List<StockModel>> GetProductsBySearchAsync(string type, string description, string productName)
+        public async Task<List<ShoppingCartModel>> GetProductsBySearchAsync(string type, string description, string productName)
         {
 
             switch (type, description, productName)
             {
-                case (null, null, null): return await GetAllProductsAsync();
+                case (null, null, null): return await _context.ShoppingCart.ToListAsync();
                 case (null, null, _):
-                    return await _context.Stock
-                   .Include(p => p.Type)
-                   .Include(p => p.Description)
-                   .Where(p => p.ProductName.Contains(productName))
-                   .ToListAsync();
+                    return await _context.ShoppingCart
+                       .Include(s => s.Purchaser)
+                       .Include(s => s.Product)
+                       .Where(s => s.Product.ProductName.Contains(productName))
+                       .ToListAsync();
 
                 case (null, _, null):
-                    return await _context.Stock
-                   .Include(p => p.Type)
-                   .Include(p => p.ProductName)
-                   .Where(p => p.Description.Contains(description))
-                   .ToListAsync();
+                    return await _context.ShoppingCart
+                       .Include(s => s.Purchaser)
+                       .Include(s => s.Product)
+                       .Where(s => s.Product.Description.Contains(description))
+                       .ToListAsync();
 
                 case (_, null, null):
-                    return await _context.Stock
-                   .Include(p => p.Description)
-                   .Include(p => p.ProductName)
-                   .Where(p => p.Type.Contains(type))
-                   .ToListAsync();
+                    return await _context.ShoppingCart
+                      .Include(s => s.Purchaser)
+                      .Include(s => s.Product)
+                      .Where(s => s.Product.Type.Contains(type))
+                      .ToListAsync();
 
                 case (_, _, null):
-                    return await _context.Stock
-                   .Include(p => p.ProductName)
-                   .Where(p => p.Type.Contains(type) & p.Description.Contains(description))
-                   .ToListAsync();
+                    return await _context.ShoppingCart
+                        .Include(s => s.Purchaser)
+                        .Include(s => s.Product)
+                        .Where(s => s.Product.Type.Contains(type) & s.Product.Description.Contains(description))
+                        .ToListAsync(); 
 
                 case (null, _, _):
-                    return await _context.Stock
-                   .Include(p => p.Type)
-                   .Where(p => p.Description.Contains(description) & p.ProductName.Contains(productName))
-                   .ToListAsync();
+                    return await _context.ShoppingCart
+                      .Include(s => s.Purchaser)
+                      .Include(s => s.Product)
+                      .Where(s => s.Product.Description.Contains(description) & s.Product.ProductName.Contains(productName))
+                      .ToListAsync();  
 
                 case (_, null, _):
-                    return await _context.Stock
-                   .Include(p => p.Description)
-                   .Where(p => p.Type.Contains(type) & p.ProductName.Contains(productName))
-                   .ToListAsync();
+                    return await _context.ShoppingCart
+                       .Include(s => s.Purchaser)
+                       .Include(s => s.Product)
+                       .Where(s => s.Product.Type.Contains(type) & s.Product.ProductName.Contains(productName))
+                       .ToListAsync();
 
                 case (_, _, _):
-                    return await _context.Stock
-                   .Where(s => s.Type.Contains(type) |
-                   s.Description.Contains(description) | 
-                   s.ProductName.Contains(productName))
-                   .ToListAsync();
+                    return await _context.ShoppingCart
+                       .Include(s => s.Purchaser)
+                       .Include(s => s.Product)
+                       .Where(s => s.Product.Type.Contains(type) |
+                       s.Product.Description.Contains(description) | 
+                       s.Product.ProductName.Contains(productName))
+                       .ToListAsync();
             }
         }
 
@@ -151,7 +160,7 @@ namespace Greeniverse.src.repositories.implementations
         /// <para>Resume: method for get all products.</para>
         /// </summary>
         /// <returns>List of StockModel</returns>
-        public async Task<List<StockModel>> GetAllProductsAsync()
+        public async Task<List<StockModel>> GetAllProductsStockAsync()
         {
             return await _context.Stock
                 .ToListAsync();

@@ -35,7 +35,7 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestUserInsertInDBReturnUser()
         {
-            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", 123456789, UserType.IndividualPerson);
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson);
             _context.User.Add(userTest);
             _context.SaveChanges();
             Assert.IsNotNull(userTest);
@@ -48,7 +48,7 @@ namespace TestEnvironment.Tests.data
         public void TestUserUpdateInDBReturnUser()
         {
             // First add a new user to make updating it possible.
-            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", 123456789, UserType.IndividualPerson);
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson);
             _context.User.Add(userTest);
             _context.SaveChanges();
 
@@ -66,7 +66,7 @@ namespace TestEnvironment.Tests.data
         public void TestUserDeleteInDBReturnUser()
         {
             // First add a new user to make deleting it possible.
-            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", 123456789, UserType.IndividualPerson);
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson);
             _context.User.Add(userTest);
             _context.SaveChanges();
 
@@ -132,7 +132,7 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestShoppingCartInsertInDBReturnCart()
         {
-            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress", 100, 9500);
+            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress");
             _context.ShoppingCart.Add(cart);
             _context.SaveChanges();
             Assert.IsNotNull(cart);
@@ -145,7 +145,7 @@ namespace TestEnvironment.Tests.data
         public void TestShoppingCartUpdateInDBReturnCart()
         {
             // First add a new cart to make updating it possible.
-            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress", 100, 9500);
+            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress");
             _context.ShoppingCart.Add(cart);
             _context.SaveChanges();
 
@@ -162,7 +162,7 @@ namespace TestEnvironment.Tests.data
         public void TestShoppingCartDeleteInDBReturnCart()
         {
             // First add a new shopping cart to make deleting it possible.
-            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress", 100, 9500);
+            ShoppingCartModel cart = new ShoppingCartModel(10, PaymentMethod.CreditCard, "100OFF", "TestAddress");
             _context.ShoppingCart.Add(cart);
             _context.SaveChanges();
 

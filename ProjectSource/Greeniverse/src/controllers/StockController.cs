@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Greeniverse.src.controllers
-{   
+{
     [ApiController]
     [Route("api/Stock")]
     [Produces("application/json")]
@@ -41,9 +41,9 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize]
-        public  async Task<ActionResult> GetAllProductsAsync()
+        public async Task<ActionResult> GetAllProductsAsync()
         {
-            var list = await _repository.GetAllProductsAsync();
+            var list = await _repository.GetAllProductsStockAsync();
 
             if (list.Count == 1) return NoContent();
             return Ok(list);
@@ -64,7 +64,7 @@ namespace Greeniverse.src.controllers
         public async Task<ActionResult> GetProductByIdAsync([FromRoute] int idStock)
         {
 
-            var stock= await _repository.GetProductByIdAsync(idStock);
+            var stock = await _repository.GetProductByIdAsync(idStock);
             if (stock == null) return NotFound();
             return Ok(stock);
         }
@@ -87,7 +87,7 @@ namespace Greeniverse.src.controllers
             [FromQuery] string description,
             [FromQuery] string productName)
         {
-            var stocks =await _repository.GetProductsBySearchAsync(type, description, productName);
+            var stocks = await _repository.GetProductsBySearchAsync(type, description, productName);
             if (stocks.Count < 1) return NoContent();
             return Ok(stocks);
         }
@@ -102,12 +102,13 @@ namespace Greeniverse.src.controllers
         ///
         ///     POST /api/Stock
         ///     {
-        ///         "id": 1
+        ///         "id": 1,
         ///        "type": "Fruits",
         ///        "description": "red fruit",
         ///        "price": 3.55f,
         ///        "productName": "strawberry",
-        ///        "provider": "Americanas"
+        ///        "provider": "Americanas",
+        ///        "productPhoto": "ProductURL"
         ///     }
         ///
         /// </remarks>
@@ -120,7 +121,9 @@ namespace Greeniverse.src.controllers
         public async Task<ActionResult> NewProductAsync([FromBody] NewStockDTO stock)
         {
             if (!ModelState.IsValid) return BadRequest();
+
             await _repository.NewProductAsync(stock);
+
             return Created($"Api/stocks/id/{stock.Id}", stock);
         }
 
@@ -134,12 +137,13 @@ namespace Greeniverse.src.controllers
         ///
         ///     PUT /api/Stock
         ///     {
-        ///         "id": 1
+        ///         "id": 1,
         ///        "type": "Fruits",
         ///        "description": "red fruit",
         ///        "price": 4.55f,
         ///        "productName": "strawberry",
-        ///        "provider": "Americanas"
+        ///        "provider": "Americanas",
+        ///        "productPhoto": "ProductURL"
         ///     }
         ///
         /// </remarks>
@@ -152,7 +156,7 @@ namespace Greeniverse.src.controllers
         public async Task<ActionResult> UpdateProductAsync([FromBody] UpdateStockDTO stock)
         {
             if (!ModelState.IsValid) return BadRequest();
-           await _repository.UpdateProductAsync(stock);
+            await _repository.UpdateProductAsync(stock);
             return Ok(stock);
         }
 
@@ -161,11 +165,9 @@ namespace Greeniverse.src.controllers
         /// </summary>
         /// <param name="idStock">int</param>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Product deleted</response>
         /// <response code="204">Ok, but no content</response>
-        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [HttpDelete(("delete/{idStock}"))]
+        [HttpDelete("delete/{idStock}")]
         [Authorize(Roles = "Business")]
         public async Task<ActionResult> DeleteProductAsync([FromRoute] int idStock)
         {
