@@ -33,7 +33,7 @@ namespace TestEnvironment.Tests.repositories
 
             var stock = await _repository.GetProductsBySearchAsync("Fruit", "Banana description", "Banana");
 
-            Assert.AreEqual("Banana description", stock.FirstOrDefault(s => s.Description == "Banana description"));
+            Assert.AreEqual("Banana description", stock.FirstOrDefault(s => s.Product.Description == "Banana description"));
         }
 
         /// <summary>
