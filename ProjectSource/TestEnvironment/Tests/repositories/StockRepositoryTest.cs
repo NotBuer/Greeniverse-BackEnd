@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Greeniverse.src.data;
 using Greeniverse.src.dtos;
+using Greeniverse.src.models;
 using Greeniverse.src.repositories;
 using Greeniverse.src.repositories.implementations;
 using Microsoft.EntityFrameworkCore;
@@ -31,9 +33,9 @@ namespace TestEnvironment.Tests.repositories
             await _repository.NewProductAsync(new NewStockDTO
                 (1, "Fruit", "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
 
-            var stock = await _repository.GetProductsBySearchAsync("Fruit", "Banana description", "Banana");
+            List<ShoppingCartModel>stock = await _repository.GetProductsBySearchAsync("Fruit", "Banana description", "Banana");
 
-            Assert.AreEqual("Banana description", stock.FirstOrDefault(s => s.Description == "Banana description"));
+            Assert.AreEqual("Banana description", stock.Where(s => s.Product.Type == "Fruit").FirstOrDefault().Product.Description);
         }
 
         /// <summary>

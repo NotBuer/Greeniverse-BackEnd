@@ -13,6 +13,7 @@ x64/
 
 # Visual Studio cache/option directory
 .vs/
+.vscode/
 
 # NuGet Packages
 *.nupkg
