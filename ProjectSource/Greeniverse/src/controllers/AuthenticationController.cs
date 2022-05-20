@@ -60,7 +60,7 @@ namespace BlogPessoal.src.controladores
             if (!ModelState.IsValid) return BadRequest();
             try
             {
-                var authorization = await _services.GetAuthorizationAsync(authentication);
+                AuthorizationDTO authorization = await _services.GetAuthorizationAsync(authentication);
                 return Ok(authorization);
             }
             catch (Exception ex)

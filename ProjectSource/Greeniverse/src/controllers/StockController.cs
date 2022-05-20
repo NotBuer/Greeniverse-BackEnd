@@ -5,6 +5,7 @@ using Greeniverse.src.repositories.implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Greeniverse.src.controllers
@@ -43,7 +44,7 @@ namespace Greeniverse.src.controllers
         [Authorize]
         public async Task<ActionResult> GetAllProductsAsync()
         {
-            var list = await _repository.GetAllProductsStockAsync();
+            List<StockModel> list = await _repository.GetAllProductsStockAsync();
 
             if (list.Count == 1) return NoContent();
             return Ok(list);
@@ -64,7 +65,7 @@ namespace Greeniverse.src.controllers
         public async Task<ActionResult> GetProductByIdAsync([FromRoute] int idStock)
         {
 
-            var stock = await _repository.GetProductByIdAsync(idStock);
+            StockModel stock = await _repository.GetProductByIdAsync(idStock);
             if (stock == null) return NotFound();
             return Ok(stock);
         }
@@ -87,7 +88,7 @@ namespace Greeniverse.src.controllers
             [FromQuery] string description,
             [FromQuery] string productName)
         {
-            var stocks = await _repository.GetProductsBySearchAsync(type, description, productName);
+            List<ShoppingCartModel> stocks = await _repository.GetProductsBySearchAsync(type, description, productName);
             if (stocks.Count < 1) return NoContent();
             return Ok(stocks);
         }
