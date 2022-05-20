@@ -1,6 +1,9 @@
 ﻿using Greeniverse.src.data;
 using Greeniverse.src.dtos;
+using Greeniverse.src.models;
 using Greeniverse.src.repositories.implementations;
+using Greeniverse.src.utils;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -20,21 +23,68 @@ namespace TestEnvironment.Tests.repositories
         private IShoppingCart _repositorySC;
 
         [TestMethod]
-        private void CreateThreeShoppingCartsReturnsThreeShoppingCartNotNull()
+        private async Task CreateShoppingCartsReturnsShoppingCartNotNull()
         {
+            var opt = new DbContextOptionsBuilder<GreeniverseContext>()
+                .UseInMemoryDatabase(databaseName: "db_greeniverse1")
+                .Options;
 
+            _context = new GreeniverseContext(opt);
+            _repositorySC = new ShoppingCartRepository(_context);
+
+            await _repositorySC.NewShoppingCartAsync(
+                  new NewShoppingCartDTO(
+                      10, PaymentMethod.PIX, "50% de Desconto", "AddressTest", "murilinho@gmail.com", 1)
+              );
+
+            Assert.IsNotNull(_context.ShoppingCart.FirstOrDefault(s => s.Id == 1));
         }
 
         [TestMethod]
-        private void GetCartByDeliveryAddressReturnsNotNull()
+        private async Task GetAllProductsByEmailPurchaserAsyncReturnsNotNull()
         {
+            var opt = new DbContextOptionsBuilder<GreeniverseContext>()
+                .UseInMemoryDatabase(databaseName: "db_greeniverse1")
+                .Options;
 
+            _context = new GreeniverseContext(opt);
+            _repositorySC = new ShoppingCartRepository(_context);
+
+            await _repositorySC.NewShoppingCartAsync(
+                 new NewShoppingCartDTO(
+                        5, PaymentMethod.PIX, "10% de Desconto", "AddressTest", "catel@gmail.com", 2)
+            );
+
+            await _repositorySC.NewShoppingCartAsync(
+                    new NewShoppingCartDTO(
+                        5, PaymentMethod.Paypal, "5% de Desconto", "AddressTest", "rodrigofeliz@gmail.com", 3)
+            );
+
+            List<ShoppingCartModel> firstList = await _repositorySC.GetAllProductsByEmailPurchaserAsync("catel@gmail.com");
+            List<ShoppingCartModel> secondList = await _repositorySC.GetAllProductsByEmailPurchaserAsync("rodrigofeliz@gmail.com");
+
+            Assert.IsNotNull(firstList);
+            Assert.IsNotNull(secondList);
         }
 
         [TestMethod]
-        private void GetCartByIdReturnNotNullAndPaymentMethod()
+        private async Task GetCartByIdReturnPaymentMethod()
         {
+            var opt = new DbContextOptionsBuilder<GreeniverseContext>()
+                .UseInMemoryDatabase(databaseName: "db_greeniverse1")
+                .Options;
 
+            _context = new GreeniverseContext(opt);
+            _repositorySC = new ShoppingCartRepository(_context);
+
+            await _repositorySC.NewShoppingCartAsync(
+                new NewShoppingCartDTO(
+                    12, PaymentMethod.CreditCard, "25% de Desconto", "AddressTest", "kauzinha@gmail.com", 5)
+            );
+
+            ShoppingCartModel model = await _repositorySC.GetShoppingCartByIdAsync(1);
+
+            Assert.AreEqual(model.PaymentMethod, PaymentMethod.CreditCard);
         }
 
     }

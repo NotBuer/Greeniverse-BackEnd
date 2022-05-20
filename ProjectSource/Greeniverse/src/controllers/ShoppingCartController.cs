@@ -45,7 +45,7 @@ namespace Greeniverse.src.controllers
         [Authorize]
         public async Task<ActionResult> GetShoppingCartByIdAsync([FromRoute] int idShoppingCart)
         {
-            var shoppingcart = await _repository.GetShoppingCartByIdAsync(idShoppingCart);
+            ShoppingCartModel shoppingcart = await _repository.GetShoppingCartByIdAsync(idShoppingCart);
 
             if (shoppingcart == null) return NotFound();
 
@@ -64,7 +64,7 @@ namespace Greeniverse.src.controllers
         [Authorize]
         public async Task<ActionResult> GetAllProductsAsync()
         {
-            var list = await _repository.GetAllProductsAsync();
+            List<ShoppingCartModel> list = await _repository.GetAllProductsAsync();
 
             if (list.Count < 1) return NoContent();
 
@@ -84,7 +84,7 @@ namespace Greeniverse.src.controllers
         [Authorize(Roles = "IndividualPerson, Business")]
         public async Task<ActionResult> GetAllProductsByEmailPurchaserAsync([FromQuery]string emailPurchaser)
         {
-            var shoppingcart = await _repository.GetAllProductsByEmailPurchaserAsync(emailPurchaser);
+            List<ShoppingCartModel> shoppingcart = await _repository.GetAllProductsByEmailPurchaserAsync(emailPurchaser);
 
             if (shoppingcart.Count < 1) return NoContent();
 

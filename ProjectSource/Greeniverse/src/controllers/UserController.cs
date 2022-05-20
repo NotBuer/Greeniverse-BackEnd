@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlogPessoal.src.controller
@@ -47,7 +48,7 @@ namespace BlogPessoal.src.controller
         [Authorize(Roles = "IndividualPerson,Business")]
         public async Task<ActionResult> GetUserByIdAsync([FromRoute] int idUser)
         {
-            var user = await _repository.GetUserByIdAsync(idUser);
+            UserModel user = await _repository.GetUserByIdAsync(idUser);
 
             if (user == null) return NotFound();
 
@@ -67,7 +68,7 @@ namespace BlogPessoal.src.controller
         [Authorize(Roles = "IndividualPerson, Business")]
         public async Task<ActionResult> GetUserByNameAsync([FromQuery] string nameUser)
         {
-            var user = await _repository.GetUserByNameAsync(nameUser);
+            List<UserModel> user = await _repository.GetUserByNameAsync(nameUser);
 
             if (user.Count < 1) return NoContent();
 
@@ -86,7 +87,7 @@ namespace BlogPessoal.src.controller
         [Authorize(Roles = "IndividualPerson, Business")]
         public async Task<ActionResult> GetUserByEmailAsync([FromRoute] string emailUser)
         {
-            var user = await _repository.GetUserByEmailAsync(emailUser);
+            UserModel user = await _repository.GetUserByEmailAsync(emailUser);
             if (user == null) return NotFound();
             return Ok(user);
         }
