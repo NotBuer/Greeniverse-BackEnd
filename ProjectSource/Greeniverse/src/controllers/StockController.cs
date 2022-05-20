@@ -89,11 +89,8 @@ namespace Greeniverse.src.controllers
             [FromQuery] string description,
             [FromQuery] string productName)
         {
-<<<<<<< HEAD
             var stocks = await _repository.GetProductsBySearchAsync(productCategory, description, productName);
-=======
-            List<ShoppingCartModel> stocks = await _repository.GetProductsBySearchAsync(type, description, productName);
->>>>>>> fc05332252a73136581bb36b21348cd63f10ad58
+
             if (stocks.Count < 1) return NoContent();
             return Ok(stocks);
         }
