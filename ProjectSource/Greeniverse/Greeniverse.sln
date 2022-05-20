@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Greeniverse", "Greeniverse.csproj", "{E9FF2008-2009-4905-ABB6-880ACABA5092}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greeniverse", "Greeniverse.csproj", "{E9FF2008-2009-4905-ABB6-880ACABA5092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEnvironment", "..\TestEnvironment\TestEnvironment.csproj", "{D303B0B1-7343-4399-80FD-988CFA83414D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEnvironment", "..\TestEnvironment\TestEnvironment.csproj", "{D303B0B1-7343-4399-80FD-988CFA83414D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
