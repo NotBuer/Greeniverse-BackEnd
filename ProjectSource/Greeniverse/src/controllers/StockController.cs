@@ -2,6 +2,7 @@
 ﻿using Greeniverse.src.dtos;
 using Greeniverse.src.models;
 using Greeniverse.src.repositories.implementations;
+using Greeniverse.src.utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -72,7 +73,7 @@ namespace Greeniverse.src.controllers
         /// <summary>
         /// Get Product By Search
         /// </summary>
-        /// <param name="type">Enum</param>
+        /// <param name="productCategory">Enum</param>
         /// <param name="description">StockDTO</param>
         ///<param name="productName">StockDTO</param>
         /// <returns>ActionResult</returns>
@@ -83,11 +84,11 @@ namespace Greeniverse.src.controllers
         [HttpGet("search")]
         [Authorize]
         public async Task<ActionResult> GetProductsBySearchAsync(
-            [FromQuery] string type,
+            [FromQuery] ProductCategory productCategory,
             [FromQuery] string description,
             [FromQuery] string productName)
         {
-            var stocks = await _repository.GetProductsBySearchAsync(type, description, productName);
+            var stocks = await _repository.GetProductsBySearchAsync(productCategory, description, productName);
             if (stocks.Count < 1) return NoContent();
             return Ok(stocks);
         }
@@ -103,7 +104,7 @@ namespace Greeniverse.src.controllers
         ///     POST /api/Stock
         ///     {
         ///         "id": 1,
-        ///        "type": "Fruits",
+        ///        "productCategory": "Fruits",
         ///        "description": "red fruit",
         ///        "price": 3.55f,
         ///        "productName": "strawberry",
@@ -138,7 +139,7 @@ namespace Greeniverse.src.controllers
         ///     PUT /api/Stock
         ///     {
         ///         "id": 1,
-        ///        "type": "Fruits",
+        ///        "productCategory": "Fruits",
         ///        "description": "red fruit",
         ///        "price": 4.55f,
         ///        "productName": "strawberry",

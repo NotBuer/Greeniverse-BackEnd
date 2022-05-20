@@ -1,6 +1,7 @@
 ﻿using Greeniverse.src.data;
 using Greeniverse.src.dtos;
 using Greeniverse.src.models;
+using Greeniverse.src.utils;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace Greeniverse.src.repositories.implementations
            await _context.Stock.AddAsync(new StockModel
             {
                 ProductName = Product.ProductName,
-                Type = Product.Type,
+                ProductCategory = Product.ProductCategory,
                 Description = Product.Description,
                 Price = Product.Price,
                 Provider = Product.Provider,
@@ -63,7 +64,7 @@ namespace Greeniverse.src.repositories.implementations
         public async Task UpdateProductAsync(UpdateStockDTO Updateproduct)
         {
             StockModel ProductExistent =await GetProductByIdAsync(Updateproduct.Id);
-            ProductExistent.Type = Updateproduct.Type;
+            ProductExistent.ProductCategory = Updateproduct.ProductCategory;
             ProductExistent.Description = Updateproduct.Description;
             ProductExistent.Price = Updateproduct.Price;
             ProductExistent.Provider = Updateproduct.Provider;
@@ -93,24 +94,24 @@ namespace Greeniverse.src.repositories.implementations
         /// <summary>
         /// <para>Resume: Query method for get stock by type or description and productname creator</para>
         /// </summary>
-        /// <param name="type">Type of product</param>
+        /// <param name="productCategory">Type of product</param>
         /// <param name="description">Description of product</param>
         /// <param name="productName">ProductName of product</param>
         /// <returns>List of StockModel</returns>
-        public async Task<List<ShoppingCartModel>> GetProductsBySearchAsync(string type, string description, string productName)
+        public async Task<List<ShoppingCartModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName)
         {
 
-            switch (type, description, productName)
+            switch (productCategory, description, productName)
             {
-                case (null, null, null): return await _context.ShoppingCart.ToListAsync();
-                case (null, null, _):
+                case (ProductCategory.NULL, null, null): return await _context.ShoppingCart.ToListAsync();
+                case (ProductCategory.NULL, null, _):
                     return await _context.ShoppingCart
                        .Include(s => s.Purchaser)
                        .Include(s => s.Product)
                        .Where(s => s.Product.ProductName.Contains(productName))
                        .ToListAsync();
 
-                case (null, _, null):
+                case (ProductCategory.NULL, _, null):
                     return await _context.ShoppingCart
                        .Include(s => s.Purchaser)
                        .Include(s => s.Product)
@@ -121,17 +122,17 @@ namespace Greeniverse.src.repositories.implementations
                     return await _context.ShoppingCart
                       .Include(s => s.Purchaser)
                       .Include(s => s.Product)
-                      .Where(s => s.Product.Type.Contains(type))
+                      .Where(s => s.Product.ProductCategory.Equals(productCategory))
                       .ToListAsync();
 
                 case (_, _, null):
                     return await _context.ShoppingCart
                         .Include(s => s.Purchaser)
                         .Include(s => s.Product)
-                        .Where(s => s.Product.Type.Contains(type) & s.Product.Description.Contains(description))
+                        .Where(s => s.Product.ProductCategory.Equals(productCategory) & s.Product.Description.Contains(description))
                         .ToListAsync(); 
 
-                case (null, _, _):
+                case (ProductCategory.NULL, _, _):
                     return await _context.ShoppingCart
                       .Include(s => s.Purchaser)
                       .Include(s => s.Product)
@@ -142,14 +143,14 @@ namespace Greeniverse.src.repositories.implementations
                     return await _context.ShoppingCart
                        .Include(s => s.Purchaser)
                        .Include(s => s.Product)
-                       .Where(s => s.Product.Type.Contains(type) & s.Product.ProductName.Contains(productName))
+                       .Where(s => s.Product.ProductCategory.Equals(productCategory) & s.Product.ProductName.Contains(productName))
                        .ToListAsync();
 
                 case (_, _, _):
                     return await _context.ShoppingCart
                        .Include(s => s.Purchaser)
                        .Include(s => s.Product)
-                       .Where(s => s.Product.Type.Contains(type) |
+                       .Where(s => s.Product.ProductCategory.Equals(productCategory) |
                        s.Product.Description.Contains(description) | 
                        s.Product.ProductName.Contains(productName))
                        .ToListAsync();

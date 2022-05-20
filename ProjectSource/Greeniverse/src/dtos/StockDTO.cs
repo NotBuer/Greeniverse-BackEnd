@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Greeniverse.src.utils;
+using System.ComponentModel.DataAnnotations;
 
 namespace Greeniverse.src.dtos
 {
@@ -14,7 +15,7 @@ namespace Greeniverse.src.dtos
         public int Id { get; set; } 
 
         [Required, StringLength(50)]
-        public string Type { get; set; }
+        public ProductCategory ProductCategory { get; set; }
 
         [Required, StringLength(200)]
         public string Description { get; set; }
@@ -30,17 +31,16 @@ namespace Greeniverse.src.dtos
 
         [Required, StringLength(255)]
         public string ProductPhoto { get; set; }
-
-        public NewStockDTO(int id, string type, string description, float price, string productName, string provider, string productPhoto)
+                
+        public NewStockDTO(int id, ProductCategory productCategory, string description, float price, string productName, string provider, string productPhoto)
         {
             Id = id;
-            Type = type;
+            ProductCategory = productCategory;
             Description = description;
             Price = price;
             ProductName = productName;
             Provider = provider;
             ProductPhoto = productPhoto;
-
         }
 
         public NewStockDTO() { }
@@ -58,7 +58,7 @@ namespace Greeniverse.src.dtos
         public int Id { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public ProductCategory ProductCategory { get; set; }
 
         [Required, StringLength(200)]
         public string Description { get; set; }
@@ -75,10 +75,10 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(255)]
         public string ProductPhoto { get; set; }
 
-        public UpdateStockDTO(int id, string type, string description, float price, string productName, string provider, string productPhoto)
+        public UpdateStockDTO(int id, ProductCategory productCategory, string description, float price, string productName, string provider, string productPhoto)
         {
             Id = id;
-            Type = type;
+            ProductCategory = productCategory;
             Description = description;
             Price = price;
             ProductName = productName;
