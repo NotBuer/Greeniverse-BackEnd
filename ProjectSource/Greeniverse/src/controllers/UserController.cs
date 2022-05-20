@@ -103,9 +103,9 @@ namespace BlogPessoal.src.controller
         ///     {
         ///        "name": "Uriel Boaz",
         ///        "email": "uriel@gmail.com",
+        ///        "password": "12345678",
         ///        "address": "AddressTest - 123",
-        ///        "phone": "(11) 96543-2356",
-        ///        "userType": "Business"
+        ///        "phone": "(11) 96543-2356"
         ///     }
         ///
         /// </remarks>
