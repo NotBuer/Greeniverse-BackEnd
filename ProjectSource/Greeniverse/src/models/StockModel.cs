@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Greeniverse.src.utils;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -16,9 +17,9 @@ namespace Greeniverse.src.models
     {
         public StockModel() { }
 
-        public StockModel(string type, string description, float price, string productName, string provider)
+        public StockModel(ProductCategory productCategory, string description, float price, string productName, string provider)
         {
-            Type = type;
+            ProductCategory = productCategory;
             Description = description;
             Price = price;
             ProductName = productName;
@@ -30,7 +31,7 @@ namespace Greeniverse.src.models
         public int Id { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public ProductCategory ProductCategory { get; set; }
 
         [Required, StringLength(200)]
         public string Description { get; set; }
@@ -49,6 +50,8 @@ namespace Greeniverse.src.models
 
         [JsonIgnore, InverseProperty("Product")] 
         public List<ShoppingCartModel> ProductsInCart { get; set; }   
+
+        
 
     }
 

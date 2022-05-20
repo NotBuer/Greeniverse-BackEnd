@@ -1,5 +1,6 @@
 using Greeniverse.src.dtos;
 using Greeniverse.src.models;
+using Greeniverse.src.utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace Greeniverse.src.repositories.implementations
         Task DeleteProductAsync(int id);
         Task <StockModel> GetProductByIdAsync(int id);
         Task<List<StockModel>> GetAllProductsStockAsync();
-        Task<List<ShoppingCartModel>> GetProductsBySearchAsync(string type, string description, string productName);
+        Task<List<ShoppingCartModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName);
     }
 }
 

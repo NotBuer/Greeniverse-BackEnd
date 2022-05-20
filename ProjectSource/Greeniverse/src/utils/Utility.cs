@@ -9,4 +9,8 @@ namespace Greeniverse.src.utils
     [JsonConverter(typeof(JsonStringEnumConverter))]   
     public enum PaymentMethod { CreditCard, Paypal, PIX, Debit, CC }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum ProductCategory { EggsAndMeat, Vegetables, Fruits, GroceryStore, BodyAndHouse, DrinksAndDairy, NULL}
+    
+
 }
