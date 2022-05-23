@@ -40,16 +40,20 @@ namespace Greeniverse
                 opt => opt.
                 UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
+            // Configure repositories
             services.AddScoped<IUser, UserRepository>();
             services.AddScoped<IStock, StockRepository>();
             services.AddScoped<IShoppingCart, ShoppingCartRepository>();
 
+            // Configure controllers
             services.AddCors();
             services.AddControllers();
 
+            // Configure services
             services.AddScoped<IAuthentication, AuthenticationServices>();
 
-            var key = Encoding.ASCII.GetBytes(Configuration["Settings:Secret"]);
+            // Configure authentication
+            byte[] key = Encoding.ASCII.GetBytes(Configuration["Settings:Secret"]);
             services.AddAuthentication(a =>
             {
                 a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,6 +70,7 @@ namespace Greeniverse
                     ValidateAudience = false
                 };
             });
+            
             // Configuration Swagger
             services.AddSwaggerGen(s =>
             {
@@ -107,6 +112,7 @@ namespace Greeniverse
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GreeniverseContext context)
         {
+            // Development Environment
             if (env.IsDevelopment())
             {
                 context.Database.EnsureCreated();
@@ -119,6 +125,7 @@ namespace Greeniverse
                 });
             }
 
+            // Production Environment
             context.Database.EnsureCreated();
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
@@ -128,6 +135,7 @@ namespace Greeniverse
                 c.RoutePrefix = String.Empty;
             });
 
+            // Routes
             app.UseRouting();
 
             app.UseCors(c => c
@@ -136,9 +144,11 @@ namespace Greeniverse
                 .AllowAnyHeader()
             );
 
+            // Authentication
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // Endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
