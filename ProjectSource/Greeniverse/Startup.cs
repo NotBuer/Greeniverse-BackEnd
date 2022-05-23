@@ -36,9 +36,18 @@ namespace Greeniverse
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            services.AddDbContext<GreeniverseContext>(
-                opt => opt.
-                UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            // Configuraçãp Banco de Dados
+            if (Configuration["Environment:Start"] == "PROD")
+            {
+                services.AddEntityFrameworkNpgsql()
+                .AddDbContext<GreeniverseContext>(
+                opt =>
+                opt.UseNpgsql(Configuration["ConnectionStringsProd:DefaultConnection"]));
+            } else {
+                services.AddDbContext<GreeniverseContext>(
+                opt =>
+                opt.UseSqlServer(Configuration["ConnectionStringsDev:DefaultConnection"]));
+            }
 
             // Configure repositories
             services.AddScoped<IUser, UserRepository>();
