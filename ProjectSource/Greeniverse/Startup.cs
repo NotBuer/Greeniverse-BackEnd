@@ -56,7 +56,7 @@ namespace Greeniverse
 
             // Configure controllers
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers(); 
 
             // Configure services
             services.AddScoped<IAuthentication, AuthenticationServices>();
