@@ -16,6 +16,7 @@ namespace BlogPessoal.src.controller
     [Produces("application/json")]
     public class UserController : ControllerBase
     {
+
         #region Attributes
 
         private readonly IUser _repository;
@@ -74,6 +75,7 @@ namespace BlogPessoal.src.controller
 
             return Ok(user);
         }
+
         /// <summary>
         /// Get user by Email
         /// </summary>
@@ -91,6 +93,7 @@ namespace BlogPessoal.src.controller
             if (user == null) return NotFound();
             return Ok(user);
         }
+        
         /// <summary>
         /// Create new user
         /// </summary>
@@ -132,6 +135,7 @@ namespace BlogPessoal.src.controller
             }
 
         }
+
         /// <summary>
         /// Updated user
         /// </summary>
@@ -168,6 +172,7 @@ namespace BlogPessoal.src.controller
             await _repository.UpdateUserAsync(user);
             return Ok(user);
         }
+
         /// <summary>
         /// Delete user by Id
         /// </summary>

@@ -35,7 +35,7 @@ namespace TestEnvironment.Tests.data
         [TestMethod]
         public void TestUserInsertInDBReturnUser()
         {
-            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson);
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson, 1000);
             _context.User.Add(userTest);
             _context.SaveChanges();
             Assert.IsNotNull(userTest);
@@ -48,7 +48,7 @@ namespace TestEnvironment.Tests.data
         public void TestUserUpdateInDBReturnUser()
         {
             // First add a new user to make updating it possible.
-            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson);
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson, 1000);
             _context.User.Add(userTest);
             _context.SaveChanges();
 
@@ -66,7 +66,7 @@ namespace TestEnvironment.Tests.data
         public void TestUserDeleteInDBReturnUser()
         {
             // First add a new user to make deleting it possible.
-            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson);
+            UserModel userTest = new UserModel("TestUser", "testemail@email.com", "testpassword", "TestAdress", "123456789", UserType.IndividualPerson, 1000);
             _context.User.Add(userTest);
             _context.SaveChanges();
 
