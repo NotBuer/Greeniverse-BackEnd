@@ -107,7 +107,7 @@ namespace BlogPessoal.src.controller
         ///        "email": "uriel@gmail.com",
         ///        "password": "12345678",
         ///        "address": "AddressTest - 123",
-        ///        "phone": "(11) 96543-2356"
+        ///        "telephone": "(11) 96543-2356"
         ///     }
         ///
         /// </remarks>
@@ -150,7 +150,7 @@ namespace BlogPessoal.src.controller
         ///        "email": "uriel@email.com"
         ///        "password": "11223344",
         ///        "address": "AddressTest - 123",
-        ///        "phone": "(11) 96543-2356",
+        ///        "telephone": "(11) 96543-2356",
         ///        "userType": "Business"
         ///        
         ///     }
