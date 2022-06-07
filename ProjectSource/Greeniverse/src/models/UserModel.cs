@@ -41,13 +41,12 @@ namespace Greeniverse.src.models
         [Required, StringLength(50)]
         public string Password { get; set; }
 
-        [Required, StringLength(50)]
+        [StringLength(50)]
         public string Address { get; set; }
 
-        [Required, StringLength(50)]
+        [StringLength(50)]
         public string Telephone { get; set; }
 
-        [Required]
         public UserType UserType { get; set; }
 
         [JsonIgnore, InverseProperty("Purchaser")]
