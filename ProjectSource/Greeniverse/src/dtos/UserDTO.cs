@@ -20,13 +20,12 @@ namespace Greeniverse.src.DTOS
         [Required, StringLength(30)]
         public string Password { get; set; }
 
-        [Required, StringLength(50)]
+        [StringLength(50)]
         public string Address { get; set; }
 
-        [Required, StringLength(30)]
+        [StringLength(15)]
         public string Phone { get; set; }
 
-        [Required]
         public UserType UserType { get; set; }
 
         public NewUserDTO(string name, string email, string password, string address, string phone, UserType userType)
@@ -65,7 +64,6 @@ namespace Greeniverse.src.DTOS
         [Required, StringLength(15)]
         public string Phone { get; set; }
 
-        [Required]
         public UserType UserType { get; set; }
 
         public UpdateUserDTO(string name, string email, string password, string address, string phone, UserType userType)
