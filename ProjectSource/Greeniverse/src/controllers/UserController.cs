@@ -74,6 +74,7 @@ namespace BlogPessoal.src.controller
 
             return Ok(user);
         }
+        
         /// <summary>
         /// Get user by Email
         /// </summary>
@@ -91,6 +92,7 @@ namespace BlogPessoal.src.controller
             if (user == null) return NotFound();
             return Ok(user);
         }
+
         /// <summary>
         /// Create new user
         /// </summary>
@@ -115,7 +117,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpPost]
+        [HttpPost("register")]
         [AllowAnonymous]
         public async Task<ActionResult> NewUserAsync([FromBody] NewUserDTO user)
         {
@@ -132,6 +134,7 @@ namespace BlogPessoal.src.controller
             }
 
         }
+
         /// <summary>
         /// Updated user
         /// </summary>
@@ -168,6 +171,7 @@ namespace BlogPessoal.src.controller
             await _repository.UpdateUserAsync(user);
             return Ok(user);
         }
+
         /// <summary>
         /// Delete user by Id
         /// </summary>
