@@ -37,7 +37,7 @@ namespace Greeniverse.src.controllers
         /// Get all Products
         /// </summary>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Returns all themes</response>
+        /// <response code="200">Returns all products</response>
         /// <response code="204">No content</response>
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -49,7 +49,24 @@ namespace Greeniverse.src.controllers
 
             if (list.Count == 1) return NoContent();
             return Ok(list);
+        }
 
+        /// <summary>
+        /// Get all Products searching by category
+        /// </summary>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Returns all products</response>
+        /// <response code="204">No content</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("searchCategory")]
+        [Authorize]
+        public async Task<ActionResult> GetProductsByCategoryAsync([FromQuery] ProductCategory productCategory)
+        {
+            List<StockModel> list = await _repository.GetProductByCategoryAsync(productCategory);
+
+            if (list.Count == 1) return NoContent();
+            return Ok(list);
         }
 
         /// <summary>
@@ -84,10 +101,7 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("search")]
         [Authorize]
-        public async Task<ActionResult> GetProductsBySearchAsync(
-            [FromQuery] ProductCategory productCategory,
-            [FromQuery] string description,
-            [FromQuery] string productName)
+        public async Task<ActionResult> GetProductsBySearchAsync([FromQuery] ProductCategory productCategory,[FromQuery] string description, [FromQuery] string productName)
         {
             var stocks = await _repository.GetProductsBySearchAsync(productCategory, description, productName);
 
@@ -139,7 +153,7 @@ namespace Greeniverse.src.controllers
         ///
         ///     PUT /api/Stock
         ///     {
-        ///         "id": 1,
+        ///        "id": 1,
         ///        "productCategory": "Fruits",
         ///        "description": "red fruit",
         ///        "price": 4.55f,
