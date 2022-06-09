@@ -14,7 +14,7 @@ namespace Greeniverse.src.dtos
         [Required]
         public int Id { get; set; } 
 
-        [Required, StringLength(50)]
+        [Required]
         public ProductCategory ProductCategory { get; set; }
 
         [Required, StringLength(200)]
