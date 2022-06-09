@@ -105,7 +105,6 @@ namespace Greeniverse.src.controllers
         ///
         ///     POST /api/Stock
         ///     {
-        ///         "id": 1,
         ///        "productCategory": "Fruits",
         ///        "description": "red fruit",
         ///        "price": 3.55f,
@@ -119,7 +118,7 @@ namespace Greeniverse.src.controllers
         /// <response code="400">Error in request</response>
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(StockModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpPost]
+        [HttpPost("register")]
         [Authorize(Roles = "Business")]
         public async Task<ActionResult> NewProductAsync([FromBody] NewStockDTO stock)
         {
@@ -127,7 +126,7 @@ namespace Greeniverse.src.controllers
 
             await _repository.NewProductAsync(stock);
 
-            return Created($"Api/stocks/id/{stock.Id}", stock);
+            return Created($"api/Stock/name/{stock.ProductName}", stock);
         }
 
         /// <summary>

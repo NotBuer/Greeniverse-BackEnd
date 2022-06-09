@@ -8,7 +8,6 @@ namespace Greeniverse.src.DTOS
     /// <para>Version: 1.0</para>
     /// <para>Date: 13/05/2022</para>
     /// </summary>
-
     public class NewUserDTO
     {
         [Required, StringLength(50)]
@@ -39,12 +38,12 @@ namespace Greeniverse.src.DTOS
             UserType = userType;
         }
     }
+
     /// <summary>
     /// <para>abstract: Mirror Class for change a new user</para>
     /// <para>Version: 1.0</para>
     /// <para>Date: 05/13/2022</para>
     /// </summary>
-
     public class UpdateUserDTO
     {
         [Required]
