@@ -36,16 +36,16 @@ namespace Greeniverse.src.models
         [Required, StringLength(50)]
         public string Name { get; set; }
 
-        [Required, StringLength(100)]
+        [Required, StringLength(50)]
         public string Email { get; set; }
 
         [Required, StringLength(50)]
         public string Password { get; set; }
 
-        [Required, StringLength(50)]
+        [StringLength(50)]
         public string Address { get; set; }
 
-        [Required, StringLength(50)]
+        [StringLength(15)]
         public string Telephone { get; set; }
 
         [Required]

@@ -75,7 +75,7 @@ namespace BlogPessoal.src.controller
 
             return Ok(user);
         }
-
+        
         /// <summary>
         /// Get user by Email
         /// </summary>
@@ -108,7 +108,7 @@ namespace BlogPessoal.src.controller
         ///        "email": "uriel@gmail.com",
         ///        "password": "12345678",
         ///        "address": "AddressTest - 123",
-        ///        "phone": "(11) 96543-2356"
+        ///        "telephone": "(11) 96543-2356"
         ///     }
         ///
         /// </remarks>
@@ -118,7 +118,7 @@ namespace BlogPessoal.src.controller
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpPost]
+        [HttpPost("register")]
         [AllowAnonymous]
         public async Task<ActionResult> NewUserAsync([FromBody] NewUserDTO user)
         {
@@ -151,7 +151,7 @@ namespace BlogPessoal.src.controller
         ///        "email": "uriel@email.com"
         ///        "password": "11223344",
         ///        "address": "AddressTest - 123",
-        ///        "phone": "(11) 96543-2356",
+        ///        "telephone": "(11) 96543-2356",
         ///        "userType": "Business"
         ///        
         ///     }

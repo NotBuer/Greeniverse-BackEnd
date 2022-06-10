@@ -8,24 +8,23 @@ namespace Greeniverse.src.DTOS
     /// <para>Version: 1.0</para>
     /// <para>Date: 13/05/2022</para>
     /// </summary>
-
     public class NewUserDTO
     {
         [Required, StringLength(50)]
         public string Name { get; set; }
 
-        [Required, StringLength(30)]
+        [Required, StringLength(50)]
         public string Email { get; set; }
 
-        [Required, StringLength(30)]
+        [Required, StringLength(50)]
         public string Password { get; set; }
 
-        [Required, StringLength(50)]
+        [StringLength(50)]
         public string Address { get; set; }
 
-        [Required, StringLength(30)]
-        public string Phone { get; set; }
-
+        [StringLength(15)]
+        public string Telephone { get; set; }
+        
         [Required]
         public UserType UserType { get; set; }
 
@@ -38,17 +37,17 @@ namespace Greeniverse.src.DTOS
             Email = email;
             Password = password;
             Address = address;
-            Phone = phone;
+            Telephone = phone;
             UserType = userType;
             WalletCoins = walletCoins;
         }
     }
+
     /// <summary>
     /// <para>abstract: Mirror Class for change a new user</para>
     /// <para>Version: 1.0</para>
     /// <para>Date: 05/13/2022</para>
     /// </summary>
-
     public class UpdateUserDTO
     {
         [Required]
@@ -57,19 +56,18 @@ namespace Greeniverse.src.DTOS
         [Required, StringLength(50)]
         public string Name { get; set; }
 
-        [Required, StringLength(30)]
+        [Required, StringLength(50)]
         public string Email { get; set; }
 
-        [Required, StringLength(30)]
+        [Required, StringLength(50)]
         public string Password { get; set; }
 
         [Required, StringLength(50)]
         public string Address { get; set; }
 
         [Required, StringLength(15)]
-        public string Phone { get; set; }
+        public string Telephone { get; set; }
 
-        [Required]
         public UserType UserType { get; set; }
 
         [Required]
@@ -81,7 +79,7 @@ namespace Greeniverse.src.DTOS
             Email = email;
             Password = password;
             Address = address;
-            Phone = phone;
+            Telephone = phone;
             UserType = userType;
             WalletCoins = walletCoins;
         }

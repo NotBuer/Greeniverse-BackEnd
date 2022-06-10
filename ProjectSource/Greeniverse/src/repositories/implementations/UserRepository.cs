@@ -45,7 +45,7 @@ namespace Greeniverse.src.repositories.implementations
                 Email = user.Email,
                 Password = user.Password,
                 Address = user.Address,
-                Telephone = user.Phone,
+                Telephone = user.Telephone,
                 UserType = user.UserType,
                 WalletCoins = user.WalletCoins
             });
@@ -62,7 +62,7 @@ namespace Greeniverse.src.repositories.implementations
             existingUser.Name = user.Name;
             existingUser.Password = user.Password;
             existingUser.Address = user.Address;
-            existingUser.Telephone = user.Phone;
+            existingUser.Telephone = user.Telephone;
             _context.User.Update(existingUser);
            await _context.SaveChangesAsync();
         }

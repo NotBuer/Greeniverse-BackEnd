@@ -92,67 +92,63 @@ namespace Greeniverse.src.repositories.implementations
         }
 
         /// <summary>
-        /// <para>Resume: Query method for get stock by type or description and productname creator</para>
+        /// <para>Resume: Query method for get stock by type or description or product name</para>
         /// </summary>
         /// <param name="productCategory">Type of product</param>
         /// <param name="description">Description of product</param>
         /// <param name="productName">ProductName of product</param>
         /// <returns>List of StockModel</returns>
-        public async Task<List<ShoppingCartModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName)
+        public async Task<List<StockModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName)
         {
 
             switch (productCategory, description, productName)
             {
-                case (ProductCategory.NULL, null, null): return await _context.ShoppingCart.ToListAsync();
+                case (ProductCategory.NULL, null, null): return await _context.Stock.ToListAsync();
+
                 case (ProductCategory.NULL, null, _):
-                    return await _context.ShoppingCart
-                       .Include(s => s.Purchaser)
-                       .Include(s => s.Product)
-                       .Where(s => s.Product.ProductName.Contains(productName))
+                    return await _context.Stock
+                       .Include(s => s.ProductCategory)
+                       .Include(s => s.Description)
+                       .Where(s => s.ProductName.Contains(productName))
                        .ToListAsync();
 
                 case (ProductCategory.NULL, _, null):
-                    return await _context.ShoppingCart
-                       .Include(s => s.Purchaser)
-                       .Include(s => s.Product)
-                       .Where(s => s.Product.Description.Contains(description))
+                    return await _context.Stock
+                       .Include(s => s.ProductCategory)
+                       .Include(s => s.ProductName)
+                       .Where(s => s.Description.Contains(description))
                        .ToListAsync();
 
                 case (_, null, null):
-                    return await _context.ShoppingCart
-                      .Include(s => s.Purchaser)
-                      .Include(s => s.Product)
-                      .Where(s => s.Product.ProductCategory.Equals(productCategory))
+                    return await _context.Stock
+                      .Include(s => s.Description)
+                      .Include(s => s.ProductName)
+                      .Where(s => s.ProductCategory.Equals(productCategory))
                       .ToListAsync();
 
                 case (_, _, null):
-                    return await _context.ShoppingCart
-                        .Include(s => s.Purchaser)
-                        .Include(s => s.Product)
-                        .Where(s => s.Product.ProductCategory.Equals(productCategory) & s.Product.Description.Contains(description))
+                    return await _context.Stock
+                        .Include(s => s.ProductName)
+                        .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
                         .ToListAsync(); 
 
                 case (ProductCategory.NULL, _, _):
-                    return await _context.ShoppingCart
-                      .Include(s => s.Purchaser)
-                      .Include(s => s.Product)
-                      .Where(s => s.Product.Description.Contains(description) & s.Product.ProductName.Contains(productName))
+                    return await _context.Stock
+                      .Include(s => s.ProductCategory)
+                      .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
                       .ToListAsync();  
 
                 case (_, null, _):
-                    return await _context.ShoppingCart
-                       .Include(s => s.Purchaser)
-                       .Include(s => s.Product)
-                       .Where(s => s.Product.ProductCategory.Equals(productCategory) & s.Product.ProductName.Contains(productName))
+                    return await _context.Stock
+                       .Include(s => s.Description)
+                       .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
                        .ToListAsync();
 
                 case (_, _, _):
-                    return await _context.ShoppingCart
-                       .Include(s => s.Purchaser)
-                       .Include(s => s.Product)
-                       .Where(s => s.Product.ProductCategory.Equals(productCategory) |
-                       s.Product.Description.Contains(description) | 
-                       s.Product.ProductName.Contains(productName))
+                    return await _context.Stock
+                       .Where(s => s.ProductCategory.Equals(productCategory) |
+                       s.Description.Contains(description) | 
+                       s.ProductName.Contains(productName))
                        .ToListAsync();
             }
         }
@@ -164,6 +160,17 @@ namespace Greeniverse.src.repositories.implementations
         public async Task<List<StockModel>> GetAllProductsStockAsync()
         {
             return await _context.Stock
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// <para>Resume: method for get all products searching for it category.</para>
+        /// </summary>
+        /// <returns>List of StockModel</returns>
+        public async Task<List<StockModel>> GetProductByCategoryAsync(ProductCategory productCategory)
+        {
+            return await _context.Stock
+                .Where(s => s.ProductCategory.Equals(productCategory))
                 .ToListAsync();
         }
         #endregion
