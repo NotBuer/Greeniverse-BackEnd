@@ -32,11 +32,11 @@ namespace TestEnvironment.Tests.repositories
             _repository = new StockRepository(_context);
 
             await _repository.NewProductAsync(new NewStockDTO
-                (1, ProductCategory.Fruits, "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
+                (ProductCategory.Fruits, "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
 
-            List<ShoppingCartModel>stock = await _repository.GetProductsBySearchAsync(ProductCategory.Fruits, "Banana description", "Banana");
+            List<StockModel>stock = await _repository.GetProductsBySearchAsync(ProductCategory.Fruits, "Banana description", "Banana");
 
-            Assert.AreEqual("Banana description", stock.Where(s => s.Product.ProductCategory == ProductCategory.Fruits).FirstOrDefault().Product.Description);
+            Assert.AreEqual("Banana description", stock.Where(s => s.ProductCategory == ProductCategory.Fruits).FirstOrDefault().Description);
         }
 
         /// <summary>
@@ -57,10 +57,10 @@ namespace TestEnvironment.Tests.repositories
 
 
             await _repository.NewProductAsync(new NewStockDTO
-                (1, ProductCategory.Fruits, "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
+                (ProductCategory.Fruits, "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
 
             await _repository.NewProductAsync(new NewStockDTO
-                (2, ProductCategory.Fruits, "Morango description", 5.99f, "Morango", "FGHIJ", "ProductURL"));
+                (ProductCategory.Fruits, "Morango description", 5.99f, "Morango", "FGHIJ", "ProductURL"));
 
             var stock = await _repository.GetProductByIdAsync(1);
 

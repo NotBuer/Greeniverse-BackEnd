@@ -22,6 +22,3 @@ namespace Greeniverse.src.repositories.implementations
         Task<List<StockModel>> GetProductByCategoryAsync(ProductCategory productCategory);
     }
 }
-
-    
-
