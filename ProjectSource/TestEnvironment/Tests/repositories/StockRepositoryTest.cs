@@ -34,7 +34,7 @@ namespace TestEnvironment.Tests.repositories
             await _repository.NewProductAsync(new NewStockDTO
                 (ProductCategory.Fruits, "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
 
-            List<StockModel>stock = await _repository.GetProductsBySearchAsync(ProductCategory.Fruits, "Banana description", "Banana");
+            List<StockModel>stock = await _repository.GetProductsBySearchAsync(ProductCategory.Fruits, "Banana description", "Banana", QueryFilter.Default);
 
             Assert.AreEqual("Banana description", stock.Where(s => s.ProductCategory == ProductCategory.Fruits).FirstOrDefault().Description);
         }
