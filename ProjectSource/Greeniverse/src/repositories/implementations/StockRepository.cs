@@ -43,7 +43,7 @@ namespace Greeniverse.src.repositories.implementations
         /// <returns>StockModel</returns>
         public async Task NewProductAsync(NewStockDTO Product)
         {
-           await _context.Stock.AddAsync(new StockModel
+            await _context.Stock.AddAsync(new StockModel
             {
                 ProductName = Product.ProductName,
                 ProductCategory = Product.ProductCategory,
@@ -53,7 +53,7 @@ namespace Greeniverse.src.repositories.implementations
                 ProductPhoto = Product.ProductPhoto
 
             });
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Greeniverse.src.repositories.implementations
         /// <returns>StockModel</returns>
         public async Task UpdateProductAsync(UpdateStockDTO Updateproduct)
         {
-            StockModel ProductExistent =await GetProductByIdAsync(Updateproduct.Id);
+            StockModel ProductExistent = await GetProductByIdAsync(Updateproduct.Id);
             ProductExistent.ProductCategory = Updateproduct.ProductCategory;
             ProductExistent.Description = Updateproduct.Description;
             ProductExistent.Price = Updateproduct.Price;
@@ -78,7 +78,7 @@ namespace Greeniverse.src.repositories.implementations
         public async Task DeleteProductAsync(int id)
         {
             _context.Stock.Remove(await GetProductByIdAsync(id));
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -98,9 +98,256 @@ namespace Greeniverse.src.repositories.implementations
         /// <param name="description">Description of product</param>
         /// <param name="productName">ProductName of product</param>
         /// <returns>List of StockModel</returns>
-        public async Task<List<StockModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName)
+        public async Task<List<StockModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName, QueryFilter queryFilter)
         {
 
+            #region QUERYFILTER_DEFAULT
+            if (queryFilter == QueryFilter.Default)
+            {
+                switch (productCategory, description, productName)
+                {
+                    case (ProductCategory.NULL, null, null): return await _context.Stock.ToListAsync();
+
+                    case (ProductCategory.NULL, null, _):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductName.Contains(productName))
+                           .ToListAsync();
+
+                    case (ProductCategory.NULL, _, null):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.ProductName)
+                           .Where(s => s.Description.Contains(description))
+                           .ToListAsync();
+
+                    case (_, null, null):
+                        return await _context.Stock
+                          .Include(s => s.Description)
+                          .Include(s => s.ProductName)
+                          .Where(s => s.ProductCategory.Equals(productCategory))
+                          .ToListAsync();
+
+                    case (_, _, null):
+                        return await _context.Stock
+                            .Include(s => s.ProductName)
+                            .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
+                            .ToListAsync();
+
+                    case (ProductCategory.NULL, _, _):
+                        return await _context.Stock
+                          .Include(s => s.ProductCategory)
+                          .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
+                          .ToListAsync();
+
+                    case (_, null, _):
+                        return await _context.Stock
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
+                           .ToListAsync();
+
+                    case (_, _, _):
+                        return await _context.Stock
+                           .Where(s => s.ProductCategory.Equals(productCategory) |
+                           s.Description.Contains(description) |
+                           s.ProductName.Contains(productName))
+                           .ToListAsync();
+                }
+            }
+            #endregion
+
+
+            #region QUERYFILTER_MINORPRICE
+            if (queryFilter == QueryFilter.MinorPrice)
+            {
+                switch (productCategory, description, productName)
+                {
+                    case (ProductCategory.NULL, null, null): return await _context.Stock.ToListAsync();
+
+                    case (ProductCategory.NULL, null, _):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductName.Contains(productName))
+                           .OrderBy(s => s.Price)
+                           .ToListAsync();
+
+                    case (ProductCategory.NULL, _, null):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.ProductName)
+                           .Where(s => s.Description.Contains(description))
+                           .OrderBy(s => s.Price)
+                           .ToListAsync();
+
+                    case (_, null, null):
+                        return await _context.Stock
+                          .Include(s => s.Description)
+                          .Include(s => s.ProductName)
+                          .Where(s => s.ProductCategory.Equals(productCategory))
+                          .OrderBy(s => s.Price)
+                          .ToListAsync();
+
+                    case (_, _, null):
+                        return await _context.Stock
+                            .Include(s => s.ProductName)
+                            .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
+                            .OrderBy(s => s.Price)
+                            .ToListAsync();
+
+                    case (ProductCategory.NULL, _, _):
+                        return await _context.Stock
+                          .Include(s => s.ProductCategory)
+                          .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
+                          .OrderBy(s => s.Price)
+                          .ToListAsync();
+
+                    case (_, null, _):
+                        return await _context.Stock
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
+                           .OrderBy(s => s.Price)
+                           .ToListAsync();
+
+                    case (_, _, _):
+                        return await _context.Stock
+                           .Where(s => s.ProductCategory.Equals(productCategory) |
+                           s.Description.Contains(description) |
+                           s.ProductName.Contains(productName))
+                           .OrderBy(s => s.Price)
+                           .ToListAsync();
+                }
+            }
+            #endregion
+
+
+            #region QUERYFILTER_MAJORPRICE
+            if (queryFilter == QueryFilter.MajorPrice)
+            {
+                switch (productCategory, description, productName)
+                {
+                    case (ProductCategory.NULL, null, null): return await _context.Stock.ToListAsync();
+
+                    case (ProductCategory.NULL, null, _):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductName.Contains(productName))
+                           .OrderByDescending(s => s.Price)
+                           .ToListAsync();
+
+                    case (ProductCategory.NULL, _, null):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.ProductName)
+                           .Where(s => s.Description.Contains(description))
+                           .OrderByDescending(s => s.Price)
+                           .ToListAsync();
+
+                    case (_, null, null):
+                        return await _context.Stock
+                          .Include(s => s.Description)
+                          .Include(s => s.ProductName)
+                          .Where(s => s.ProductCategory.Equals(productCategory))
+                          .OrderByDescending(s => s.Price)
+                          .ToListAsync();
+
+                    case (_, _, null):
+                        return await _context.Stock
+                            .Include(s => s.ProductName)
+                            .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
+                            .OrderByDescending(s => s.Price)
+                            .ToListAsync();
+
+                    case (ProductCategory.NULL, _, _):
+                        return await _context.Stock
+                          .Include(s => s.ProductCategory)
+                          .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
+                          .OrderByDescending(s => s.Price)
+                          .ToListAsync();
+
+                    case (_, null, _):
+                        return await _context.Stock
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
+                           .OrderByDescending(s => s.Price)
+                           .ToListAsync();
+
+                    case (_, _, _):
+                        return await _context.Stock
+                           .Where(s => s.ProductCategory.Equals(productCategory) |
+                           s.Description.Contains(description) |
+                           s.ProductName.Contains(productName))
+                           .OrderByDescending(s => s.Price)
+                           .ToListAsync();
+                }
+            }
+            #endregion
+
+
+            #region QUERYFILTER_ALPHABETICAL
+            if (queryFilter == QueryFilter.Alphabetical)
+            {
+                switch (productCategory, description, productName)
+                {
+                    case (ProductCategory.NULL, null, null): return await _context.Stock.ToListAsync();
+
+                    case (ProductCategory.NULL, null, _):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductName.Contains(productName))
+                           .OrderBy(s => s.ProductName)
+                           .ToListAsync();
+
+                    case (ProductCategory.NULL, _, null):
+                        return await _context.Stock
+                           .Include(s => s.ProductCategory)
+                           .Include(s => s.ProductName)
+                           .Where(s => s.Description.Contains(description))
+                           .ToListAsync();
+
+                    case (_, null, null):
+                        return await _context.Stock
+                          .Include(s => s.Description)
+                          .Include(s => s.ProductName)
+                          .Where(s => s.ProductCategory.Equals(productCategory))
+                          .ToListAsync();
+
+                    case (_, _, null):
+                        return await _context.Stock
+                            .Include(s => s.ProductName)
+                            .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
+                            .ToListAsync();
+
+                    case (ProductCategory.NULL, _, _):
+                        return await _context.Stock
+                          .Include(s => s.ProductCategory)
+                          .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
+                          .OrderBy(s => s.ProductName)
+                          .ToListAsync();
+
+                    case (_, null, _):
+                        return await _context.Stock
+                           .Include(s => s.Description)
+                           .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
+                           .OrderBy(s => s.ProductName)
+                           .ToListAsync();
+
+                    case (_, _, _):
+                        return await _context.Stock
+                           .Where(s => s.ProductCategory.Equals(productCategory) |
+                           s.Description.Contains(description) |
+                           s.ProductName.Contains(productName))
+                           .OrderBy(s => s.ProductName)
+                           .ToListAsync();
+                }
+            }
+            #endregion
+
+
+            #region DEFAULT_RETURN
             switch (productCategory, description, productName)
             {
                 case (ProductCategory.NULL, null, null): return await _context.Stock.ToListAsync();
@@ -130,13 +377,13 @@ namespace Greeniverse.src.repositories.implementations
                     return await _context.Stock
                         .Include(s => s.ProductName)
                         .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
-                        .ToListAsync(); 
+                        .ToListAsync();
 
                 case (ProductCategory.NULL, _, _):
                     return await _context.Stock
                       .Include(s => s.ProductCategory)
                       .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
-                      .ToListAsync();  
+                      .ToListAsync();
 
                 case (_, null, _):
                     return await _context.Stock
@@ -147,31 +394,83 @@ namespace Greeniverse.src.repositories.implementations
                 case (_, _, _):
                     return await _context.Stock
                        .Where(s => s.ProductCategory.Equals(productCategory) |
-                       s.Description.Contains(description) | 
+                       s.Description.Contains(description) |
                        s.ProductName.Contains(productName))
                        .ToListAsync();
             }
+            #endregion]
+
         }
 
         /// <summary>
         /// <para>Resume: method for get all products.</para>
         /// </summary>
         /// <returns>List of StockModel</returns>
-        public async Task<List<StockModel>> GetAllProductsStockAsync()
+        public async Task<List<StockModel>> GetAllProductsStockAsync(QueryFilter queryFilter)
         {
-            return await _context.Stock
-                .ToListAsync();
+            switch (queryFilter)
+            {
+                case QueryFilter.Default:
+                    return await _context.Stock
+                        .ToListAsync();
+
+                case QueryFilter.MinorPrice:
+                    return await _context.Stock
+                        .OrderBy(s => s.Price)
+                        .ToListAsync();
+
+                case QueryFilter.MajorPrice:
+                    return await _context.Stock
+                        .OrderByDescending(s => s.Price)
+                        .ToListAsync();
+
+                case QueryFilter.Alphabetical:
+                    return await _context.Stock
+                        .OrderBy(s => s.ProductName)
+                        .ToListAsync();
+
+                default:
+                    return await _context.Stock
+                        .ToListAsync();
+            }
         }
 
         /// <summary>
         /// <para>Resume: method for get all products searching for it category.</para>
         /// </summary>
         /// <returns>List of StockModel</returns>
-        public async Task<List<StockModel>> GetProductByCategoryAsync(ProductCategory productCategory)
+        public async Task<List<StockModel>> GetProductByCategoryAsync(ProductCategory productCategory, QueryFilter queryFilter)
         {
-            return await _context.Stock
-                .Where(s => s.ProductCategory.Equals(productCategory))
-                .ToListAsync();
+            switch (queryFilter)
+            {
+                case QueryFilter.Default:
+                    return await _context.Stock
+                    .Where(s => s.ProductCategory.Equals(productCategory))
+                    .ToListAsync();
+
+                case QueryFilter.MinorPrice:
+                    return await _context.Stock
+                    .Where(s => s.ProductCategory.Equals(productCategory))
+                    .OrderBy(s => s.Price)
+                    .ToListAsync();
+
+                case QueryFilter.MajorPrice:
+                    return await _context.Stock
+                    .Where(s => s.ProductCategory.Equals(productCategory))
+                    .OrderByDescending(s => s.Price)
+                    .ToListAsync();
+
+                case QueryFilter.Alphabetical:
+                    return await _context.Stock
+                    .Where(s => s.ProductCategory.Equals(productCategory))
+                    .OrderBy(s => s.ProductName)
+                    .ToListAsync();
+
+                default:
+                    return await _context.Stock
+                    .Where(s => s.ProductCategory.Equals(productCategory))
+                    .ToListAsync();
+            }
         }
         #endregion
 

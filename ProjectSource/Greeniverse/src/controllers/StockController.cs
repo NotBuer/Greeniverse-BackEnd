@@ -45,7 +45,7 @@ namespace Greeniverse.src.controllers
         [Authorize]
         public async Task<ActionResult> GetAllProductsAsync()
         {
-            List<StockModel> list = await _repository.GetAllProductsStockAsync();
+            List<StockModel> list = await _repository.GetAllProductsStockAsync(QueryFilter.Default);
 
             if (list.Count == 1) return NoContent();
             return Ok(list);

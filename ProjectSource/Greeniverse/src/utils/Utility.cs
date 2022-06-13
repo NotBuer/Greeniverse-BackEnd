@@ -12,6 +12,6 @@ namespace Greeniverse.src.utils
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ProductCategory { EggsAndMeat, Vegetables, Fruits, GroceryStore, BodyAndHouse, DrinksAndDairy, NULL}
 
-    public enum QueryFilter { All, MinorPrice, MajorPrice, Alphabetical }    
+    public enum QueryFilter { Default, MinorPrice, MajorPrice, Alphabetical }    
 
 }
