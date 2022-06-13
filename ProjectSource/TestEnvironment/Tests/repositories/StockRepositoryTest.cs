@@ -15,6 +15,7 @@ namespace TestEnvironment.Tests.repositories
     [TestClass]
     public class StockRepositoryTest
     {
+        
         /// <summary>
         /// Get products by search with parameters
         /// </summary>
