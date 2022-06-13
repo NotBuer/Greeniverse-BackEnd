@@ -42,7 +42,7 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAllProductsAsync()
         {
             List<StockModel> list = await _repository.GetAllProductsStockAsync();
@@ -60,7 +60,7 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("searchCategory")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult> GetProductsByCategoryAsync([FromQuery] ProductCategory productCategory)
         {
             List<StockModel> list = await _repository.GetProductByCategoryAsync(productCategory);
@@ -79,7 +79,7 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idStock}")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult> GetProductByIdAsync([FromRoute] int idStock)
         {
 
@@ -100,7 +100,7 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StockModel))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("search")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult> GetProductsBySearchAsync([FromQuery] ProductCategory productCategory,[FromQuery] string description, [FromQuery] string productName)
         {
             var stocks = await _repository.GetProductsBySearchAsync(productCategory, description, productName);
