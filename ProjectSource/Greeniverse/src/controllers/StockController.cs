@@ -45,7 +45,7 @@ namespace Greeniverse.src.controllers
         [AllowAnonymous]
         public async Task<ActionResult> GetAllProductsAsync()
         {
-            List<StockModel> list = await _repository.GetAllProductsStockAsync();
+            List<StockModel> list = await _repository.GetAllProductsStockAsync(QueryFilter.Default);
 
             if (list.Count == 1) return NoContent();
             return Ok(list);
@@ -54,6 +54,8 @@ namespace Greeniverse.src.controllers
         /// <summary>
         /// Get all Products searching by category
         /// </summary>
+        /// <param name="productCategory">ProductCategory Enum</param>
+        /// <param name="queryFilter">QueryFilter Enum</param>
         /// <returns>ActionResult</returns>
         /// <response code="200">Returns all products</response>
         /// <response code="204">No content</response>
@@ -61,10 +63,9 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("searchCategory")]
         [AllowAnonymous]
-        public async Task<ActionResult> GetProductsByCategoryAsync([FromQuery] ProductCategory productCategory)
+        public async Task<ActionResult> GetProductsByCategoryAsync([FromQuery] ProductCategory productCategory, [FromQuery] QueryFilter queryFilter)
         {
-            List<StockModel> list = await _repository.GetProductByCategoryAsync(productCategory);
-
+            List<StockModel> list = await _repository.GetProductByCategoryAsync(productCategory, queryFilter);
             if (list.Count == 1) return NoContent();
             return Ok(list);
         }
@@ -82,7 +83,6 @@ namespace Greeniverse.src.controllers
         [AllowAnonymous]
         public async Task<ActionResult> GetProductByIdAsync([FromRoute] int idStock)
         {
-
             StockModel stock = await _repository.GetProductByIdAsync(idStock);
             if (stock == null) return NotFound();
             return Ok(stock);
@@ -91,9 +91,10 @@ namespace Greeniverse.src.controllers
         /// <summary>
         /// Get Product By Search
         /// </summary>
-        /// <param name="productCategory">Enum</param>
+        /// <param name="productCategory">ProductCategory Enum</param>
         /// <param name="description">StockDTO</param>
-        ///<param name="productName">StockDTO</param>
+        /// <param name="productName">StockDTO</param>
+        /// <param name="queryFilter">QueryFilter Enum</param>
         /// <returns>ActionResult</returns>
         /// <response code="200">Return the Product</response>
         /// <response code="204">Ok, but no content</response>
@@ -101,10 +102,9 @@ namespace Greeniverse.src.controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("search")]
         [AllowAnonymous]
-        public async Task<ActionResult> GetProductsBySearchAsync([FromQuery] ProductCategory productCategory,[FromQuery] string description, [FromQuery] string productName)
+        public async Task<ActionResult> GetProductsBySearchAsync([FromQuery] ProductCategory productCategory,[FromQuery] string description, [FromQuery] string productName, [FromQuery] QueryFilter queryFilter)
         {
-            var stocks = await _repository.GetProductsBySearchAsync(productCategory, description, productName);
-
+            List<StockModel> stocks = await _repository.GetProductsBySearchAsync(productCategory, description, productName, queryFilter);
             if (stocks.Count < 1) return NoContent();
             return Ok(stocks);
         }

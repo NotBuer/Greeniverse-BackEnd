@@ -28,12 +28,12 @@ namespace GreeniverseTest.Tests.repositories
 
             await _repository.NewUserAsync(
                   new NewUserDTO(
-                      "Thamy Cavalcanti", "thamy@email.com", "12345678", "AddressTest", "123456789", UserType.IndividualPerson)
+                      "Thamy Cavalcanti", "thamy@email.com", "12345678", "AddressTest", "123456789", UserType.IndividualPerson, 1000)
               );
 
             await _repository.NewUserAsync(
                  new NewUserDTO(
-                     "Gaby Peres", "gaby@email.com", "87654321", "AdressTest", "987654321", UserType.Business)
+                     "Gaby Peres", "gaby@email.com", "87654321", "AdressTest", "987654321", UserType.Business, 1000)
              );
 
             Assert.AreEqual(2, _context.User.Count());
@@ -51,7 +51,7 @@ namespace GreeniverseTest.Tests.repositories
 
             await _repository.NewUserAsync(
                   new NewUserDTO(
-                      "RodrigoFranca", "rodrigo@email.com", "12345678", "TestAddress", "368536321", UserType.IndividualPerson)
+                      "RodrigoFranca", "rodrigo@email.com", "12345678", "TestAddress", "368536321", UserType.IndividualPerson, 1000)
               );
 
             var user = await _repository.GetUserByEmailAsync("rodrigo@email.com");
@@ -71,7 +71,7 @@ namespace GreeniverseTest.Tests.repositories
 
             await _repository.NewUserAsync(
                  new NewUserDTO(
-                     "Murilo Gama", "murilo@email.com", "38194093", "TestAddress", "582950126", UserType.Business)
+                     "Murilo Gama", "murilo@email.com", "38194093", "TestAddress", "582950126", UserType.Business, 1000)
              );
 
             var user = await _repository.GetUserByIdAsync(1);
@@ -93,13 +93,13 @@ namespace GreeniverseTest.Tests.repositories
 
             await _repository.NewUserAsync(
                   new NewUserDTO(
-                      "Uriel Pereira", "uriel@email.com", "48291038", "AddressTest", "520584015", UserType.IndividualPerson)
+                      "Uriel Pereira", "uriel@email.com", "48291038", "AddressTest", "520584015", UserType.IndividualPerson, 1000)
               );
 
             var old = await _repository.GetUserByEmailAsync("uriel@email.com");
             await _repository.UpdateUserAsync(
                  new UpdateUserDTO(
-                         "Uriel Pereira", "urielpereira@email.com", "12345678", "AddressTest", "520584015", UserType.IndividualPerson)
+                         "Uriel Pereira", "urielpereira@email.com", "12345678", "AddressTest", "520584015", UserType.IndividualPerson, 1000)
              );
 
             Assert.AreEqual(

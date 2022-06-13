@@ -18,7 +18,7 @@ namespace Greeniverse.src.models
 
         public UserModel() { }
 
-        public UserModel(string name, string email, string password, string address, string telephone, UserType userType)
+        public UserModel(string name, string email, string password, string address, string telephone, UserType userType, int walletCoins)
         {
             Name = name;
             Email = email;
@@ -26,6 +26,7 @@ namespace Greeniverse.src.models
             Address = address;
             Telephone = telephone;
             UserType = userType;
+            WalletCoins = walletCoins;
         }
 
         [Key]
@@ -51,7 +52,9 @@ namespace Greeniverse.src.models
         public UserType UserType { get; set; }
 
         [JsonIgnore, InverseProperty("Purchaser")]
-        List<ShoppingCartModel> MyCarts { get; set; }   
+        List<ShoppingCartModel> MyCarts { get; set; }
+
+        public int WalletCoins { get; set; }
 
     }
 

@@ -16,6 +16,7 @@ namespace BlogPessoal.src.controller
     [Produces("application/json")]
     public class UserController : ControllerBase
     {
+
         #region Attributes
 
         private readonly IUser _repository;
@@ -92,7 +93,7 @@ namespace BlogPessoal.src.controller
             if (user == null) return NotFound();
             return Ok(user);
         }
-
+        
         /// <summary>
         /// Create new user
         /// </summary>

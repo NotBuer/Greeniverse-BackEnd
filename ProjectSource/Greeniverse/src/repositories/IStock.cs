@@ -17,8 +17,8 @@ namespace Greeniverse.src.repositories.implementations
         Task UpdateProductAsync(UpdateStockDTO Updateproduct);
         Task DeleteProductAsync(int id);
         Task <StockModel> GetProductByIdAsync(int id);
-        Task<List<StockModel>> GetAllProductsStockAsync();
-        Task<List<StockModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName);
-        Task<List<StockModel>> GetProductByCategoryAsync(ProductCategory productCategory);
+        Task<List<StockModel>> GetAllProductsStockAsync(QueryFilter queryFilter);
+        Task<List<StockModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName, QueryFilter queryFilter);
+        Task<List<StockModel>> GetProductByCategoryAsync(ProductCategory productCategory, QueryFilter queryFilter);
     }
 }

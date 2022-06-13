@@ -46,7 +46,8 @@ namespace Greeniverse.src.repositories.implementations
                 Password = user.Password,
                 Address = user.Address,
                 Telephone = user.Telephone,
-                UserType = user.UserType
+                UserType = user.UserType,
+                WalletCoins = user.WalletCoins
             });
             await _context.SaveChangesAsync();
         }
@@ -57,12 +58,12 @@ namespace Greeniverse.src.repositories.implementations
         /// <param name="user">UserUpdateDTO</param>
         public async  Task UpdateUserAsync (UpdateUserDTO user)
         {
-
             UserModel existingUser = await GetUserByIdAsync(user.Id);
             existingUser.Name = user.Name;
             existingUser.Password = user.Password;
             existingUser.Address = user.Address;
             existingUser.Telephone = user.Telephone;
+            existingUser.WalletCoins = user.WalletCoins;
             _context.User.Update(existingUser);
            await _context.SaveChangesAsync();
         }
