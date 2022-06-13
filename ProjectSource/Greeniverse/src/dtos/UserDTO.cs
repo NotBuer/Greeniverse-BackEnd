@@ -24,14 +24,13 @@ namespace Greeniverse.src.DTOS
 
         [StringLength(15)]
         public string Telephone { get; set; }
-        
+
         [Required]
         public UserType UserType { get; set; }
 
-        [Required]
-        public uint WalletCoins { get; set; }
+        public int WalletCoins { get; set; }
 
-        public NewUserDTO(string name, string email, string password, string address, string phone, UserType userType, uint walletCoins)
+        public NewUserDTO(string name, string email, string password, string address, string phone, UserType userType, int walletCoins)
         {
             Name = name;
             Email = email;
@@ -71,9 +70,9 @@ namespace Greeniverse.src.DTOS
         public UserType UserType { get; set; }
 
         [Required]
-        public uint WalletCoins { get; set; }
+        public int WalletCoins { get; set; }
 
-        public UpdateUserDTO(string name, string email, string password, string address, string phone, UserType userType, uint walletCoins)
+        public UpdateUserDTO(string name, string email, string password, string address, string phone, UserType userType, int walletCoins)
         {
             Name = name;
             Email = email;

@@ -63,6 +63,7 @@ namespace Greeniverse.src.repositories.implementations
             existingUser.Password = user.Password;
             existingUser.Address = user.Address;
             existingUser.Telephone = user.Telephone;
+            existingUser.WalletCoins = user.WalletCoins;
             _context.User.Update(existingUser);
            await _context.SaveChangesAsync();
         }
