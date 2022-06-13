@@ -30,13 +30,13 @@ namespace Greeniverse.src.DTOS
 
         public int WalletCoins { get; set; }
 
-        public NewUserDTO(string name, string email, string password, string address, string phone, UserType userType, int walletCoins)
+        public NewUserDTO(string name, string email, string password, string address, string telephone, UserType userType, int walletCoins)
         {
             Name = name;
             Email = email;
             Password = password;
             Address = address;
-            Telephone = phone;
+            Telephone = telephone;
             UserType = userType;
             WalletCoins = walletCoins;
         }
