@@ -110,40 +110,40 @@ namespace Greeniverse.src.repositories.implementations
 
                     case (ProductCategory.NULL, null, _):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.Description)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductName.Contains(productName))
                            .ToListAsync();
 
                     case (ProductCategory.NULL, _, null):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.ProductName)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.ProductName)
                            .Where(s => s.Description.Contains(description))
                            .ToListAsync();
 
                     case (_, null, null):
                         return await _context.Stock
-                          .Include(s => s.Description)
-                          .Include(s => s.ProductName)
+                        //   .Include(s => s.Description)
+                        //   .Include(s => s.ProductName)
                           .Where(s => s.ProductCategory.Equals(productCategory))
                           .ToListAsync();
 
                     case (_, _, null):
                         return await _context.Stock
-                            .Include(s => s.ProductName)
+                            // .Include(s => s.ProductName)
                             .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
                             .ToListAsync();
 
                     case (ProductCategory.NULL, _, _):
                         return await _context.Stock
-                          .Include(s => s.ProductCategory)
+                        //   .Include(s => s.ProductCategory)
                           .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
                           .ToListAsync();
 
                     case (_, null, _):
                         return await _context.Stock
-                           .Include(s => s.Description)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
                            .ToListAsync();
 
@@ -167,45 +167,45 @@ namespace Greeniverse.src.repositories.implementations
 
                     case (ProductCategory.NULL, null, _):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.Description)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductName.Contains(productName))
                            .OrderBy(s => s.Price)
                            .ToListAsync();
 
                     case (ProductCategory.NULL, _, null):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.ProductName)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.ProductName)
                            .Where(s => s.Description.Contains(description))
                            .OrderBy(s => s.Price)
                            .ToListAsync();
 
                     case (_, null, null):
                         return await _context.Stock
-                          .Include(s => s.Description)
-                          .Include(s => s.ProductName)
+                        //   .Include(s => s.Description)
+                        //   .Include(s => s.ProductName)
                           .Where(s => s.ProductCategory.Equals(productCategory))
                           .OrderBy(s => s.Price)
                           .ToListAsync();
 
                     case (_, _, null):
                         return await _context.Stock
-                            .Include(s => s.ProductName)
+                            // .Include(s => s.ProductName)
                             .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
                             .OrderBy(s => s.Price)
                             .ToListAsync();
 
                     case (ProductCategory.NULL, _, _):
                         return await _context.Stock
-                          .Include(s => s.ProductCategory)
+                        //   .Include(s => s.ProductCategory)
                           .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
                           .OrderBy(s => s.Price)
                           .ToListAsync();
 
                     case (_, null, _):
                         return await _context.Stock
-                           .Include(s => s.Description)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
                            .OrderBy(s => s.Price)
                            .ToListAsync();
@@ -231,45 +231,45 @@ namespace Greeniverse.src.repositories.implementations
 
                     case (ProductCategory.NULL, null, _):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.Description)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductName.Contains(productName))
                            .OrderByDescending(s => s.Price)
                            .ToListAsync();
 
                     case (ProductCategory.NULL, _, null):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.ProductName)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.ProductName)
                            .Where(s => s.Description.Contains(description))
                            .OrderByDescending(s => s.Price)
                            .ToListAsync();
 
                     case (_, null, null):
                         return await _context.Stock
-                          .Include(s => s.Description)
-                          .Include(s => s.ProductName)
+                        //   .Include(s => s.Description)
+                        //   .Include(s => s.ProductName)
                           .Where(s => s.ProductCategory.Equals(productCategory))
                           .OrderByDescending(s => s.Price)
                           .ToListAsync();
 
                     case (_, _, null):
                         return await _context.Stock
-                            .Include(s => s.ProductName)
+                            // .Include(s => s.ProductName)
                             .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
                             .OrderByDescending(s => s.Price)
                             .ToListAsync();
 
                     case (ProductCategory.NULL, _, _):
                         return await _context.Stock
-                          .Include(s => s.ProductCategory)
+                        //   .Include(s => s.ProductCategory)
                           .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
                           .OrderByDescending(s => s.Price)
                           .ToListAsync();
 
                     case (_, null, _):
                         return await _context.Stock
-                           .Include(s => s.Description)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
                            .OrderByDescending(s => s.Price)
                            .ToListAsync();
@@ -295,42 +295,42 @@ namespace Greeniverse.src.repositories.implementations
 
                     case (ProductCategory.NULL, null, _):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.Description)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductName.Contains(productName))
                            .OrderBy(s => s.ProductName)
                            .ToListAsync();
 
                     case (ProductCategory.NULL, _, null):
                         return await _context.Stock
-                           .Include(s => s.ProductCategory)
-                           .Include(s => s.ProductName)
+                        //    .Include(s => s.ProductCategory)
+                        //    .Include(s => s.ProductName)
                            .Where(s => s.Description.Contains(description))
                            .ToListAsync();
 
                     case (_, null, null):
                         return await _context.Stock
-                          .Include(s => s.Description)
-                          .Include(s => s.ProductName)
+                        //   .Include(s => s.Description)
+                        //   .Include(s => s.ProductName)
                           .Where(s => s.ProductCategory.Equals(productCategory))
                           .ToListAsync();
 
                     case (_, _, null):
                         return await _context.Stock
-                            .Include(s => s.ProductName)
+                            // .Include(s => s.ProductName)
                             .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
                             .ToListAsync();
 
                     case (ProductCategory.NULL, _, _):
                         return await _context.Stock
-                          .Include(s => s.ProductCategory)
+                        //   .Include(s => s.ProductCategory)
                           .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
                           .OrderBy(s => s.ProductName)
                           .ToListAsync();
 
                     case (_, null, _):
                         return await _context.Stock
-                           .Include(s => s.Description)
+                        //    .Include(s => s.Description)
                            .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
                            .OrderBy(s => s.ProductName)
                            .ToListAsync();
@@ -354,40 +354,40 @@ namespace Greeniverse.src.repositories.implementations
 
                 case (ProductCategory.NULL, null, _):
                     return await _context.Stock
-                       .Include(s => s.ProductCategory)
-                       .Include(s => s.Description)
+                    //    .Include(s => s.ProductCategory)
+                    //    .Include(s => s.Description)
                        .Where(s => s.ProductName.Contains(productName))
                        .ToListAsync();
 
                 case (ProductCategory.NULL, _, null):
                     return await _context.Stock
-                       .Include(s => s.ProductCategory)
-                       .Include(s => s.ProductName)
+                    //    .Include(s => s.ProductCategory)
+                    //    .Include(s => s.ProductName)
                        .Where(s => s.Description.Contains(description))
                        .ToListAsync();
 
                 case (_, null, null):
                     return await _context.Stock
-                      .Include(s => s.Description)
-                      .Include(s => s.ProductName)
+                    //   .Include(s => s.Description)
+                    //   .Include(s => s.ProductName)
                       .Where(s => s.ProductCategory.Equals(productCategory))
                       .ToListAsync();
 
                 case (_, _, null):
                     return await _context.Stock
-                        .Include(s => s.ProductName)
+                        // .Include(s => s.ProductName)
                         .Where(s => s.ProductCategory.Equals(productCategory) & s.Description.Contains(description))
                         .ToListAsync();
 
                 case (ProductCategory.NULL, _, _):
                     return await _context.Stock
-                      .Include(s => s.ProductCategory)
+                    //   .Include(s => s.ProductCategory)
                       .Where(s => s.Description.Contains(description) & s.ProductName.Contains(productName))
                       .ToListAsync();
 
                 case (_, null, _):
                     return await _context.Stock
-                       .Include(s => s.Description)
+                    //    .Include(s => s.Description)
                        .Where(s => s.ProductCategory.Equals(productCategory) & s.ProductName.Contains(productName))
                        .ToListAsync();
 
