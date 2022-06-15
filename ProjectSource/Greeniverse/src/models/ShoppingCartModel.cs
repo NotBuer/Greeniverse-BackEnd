@@ -42,7 +42,6 @@ namespace Greeniverse.src.models
             PaymentMethod = paymentMethod;
             Voucher = voucher;
             DeliveryAddress = deliveryAddress;
-         
         }
     }
 

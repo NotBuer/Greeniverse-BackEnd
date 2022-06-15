@@ -102,12 +102,9 @@ namespace Greeniverse.src.controllers
         ///
         ///     POST /api/ShoppingCart
         ///     {
-        ///        "amountProduct": 12,
         ///        "paymentMethod": PIX,
         ///        "voucher": "50% de desconto",
         ///        "deliveryAddress": "TestAddress - 184",
-        ///        "emailPurchaser": "gustavo@email.com",
-        ///        "idProduct": 2
         ///     }
         ///
         /// </remarks>
@@ -136,7 +133,6 @@ namespace Greeniverse.src.controllers
         ///
         ///     PUT /api/ShoppingCart
         ///     {
-        ///        "amountProduct": 12,
         ///        "paymentMethod": PIX,
         ///        "voucher": "50% de desconto",
         ///        "deliveryAddress": "TestAddress - 184"
