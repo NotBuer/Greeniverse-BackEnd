@@ -34,7 +34,7 @@ namespace TestEnvironment.Tests.repositories
 
             await _repositorySC.NewShoppingCartAsync(
                   new NewShoppingCartDTO(
-                      10, PaymentMethod.PIX, "50% de Desconto", "AddressTest", "murilinho@gmail.com", 1)
+                      PaymentMethod.PIX, "50% de Desconto", "AddressTest", "murilinho@gmail.com", 1)
               );
 
             Assert.IsNotNull(_context.ShoppingCart.FirstOrDefault(s => s.Id == 1));
@@ -52,12 +52,12 @@ namespace TestEnvironment.Tests.repositories
 
             await _repositorySC.NewShoppingCartAsync(
                  new NewShoppingCartDTO(
-                        5, PaymentMethod.PIX, "10% de Desconto", "AddressTest", "catel@gmail.com", 2)
+                        PaymentMethod.PIX, "10% de Desconto", "AddressTest", "catel@gmail.com", 2)
             );
 
             await _repositorySC.NewShoppingCartAsync(
                     new NewShoppingCartDTO(
-                        5, PaymentMethod.Paypal, "5% de Desconto", "AddressTest", "rodrigofeliz@gmail.com", 3)
+                        PaymentMethod.Paypal, "5% de Desconto", "AddressTest", "rodrigofeliz@gmail.com", 3)
             );
 
             List<ShoppingCartModel> firstList = await _repositorySC.GetAllProductsByEmailPurchaserAsync("catel@gmail.com");
@@ -79,7 +79,7 @@ namespace TestEnvironment.Tests.repositories
 
             await _repositorySC.NewShoppingCartAsync(
                 new NewShoppingCartDTO(
-                    12, PaymentMethod.CreditCard, "25% de Desconto", "AddressTest", "kauzinha@gmail.com", 5)
+                    PaymentMethod.CreditCard, "25% de Desconto", "AddressTest", "kauzinha@gmail.com", 5)
             );
 
             ShoppingCartModel model = await _repositorySC.GetShoppingCartByIdAsync(1);

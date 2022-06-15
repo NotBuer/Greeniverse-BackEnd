@@ -23,9 +23,6 @@ namespace Greeniverse.src.models
         public int Id { get; set; }
 
         [Required, StringLength(50)]
-        public int AmountProduct { get; set; }
-
-        [Required, StringLength(50)]
         public PaymentMethod PaymentMethod { get; set; }
 
         [Required, StringLength(50)]
@@ -40,9 +37,8 @@ namespace Greeniverse.src.models
         [ForeignKey("FK_Product")]
         public StockModel Product { get; set; }
 
-        public ShoppingCartModel(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAddress)
+        public ShoppingCartModel(PaymentMethod paymentMethod, string voucher, string deliveryAddress)
         {
-            AmountProduct = amountProduct;
             PaymentMethod = paymentMethod;
             Voucher = voucher;
             DeliveryAddress = deliveryAddress;

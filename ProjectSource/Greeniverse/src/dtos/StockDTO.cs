@@ -7,7 +7,7 @@ namespace Greeniverse.src.dtos
     /// <para>Resume: Mirror class responsible for transporting a product to register</para>
     /// <para>Version: 1.0</para>
     /// <para>Date: 05/13/2022</para>
-      /// </summary>
+    /// </summary>
 
     public class NewStockDTO
     {
@@ -23,18 +23,22 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(50)]
         public string ProductName { get; set; }
 
+        [Required]
+        public int ProductAmount { get; set; }
+
         [Required, StringLength(50)]
         public string Provider { get; set; }
 
         [Required, StringLength(255)]
         public string ProductPhoto { get; set; }
-                
-        public NewStockDTO(ProductCategory productCategory, string description, float price, string productName, string provider, string productPhoto)
+
+        public NewStockDTO(ProductCategory productCategory, string description, float price, string productName, int productAmount, string provider, string productPhoto)
         {
             ProductCategory = productCategory;
             Description = description;
             Price = price;
             ProductName = productName;
+            ProductAmount = productAmount;
             Provider = provider;
             ProductPhoto = productPhoto;
         }
@@ -47,7 +51,7 @@ namespace Greeniverse.src.dtos
     /// <para>Version: 1.0</para>
     /// <para>Date: 05/13/2022</para>
     /// </summary>
-    
+
     public class UpdateStockDTO
     {
         [Required]
@@ -65,19 +69,23 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(50)]
         public string ProductName { get; set; }
 
+        [Required]
+        public int ProductAmount { get; set; }
+
         [Required, StringLength(50)]
         public string Provider { get; set; }
 
         [Required, StringLength(255)]
         public string ProductPhoto { get; set; }
 
-        public UpdateStockDTO(int id, ProductCategory productCategory, string description, float price, string productName, string provider, string productPhoto)
+        public UpdateStockDTO(int id, ProductCategory productCategory, string description, float price, string productName, int productAmount, string provider, string productPhoto)
         {
             Id = id;
             ProductCategory = productCategory;
             Description = description;
             Price = price;
             ProductName = productName;
+            ProductAmount = productAmount;
             Provider = provider;
             ProductPhoto = productPhoto;
         }

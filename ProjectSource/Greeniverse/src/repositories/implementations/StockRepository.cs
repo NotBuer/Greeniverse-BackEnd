@@ -49,6 +49,7 @@ namespace Greeniverse.src.repositories.implementations
                 ProductCategory = Product.ProductCategory,
                 Description = Product.Description,
                 Price = Product.Price,
+                ProductAmount = Product.ProductAmount,
                 Provider = Product.Provider,
                 ProductPhoto = Product.ProductPhoto
 
@@ -59,16 +60,17 @@ namespace Greeniverse.src.repositories.implementations
         /// <summary>
         /// <para>Resume: method for update existent product.</para>
         /// </summary>
-        /// <param name="Updateproduct">StockUpdateDTO</param>
+        /// <param name="UpdateProduct">StockUpdateDTO</param>
         /// <returns>StockModel</returns>
-        public async Task UpdateProductAsync(UpdateStockDTO Updateproduct)
+        public async Task UpdateProductAsync(UpdateStockDTO UpdateProduct)
         {
-            StockModel ProductExistent = await GetProductByIdAsync(Updateproduct.Id);
-            ProductExistent.ProductCategory = Updateproduct.ProductCategory;
-            ProductExistent.Description = Updateproduct.Description;
-            ProductExistent.Price = Updateproduct.Price;
-            ProductExistent.Provider = Updateproduct.Provider;
-            ProductExistent.ProductPhoto = Updateproduct.ProductPhoto;
+            StockModel ProductExistent = await GetProductByIdAsync(UpdateProduct.Id);
+            ProductExistent.ProductCategory = UpdateProduct.ProductCategory;
+            ProductExistent.Description = UpdateProduct.Description;
+            ProductExistent.Price = UpdateProduct.Price;
+            ProductExistent.ProductAmount = UpdateProduct.ProductAmount;
+            ProductExistent.Provider = UpdateProduct.Provider;
+            ProductExistent.ProductPhoto = UpdateProduct.ProductPhoto;
         }
 
         /// <summary>

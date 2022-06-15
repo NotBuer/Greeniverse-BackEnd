@@ -11,18 +11,19 @@ namespace Greeniverse.src.models
     /// <para>Version: 1.0</para>
     /// <para>Date: 05/13/2022</para>
     /// </summary>
-    
+
     [Table("tb_stock")]
     public class StockModel
     {
         public StockModel() { }
 
-        public StockModel(ProductCategory productCategory, string description, float price, string productName, string provider)
+        public StockModel(ProductCategory productCategory, string description, float price, string productName, int productAmount, string provider)
         {
             ProductCategory = productCategory;
             Description = description;
             Price = price;
             ProductName = productName;
+            ProductAmount = productAmount;
             Provider = provider;
         }
 
@@ -42,16 +43,17 @@ namespace Greeniverse.src.models
         [Required, StringLength(50)]
         public string ProductName { get; set; }
 
+        [Required]
+        public int ProductAmount { get; set; }
+
         [Required, StringLength(50)]
         public string Provider { get; set; }
 
-        [Required, StringLength (255)]
+        [Required, StringLength(255)]
         public string ProductPhoto { get; set; }
 
-        [JsonIgnore, InverseProperty("Product")] 
-        public List<ShoppingCartModel> ProductsInCart { get; set; }   
-
-        
+        [JsonIgnore, InverseProperty("Product")]
+        public List<ShoppingCartModel> ProductsInCart { get; set; }
 
     }
 

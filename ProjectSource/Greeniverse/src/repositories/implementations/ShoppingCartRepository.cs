@@ -75,7 +75,6 @@ namespace Greeniverse.src.repositories.implementations
         {
             await _context.ShoppingCart.AddAsync(new ShoppingCartModel
             {
-                AmountProduct = shoppingCart.AmountProduct,
                 PaymentMethod = shoppingCart.PaymentMethod,
                 Voucher = shoppingCart.Voucher,
                 DeliveryAddress = shoppingCart.DeliveryAddress,
@@ -93,7 +92,6 @@ namespace Greeniverse.src.repositories.implementations
         public async Task UpdateShoppingCartAsync(UpdateShoppingCartDTO updateshoppingCart)
         {
             var CartExistance = await GetShoppingCartByIdAsync(updateshoppingCart.Id);
-            CartExistance.AmountProduct = updateshoppingCart.AmountProduct;
             CartExistance.PaymentMethod = updateshoppingCart.PaymentMethod;
             CartExistance.Voucher = updateshoppingCart.Voucher;
             CartExistance.DeliveryAddress = updateshoppingCart.DeliveryAddress;

@@ -9,11 +9,7 @@ namespace Greeniverse.src.dtos
     /// <para>Date: 13/05/2022</para>
     /// </summary>
     public class NewShoppingCartDTO
-    
     {
-
-        [Required]
-        public int AmountProduct { get; set; }
 
         [Required]
         public PaymentMethod PaymentMethod { get; set; }
@@ -30,9 +26,8 @@ namespace Greeniverse.src.dtos
         public int IdProduct { get; set; }
 
 
-        public NewShoppingCartDTO(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAddress, string emailPurchaser, int idProduct)
+        public NewShoppingCartDTO(PaymentMethod paymentMethod, string voucher, string deliveryAddress, string emailPurchaser, int idProduct)
         {
-            AmountProduct = amountProduct;
             PaymentMethod = paymentMethod;
             Voucher = voucher;
             DeliveryAddress = deliveryAddress;
@@ -52,9 +47,6 @@ namespace Greeniverse.src.dtos
         public int Id { get; set; }
 
         [Required]
-        public int AmountProduct { get; set; }
-
-        [Required]
         public PaymentMethod PaymentMethod { get; set; }
 
         public string Voucher { get; set; }
@@ -62,9 +54,8 @@ namespace Greeniverse.src.dtos
         [Required, StringLength(50)]
         public string DeliveryAddress { get; set; }
 
-        public UpdateShoppingCartDTO(int amountProduct, PaymentMethod paymentMethod, string voucher, string deliveryAddress)
+        public UpdateShoppingCartDTO(PaymentMethod paymentMethod, string voucher, string deliveryAddress)
         {
-            AmountProduct = amountProduct;
             PaymentMethod = paymentMethod;
             Voucher = voucher;
             DeliveryAddress = deliveryAddress;

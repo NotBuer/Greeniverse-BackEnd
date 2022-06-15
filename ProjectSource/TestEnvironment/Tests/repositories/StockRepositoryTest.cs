@@ -33,7 +33,7 @@ namespace TestEnvironment.Tests.repositories
             _repository = new StockRepository(_context);
 
             await _repository.NewProductAsync(new NewStockDTO
-                (ProductCategory.Fruits, "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
+                (ProductCategory.Fruits, "Banana description", 9.99f, "Banana", 2, "ABCDE", "ProductURL"));
 
             List<StockModel>stock = await _repository.GetProductsBySearchAsync(ProductCategory.Fruits, "Banana description", "Banana", QueryFilter.Default);
 
@@ -58,10 +58,10 @@ namespace TestEnvironment.Tests.repositories
 
 
             await _repository.NewProductAsync(new NewStockDTO
-                (ProductCategory.Fruits, "Banana description", 9.99f, "Banana", "ABCDE", "ProductURL"));
+                (ProductCategory.Fruits, "Banana description", 9.99f, "Banana", 2, "ABCDE", "ProductURL"));
 
             await _repository.NewProductAsync(new NewStockDTO
-                (ProductCategory.Fruits, "Morango description", 5.99f, "Morango", "FGHIJ", "ProductURL"));
+                (ProductCategory.Fruits, "Morango description", 5.99f, "Morango", 2, "FGHIJ", "ProductURL"));
 
             var stock = await _repository.GetProductByIdAsync(1);
 
