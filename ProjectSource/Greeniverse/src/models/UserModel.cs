@@ -52,7 +52,7 @@ namespace Greeniverse.src.models
         public UserType UserType { get; set; }
 
         [JsonIgnore, InverseProperty("Purchaser")]
-        List<ShoppingCartModel> MyCarts { get; set; }
+        public ShoppingCartModel MyCart { get; set; }
 
         public int WalletCoins { get; set; }
 
