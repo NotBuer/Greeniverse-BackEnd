@@ -121,8 +121,9 @@ namespace Greeniverse.src.controllers
         ///     {
         ///        "productCategory": "Fruits",
         ///        "description": "red fruit",
-        ///        "price": 3.55f,
+        ///        "price": 3.55,
         ///        "productName": "strawberry",
+        ///        "productAmount": 10,
         ///        "provider": "Americanas",
         ///        "productPhoto": "ProductURL"
         ///     }
@@ -158,6 +159,7 @@ namespace Greeniverse.src.controllers
         ///        "description": "red fruit",
         ///        "price": 4.55f,
         ///        "productName": "strawberry",
+        ///        "productAmount": 10,
         ///        "provider": "Americanas",
         ///        "productPhoto": "ProductURL"
         ///     }
