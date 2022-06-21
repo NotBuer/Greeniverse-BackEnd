@@ -99,6 +99,7 @@ namespace Greeniverse.src.repositories.implementations
         /// <param name="productCategory">Type of product</param>
         /// <param name="description">Description of product</param>
         /// <param name="productName">ProductName of product</param>
+        /// <param name="queryFilter">Query filter</param>
         /// <returns>List of StockModel</returns>
         public async Task<List<StockModel>> GetProductsBySearchAsync(ProductCategory productCategory, string description, string productName, QueryFilter queryFilter)
         {
